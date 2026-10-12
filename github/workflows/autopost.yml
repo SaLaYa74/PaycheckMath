@@ -1,0 +1,38 @@
+name: Auto-post
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # every 15 min; pm/schedule.py decides what's due
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Job to run now (e.g. mortgage), or 'scheduled'"
+        type: string
+        default: scheduled
+
+permissions:
+  contents: write
+
+concurrency:
+  group: autopost
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow imageio-ffmpeg
+      - name: Configure git
+        run: |
+          git config user.name "paycheckmath-bot"
+          git config user.email "actions@users.noreply.github.com"
+      - name: Run due jobs
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          POSTING_ENABLED: ${{ vars.POSTING_ENABLED }}
+        run: python autopost.py "${{ inputs.target || 'scheduled' }}"
