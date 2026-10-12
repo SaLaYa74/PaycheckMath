@@ -166,20 +166,69 @@ def _gas(out_dir, month, rep):
     return "gas", hook, mp4, cover, caption
 
 
-FORMATS = [_pay_vs_prices, _groceries, _minutes, _gas]
+# Single-item trend lines: (series, name, unit text, value format, up_is_good)
+TRENDS = [
+    ("APU0000708111", "Eggs", "Dozen eggs", lambda v: f"${v:.2f}", False),
+    ("APU0000703112", "Ground beef", "Ground beef, per lb", lambda v: f"${v:.2f}", False),
+    ("APU0000717311", "Coffee", "Coffee, per lb", lambda v: f"${v:.2f}", False),
+    ("APU0000709112", "Milk", "Milk, per gallon", lambda v: f"${v:.2f}", False),
+    ("APU0000702111", "Bread", "White bread, per lb", lambda v: f"${v:.2f}", False),
+    ("APU000072610", "Electricity", "Electricity, per kWh", lambda v: f"{v * 100:.1f}¢", False),
+    ("CES0500000003", "Hourly pay", "Average hourly pay (private sector)", lambda v: f"${v:.2f}", True),
+]
+
+
+def _trend_format(sid, name, unit, fmt, up_good):
+    def build(out_dir, month, rep):
+        D.check_series(rep, [sid])
+        d, v = D.latest(sid)
+        ya = D.year_ago_checked(rep, sid)
+        ch = _pct(v, ya[1])
+        good = (ch > 0) == up_good
+        start = date(d.year - 3, d.month, 1)
+        pts = [p for p in D.series(sid) if p[0] >= start]
+        rep.require(len(pts) >= 30, f"{name}: 3-year history", f"only {len(pts)} months")
+        mi = [k for k, (dd, _) in enumerate(pts) if dd == ya[0]][0]
+        hook = (f"{name} {'up' if ch > 0 else 'down'} {abs(ch):.0f}%", "in one year", "" if good else "red")
+        mp4, cover = make_reel(out_dir, f"reel_trend_{name.lower().replace(' ', '_')}", hook, lambda p: T.line_chart(
+            hook, pts, fmt, tag="Price trend" if not up_good else "Paycheck trend", source="Bureau of Labor Statistics",
+            color="green" if good else "red", p=p, end_label=f"{unit} · U.S. average · last 3 years",
+            marker=(mi, f"a year ago {fmt(ya[1])}")), "Trend", f"trend-{sid}-{month}")
+        caption = with_question(
+            f"{unit}: {fmt(v)} in {d:%B %Y}, {'up' if ch > 0 else 'down'} {abs(ch):.0f}% from {fmt(ya[1])} a year ago "
+            f"{'📈' if ch > 0 else '📉'}", "paycheck" if up_good else "prices", f"{month}-trend-{sid}", item=name.lower())
+        caption += f"\n\nSource: U.S. Bureau of Labor Statistics.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{TAGS}"
+        return f"trend_{name.lower().replace(' ', '_')}", hook, mp4, cover, caption, abs(ch)
+    build.__name__ = f"_trend_{name.lower().replace(' ', '_')}"
+    return build
+
+
+FORMATS = [_pay_vs_prices, _groceries, _minutes, _gas] + [_trend_format(*t) for t in TRENDS]
+
+
+def _yoy_size(fmt):
+    """Most dramatic trend first (bigger moves get more attention)."""
+    name = fmt.__name__
+    for sid, n, *_ in TRENDS:
+        if name.endswith(n.lower().replace(" ", "_")):
+            try:
+                return abs(_pct(D.latest(sid)[1], D.year_ago(sid)[1]))
+            except Exception:
+                return 0
+    return 999   # the four core formats always go first
 
 
 def reel_monthly(out_dir, posted=None):
     """Posts the next not-yet-posted format for the latest BLS month; skips once all are used."""
     month = D.latest("CUUR0000SA0")[0]
     posted = posted or {}
-    for fmt in FORMATS:
+    for fmt in sorted(FORMATS, key=_yoy_size, reverse=True):
         name = fmt.__name__.strip("_")
         key = f"{month:%Y-%m}-reel-{name}"
         if key in posted:
             continue
         rep = C.Report(name)
-        _, hook, mp4, cover, caption = fmt(os.path.join(out_dir), month, rep)
+        _, hook, mp4, cover, caption, *_ = fmt(os.path.join(out_dir), month, rep)
         return _post(key, mp4, cover, caption, rep)
     raise NoContent(f"All monthly formats for {month:%B %Y} already posted; waiting for new BLS data.")
 

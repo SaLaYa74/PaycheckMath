@@ -18,10 +18,15 @@ class Job:
 
 
 JOBS = [
-    # Freddie Mac publishes Thursdays at noon ET (9am PT)
+    # Weekly: Freddie Mac publishes Thursdays at noon ET (9am PT)
     Job("mortgage",    "reel_mortgage", (THU,), "12:00", live=True, note="Reel: this week's mortgage rate"),
-    # Monthly BLS data, rotating formats (pay vs prices, groceries, minutes of work, gas); skips when all used
-    Job("monthly_mon", "reel_monthly",  (MON,), "16:00", live=True, note="Reel: monthly prices rotation"),
-    Job("monthly_wed", "reel_monthly",  (WED,), "12:00", live=True, note="Reel: monthly prices rotation"),
-    Job("monthly_sat", "reel_monthly",  (SAT,), "09:00", live=True, note="Reel: monthly prices rotation"),
+    # Monthly BLS data: 11 rotating formats (pay vs prices, groceries, minutes of work, gas, 7 trend lines),
+    # biggest moves first. Never repeats a format for the same data month; idles until BLS publishes new data.
+    # Times alternate midday/evening so the weekly report can tell us which slot performs better.
+    Job("monthly_mon", "reel_monthly",  (MON,), "16:00", live=True, note="Reel: monthly rotation (7pm ET)"),
+    Job("monthly_tue", "reel_monthly",  (TUE,), "12:00", live=True, note="Reel: monthly rotation"),
+    Job("monthly_wed", "reel_monthly",  (WED,), "12:00", live=True, note="Reel: monthly rotation"),
+    Job("monthly_fri", "reel_monthly",  (FRI,), "16:00", live=True, note="Reel: monthly rotation (7pm ET)"),
+    Job("monthly_sat", "reel_monthly",  (SAT,), "09:00", live=True, note="Reel: monthly rotation"),
+    Job("monthly_sun", "reel_monthly",  (SUN,), "10:00", live=True, note="Reel: monthly rotation"),
 ]

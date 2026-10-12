@@ -322,3 +322,42 @@ def one_stat(hook, number, label, who, color, tag, source, p=1.0, note="Penny's 
   <div class="cond" style="font-size:{int((250 + 170 * p) * min(1, 4.6 / max(len(number), 1)))}px;font-weight:800;line-height:.85;color:{c};text-shadow:0 0 80px {glow}">{escape(number)}</div>
   <div style="font-size:40px;font-weight:700;letter-spacing:4px;text-transform:uppercase;opacity:{min(1, p * 1.5):.2f}">{escape(label)}</div></div>'''
     return page(inner, "reel", tag=tag, source=source, note=note)
+
+
+def line_chart(hook, pts, fmt, tag, source, color, p=1.0, note="", end_label="", marker=None):
+    """One series drawn left→right as the Reel plays. pts=[(date, value)].
+    marker=(index, text): a labeled reference point (e.g. 'a year ago') so the hook and the picture agree."""
+    W, H, pad_l, pad_r, pad_t, pad_b = 860, 860, 30, 160, 110, 80
+    vals = [v for _, v in pts]
+    lo, hi = min(vals), max(vals)
+    span = (hi - lo) or 1
+    lo, hi = lo - span * 0.15, hi + span * 0.18
+    xs = [pad_l + i * (W - pad_l - pad_r) / (len(pts) - 1) for i in range(len(pts))]
+    ys = [pad_t + (hi - v) / (hi - lo) * (H - pad_t - pad_b) for v in vals]
+    n = max(2, int(round(p * (len(pts) - 1))) + 1)
+    path = " ".join(f"{x:.1f},{y:.1f}" for x, y in zip(xs[:n], ys[:n]))
+    c = "#3DDC84" if color == "green" else "#FF5A5F"
+    glow = "rgba(61,220,132,.45)" if color == "green" else "rgba(255,90,95,.45)"
+    seen, ticks = set(), ""
+    for i, (d, _) in enumerate(pts):
+        if d.month == 1 and d.year not in seen:
+            seen.add(d.year)
+            ticks += f'<text x="{xs[i]:.0f}" y="{H - 30}" fill="#8FA89A" font-size="28" font-family="Inter" text-anchor="middle">{d.year}</text>'
+    mk = ""
+    if marker and marker[0] < n:
+        i, text = marker
+        mk = (f'<line x1="{xs[i]:.1f}" y1="{ys[i]:.1f}" x2="{xs[i]:.1f}" y2="{H - pad_b}" stroke="#8FA89A" stroke-width="2" stroke-dasharray="6 8"/>'
+              f'<circle cx="{xs[i]:.1f}" cy="{ys[i]:.1f}" r="12" fill="#F2F7F4"/>'
+              f'<text x="{xs[i]:.1f}" y="{ys[i] - 30:.1f}" fill="#F2F7F4" font-size="34" font-weight="700" font-family="Barlow Condensed" '
+              f'text-anchor="middle">{escape(text)}</text>')
+    end = (f'<circle cx="{xs[n-1]:.1f}" cy="{ys[n-1]:.1f}" r="16" fill="{c}"/>'
+           f'<text x="{xs[n-1] + 24:.1f}" y="{ys[n-1] + 18:.1f}" fill="{c}" font-size="64" font-weight="800" '
+           f'font-family="Barlow Condensed" opacity="{min(1, p * 1.3):.2f}">{escape(fmt(vals[n-1]))}</text>')
+    svg = f'''<svg width="100%" viewBox="0 0 {W} {H}" style="overflow:visible">
+  <line x1="{pad_l}" y1="{H - pad_b}" x2="{W - pad_r}" y2="{H - pad_b}" stroke="#23382D" stroke-width="3"/>
+  <polyline points="{path}" fill="none" stroke="{c}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"
+    style="filter:drop-shadow(0 0 14px {glow})"/>{mk}{end}{ticks}</svg>'''
+    inner = f'''{_head("", "", hook)}
+<div class="sub" style="font-size:30px;margin-top:14px">{escape(end_label)}</div>
+<div class="body" style="justify-content:flex-start;margin-top:10px">{svg}</div>'''
+    return page(inner, "reel", tag=tag, source=source, note=note)
