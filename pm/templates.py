@@ -2,7 +2,7 @@
 import re
 from html import escape
 
-HANDLE = "@paycheckmath"
+HANDLE = "@paycheck_math"
 
 BRAND_CSS = """
 :root{

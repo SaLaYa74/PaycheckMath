@@ -1,4 +1,4 @@
-# Paycheck Math (@paycheckmath)
+# Paycheck Math (@paycheck_math)
 
 Your paycheck vs. the real cost of living, in glanceable charts and Reels.
 

@@ -54,7 +54,7 @@ def reel_mortgage(out_dir):
         f"On a $400,000 loan, that's about ${pay(now):,.0f}/month in principal + interest, "
         f"{'up' if diff_yr >= 0 else 'down'} ${abs(diff_yr):,.0f}/month from a year ago.",
         "mortgage", key, rate=f"{now:.1f}")
-    caption += f"\n\nSource: Freddie Mac Primary Mortgage Market Survey. Example payment excludes taxes/insurance.\n{DISCLAIMER}\n👉 Follow @paycheckmath\n#mortgagerates #realestate #homebuying {TAGS}"
+    caption += f"\n\nSource: Freddie Mac Primary Mortgage Market Survey. Example payment excludes taxes/insurance.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#mortgagerates #realestate #homebuying {TAGS}"
     return _post(key, mp4, cover, caption, rep)
 
 
@@ -86,7 +86,7 @@ def _groceries(out_dir, month, rep):
     lines = "\n".join(f"{'🔴' if r['value'] > 0 else '🟢'} {r['name']}: {r['value_label']} ({r['record']})" for r in rows)
     caption = with_question(f"What everyday stuff costs now vs. a year ago 🛒\n\n{lines}", "prices", f"{month}-groceries",
                             item=top["name"].lower())
-    caption += f"\n\nSource: U.S. Bureau of Labor Statistics average prices, {month:%B %Y}.\n{DISCLAIMER}\n👉 Follow @paycheckmath\n#groceryprices {TAGS}"
+    caption += f"\n\nSource: U.S. Bureau of Labor Statistics average prices, {month:%B %Y}.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#groceryprices {TAGS}"
     return "groceries", hook, mp4, cover, caption
 
 
@@ -113,7 +113,7 @@ def _minutes(out_dir, month, rep):
     lines = "\n".join(f"{'🔴' if not r['good'] else '🟢'} {r['name']}: {r['value_label']} ({r['record']})" for r in rows)
     caption = with_question(f"How many minutes of work it takes to buy everyday stuff ⏱️\n\nAt the U.S. average wage of ${wage:.2f}/hr:\n{lines}",
                             "minutes", f"{month}-minutes")
-    caption += f"\n\nSource: BLS average prices and average hourly earnings (all private employees). Pre-tax.\n{DISCLAIMER}\n👉 Follow @paycheckmath\n{TAGS}"
+    caption += f"\n\nSource: BLS average prices and average hourly earnings (all private employees). Pre-tax.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{TAGS}"
     return "minutes", hook, mp4, cover, caption
 
 
@@ -144,7 +144,7 @@ def _pay_vs_prices(out_dir, month, rep):
     lines = "\n".join(f"{'🟢' if r['good'] else '🔴'} {r['name']}: {r['value_label']}" for r in rows)
     caption = with_question(f"Since January 2020, has your paycheck kept up? 💵\n\n{lines}\n\n(Green = rose less than average pay. Red = rose more.)",
                             "paycheck", f"{month}-payvs")
-    caption += f"\n\nSource: BLS average hourly earnings and Consumer Price Index (not seasonally adjusted).\n{DISCLAIMER}\n👉 Follow @paycheckmath\n{TAGS}"
+    caption += f"\n\nSource: BLS average hourly earnings and Consumer Price Index (not seasonally adjusted).\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{TAGS}"
     return "payvs", hook, mp4, cover, caption
 
 
@@ -162,7 +162,7 @@ def _gas(out_dir, month, rep):
         "Gas prices", f"gas-{month}")
     caption = with_question(f"Regular gas averaged ${v:.2f}/gallon in {d:%B}, {'up' if up else 'down'} {abs(ch):.0f}% from ${ya:.2f} a year ago ⛽\n\nA 15-gallon fill-up: ${v * 15:.0f} vs ${ya * 15:.0f}.",
                             "prices", f"{month}-gas", item="gas")
-    caption += f"\n\nSource: BLS average price data, unleaded regular.\n{DISCLAIMER}\n👉 Follow @paycheckmath\n#gasprices {TAGS}"
+    caption += f"\n\nSource: BLS average price data, unleaded regular.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#gasprices {TAGS}"
     return "gas", hook, mp4, cover, caption
 
 

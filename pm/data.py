@@ -14,7 +14,7 @@ import urllib.error
 import urllib.request
 from datetime import date, datetime
 
-UA = {"User-Agent": "PaycheckMath/1.0 (public-data charts; contact via instagram @paycheckmath)"}
+UA = {"User-Agent": "PaycheckMath/1.0 (public-data charts; contact via instagram @paycheck_math)"}
 BLS_API = "https://api.bls.gov/publicAPI/v1/timeseries/data/"
 PMMS_CSV = "https://www.freddiemac.com/pmms/docs/PMMS_history.csv"
 
