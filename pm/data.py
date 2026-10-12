@@ -99,6 +99,23 @@ def year_ago(sid):
     return value_on_or_before(sid, date(d.year - 1, d.month, min(d.day, 28)))
 
 
+def year_ago_checked(rep, sid):
+    """The value from exactly one year before the latest point. Blocks the post if that exact
+    month (or, for weekly data, a week within 7 days) is missing, rather than silently comparing
+    against the wrong period."""
+    d, _ = latest(sid)
+    label = SERIES[sid][0]
+    target = date(d.year - 1, d.month, min(d.day, 28))
+    ya = value_on_or_before(sid, target)
+    if sid == "MORTGAGE30":
+        ok = ya is not None and abs((target - ya[0]).days) <= 7
+    else:
+        ok = ya is not None and (ya[0].year, ya[0].month) == (d.year - 1, d.month)
+    rep.require(ok, f"{label}: year-ago comparison uses the same period",
+                f"wanted {target:%b %Y}, nearest available is {ya[0] if ya else None}")
+    return ya
+
+
 def check_series(rep, ids):
     """Freshness, plausible range and realistic latest move for each series used in a post."""
     today = date.today()

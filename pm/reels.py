@@ -33,7 +33,7 @@ def reel_mortgage(out_dir):
     D.check_series(rep, ["MORTGAGE30"])
     pts = D.series("MORTGAGE30")
     (d0, prev), (d1, now) = pts[-2], pts[-1]
-    yago = D.value_on_or_before("MORTGAGE30", date(d1.year - 1, d1.month, min(d1.day, 28)))
+    yago = D.year_ago_checked(rep, "MORTGAGE30")
     wk = now - prev
     up = wk > 0
     hook = ("Mortgage rates", "just went up" if up else ("just dropped" if wk < 0 else "held steady"),
@@ -70,7 +70,7 @@ def _groceries(out_dir, month, rep):
     rows = []
     for sid, name, _ in ITEMS:
         d, v = D.latest(sid)
-        ya = D.year_ago(sid)
+        ya = D.year_ago_checked(rep, sid)
         ch = _pct(v, ya[1])
         unit = D.SERIES[sid][0].split("(")[-1].rstrip(")")
         rows.append({"abbr": name[:3].upper(), "color": "#2B4A3A", "name": name, "value": ch,
@@ -93,13 +93,13 @@ def _groceries(out_dir, month, rep):
 def _minutes(out_dir, month, rep):
     D.check_series(rep, ["CES0500000003"] + [s for s, _, _ in ITEMS])
     wage = D.latest("CES0500000003")[1]
-    wage_ya = D.year_ago("CES0500000003")[1]
+    wage_ya = D.year_ago_checked(rep, "CES0500000003")[1]
     rows = []
     for sid, name, _ in ITEMS[:6]:
         qty = 15 if name == "Gas" else 1
         what = "a 15-gal tank" if name == "Gas" else D.SERIES[sid][0].split("(")[-1].rstrip(")")
         now_min = D.latest(sid)[1] * qty / wage * 60
-        ya_min = D.year_ago(sid)[1] * qty / wage_ya * 60
+        ya_min = D.year_ago_checked(rep, sid)[1] * qty / wage_ya * 60
         rows.append({"abbr": name[:3].upper(), "color": "#2B4A3A", "name": f"{name} ({what})", "value": now_min - ya_min,
                      "value_label": f"{now_min:.0f} min", "record": f"was {ya_min:.0f} min a year ago",
                      "good": now_min <= ya_min})
@@ -151,7 +151,7 @@ def _pay_vs_prices(out_dir, month, rep):
 def _gas(out_dir, month, rep):
     D.check_series(rep, ["APU000074714"])
     d, v = D.latest("APU000074714")
-    ya = D.year_ago("APU000074714")[1]
+    ya = D.year_ago_checked(rep, "APU000074714")[1]
     ch = _pct(v, ya)
     up = ch > 0
     hook = (f"Gas is {'up' if up else 'down'} {abs(ch):.0f}%", "from a year ago", "red" if up else "")

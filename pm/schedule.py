@@ -19,9 +19,9 @@ class Job:
 
 JOBS = [
     # Freddie Mac publishes Thursdays at noon ET (9am PT)
-    Job("mortgage",    "reel_mortgage", (THU,), "12:00", live=False, note="Reel: this week's mortgage rate"),
+    Job("mortgage",    "reel_mortgage", (THU,), "12:00", live=True, note="Reel: this week's mortgage rate"),
     # Monthly BLS data, rotating formats (pay vs prices, groceries, minutes of work, gas); skips when all used
-    Job("monthly_mon", "reel_monthly",  (MON,), "16:00", live=False, note="Reel: monthly prices rotation"),
-    Job("monthly_wed", "reel_monthly",  (WED,), "12:00", live=False, note="Reel: monthly prices rotation"),
-    Job("monthly_sat", "reel_monthly",  (SAT,), "09:00", live=False, note="Reel: monthly prices rotation"),
+    Job("monthly_mon", "reel_monthly",  (MON,), "16:00", live=True, note="Reel: monthly prices rotation"),
+    Job("monthly_wed", "reel_monthly",  (WED,), "12:00", live=True, note="Reel: monthly prices rotation"),
+    Job("monthly_sat", "reel_monthly",  (SAT,), "09:00", live=True, note="Reel: monthly prices rotation"),
 ]
