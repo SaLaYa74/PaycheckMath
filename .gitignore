@@ -1,0 +1,10 @@
+API/
+*.pages
+.env
+*.token
+data/
+out/
+__pycache__/
+.DS_Store
+samples/
+mascot/*.png
