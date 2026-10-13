@@ -9,6 +9,16 @@
     "scheduled": "16:00",
     "trial": false
   },
+  "2026-08-reel-minutes": {
+    "images": 1,
+    "job": "monthly_tue",
+    "media": "reel",
+    "media_id": "18086156093694072",
+    "permalink": "https://www.instagram.com/reel/Decw6rJjWJC/",
+    "posted_at": "2026-10-13T21:23:12+00:00",
+    "scheduled": "12:00",
+    "trial": false
+  },
   "2026-08-reel-pay_vs_prices": {
     "images": 1,
     "job": "monthly_wed",
