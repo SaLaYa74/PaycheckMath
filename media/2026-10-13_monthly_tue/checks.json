@@ -1,0 +1,285 @@
+{
+  "subject": "minutes",
+  "counts": {
+    "pass": 55,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Average hourly pay: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Eggs (dozen): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Eggs (dozen): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Eggs (dozen): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Eggs (dozen): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Milk (gallon): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Milk (gallon): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Milk (gallon): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Milk (gallon): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bread (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bread (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bread (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bread (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Coffee (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Coffee (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Coffee (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Coffee (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Electricity (kWh): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Electricity (kWh): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Electricity (kWh): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Electricity (kWh): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Eggs (dozen): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Milk (gallon): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bread (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Coffee (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_minutes.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_minutes.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_minutes.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_minutes.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_minutes.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_minutes.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_minutes_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_minutes_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_minutes_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_minutes_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
