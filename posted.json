@@ -39,6 +39,16 @@
     "scheduled": "16:00",
     "trial": false
   },
+  "2026-09-reel-minutes": {
+    "images": 1,
+    "job": "monthly_sat",
+    "media": "reel",
+    "media_id": "18349387201267366",
+    "permalink": "https://www.instagram.com/reel/Dems60ZD_Ta/",
+    "posted_at": "2026-10-17T18:00:43+00:00",
+    "scheduled": "09:00",
+    "trial": false
+  },
   "2026-09-reel-pay_vs_prices": {
     "images": 1,
     "job": "monthly_wed",
