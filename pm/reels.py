@@ -4,11 +4,15 @@ from datetime import date
 
 from . import checks as C
 from . import data as D
+from . import light as L
 from . import templates as T
-from .core import DISCLAIMER, NoContent, Post, with_question
+from .core import DISCLAIMER, DataError, NoContent, Post, with_question
 from .video import make_reel, video_checks
 
 GREEN, RED, GOLD = "#3DDC84", "#FF5A5F", "#E8B84A"
+UP_RED, DOWN_GREEN, BLUE = "#EF4444", "#16A34A", "#3B82F6"
+ICON = {"Eggs": "egg", "Milk": "milk", "Ground beef": "beef", "Bread": "bread", "Coffee": "coffee", "Gas": "gas",
+        "Electricity": "bulb", "Your pay": "pay", "Overall prices": "prices", "Rent": "rent", "Groceries": "cart"}
 TAGS = "#personalfinance #costofliving #money #inflation"
 
 
@@ -45,9 +49,18 @@ def reel_mortgage(out_dir):
     label = f"30-yr fixed · {wk:+.2f} this week · {now - yago[1]:+.2f} vs a year ago"
     who = {"abbr": "30Y", "color": GOLD, "name": f"Week of {d1:%b %-d}"}
     tag = "Mortgage rates"
-    mp4, cover = make_reel(out_dir, "reel_mortgage", hook, lambda p: T.one_stat(
-        hook, f"{now:.2f}%", label, who, "red" if up else "green", tag=tag, source="Freddie Mac PMMS", p=p,
-        note=f"On a $400k loan: {'+' if diff_yr >= 0 else '-'}${abs(diff_yr):,.0f}/mo vs a year ago"), tag, f"pmms-{d1}")
+    items = [{"label": "A year ago", "sub": f"{yago[0]:%b %-d, %Y}", "value": yago[1], "icon": "house",
+              "value_label": f"{yago[1]:.2f}%", "color": BLUE},
+             {"label": "This week", "sub": f"{d1:%b %-d, %Y}", "value": now, "icon": "house",
+              "value_label": f"{now:.2f}%", "color": UP_RED if now > yago[1] else DOWN_GREEN}]
+    yr_up = now > yago[1]
+    # headline describes the comparison the bars show (a year ago vs this week); weekly move goes in the subtitle
+    word = "Up From Last Year" if yr_up else ("Down From Last Year" if now < yago[1] else "Same as Last Year")
+    sub = (f"30-yr fixed · {wk:+.2f} this week · $400k loan: ${pay(now):,.0f}/mo "
+           f"({'+' if diff_yr >= 0 else '-'}${abs(diff_yr):,.0f} vs a year ago)")
+    mp4, cover = make_reel(out_dir, "reel_mortgage", hook, lambda p: L.bars(
+        "Mortgage Rates {hl}", word, sub, items, "Freddie Mac PMMS", p=p, hl_color=UP_RED if yr_up else DOWN_GREEN),
+        tag, f"pmms-{d1}")
     key = f"{d1.isoformat()}-reel-mortgage"
     caption = with_question(
         f"30-year mortgage rate: {now:.2f}% ({wk:+.2f} this week, {now - yago[1]:+.2f} vs a year ago) 🏠\n\n"
@@ -65,29 +78,54 @@ ITEMS = [("APU0000708111", "Eggs", "🥚"), ("APU0000709112", "Milk", "🥛"), (
          ("APU000072610", "Electricity", "💡")]
 
 
-def _groceries(out_dir, month, rep):
-    D.check_series(rep, [s for s, _, _ in ITEMS])
+def _price_rows(rep):
+    D.check_series(rep, [sid for sid, _, _ in ITEMS])
     rows = []
     for sid, name, _ in ITEMS:
         d, v = D.latest(sid)
         ya = D.year_ago_checked(rep, sid)
         ch = _pct(v, ya[1])
-        unit = D.SERIES[sid][0].split("(")[-1].rstrip(")")
-        rows.append({"abbr": name[:3].upper(), "color": "#2B4A3A", "name": name, "value": ch,
-                     "value_label": f"{ch:+.0f}%", "record": f"${ya[1]:.2f} → ${v:.2f} per {unit}"})
-    rows.sort(key=lambda r: -r["value"])
+        f = (lambda x: f"{x * 100:.1f}¢") if sid == "APU000072610" else (lambda x: f"${x:.2f}")
+        rows.append({"name": name, "ch": ch, "sub": f"{f(ya[1])} → {f(v)}"})
+    return rows
+
+
+def _groceries(out_dir, month, rep):
+    """Biggest price JUMPS vs a year ago (only items that went up)."""
+    rows = sorted([r for r in _price_rows(rep) if r["ch"] > 0.5], key=lambda r: -r["ch"])[:5]
+    if len(rows) < 3:
+        raise NoContent("Fewer than 3 items rose in price; skipping the price-jumps chart.")
+    items = [{"label": r["name"], "sub": r["sub"], "value": r["ch"], "icon": ICON[r["name"]],
+              "value_label": f"+{r['ch']:.0f}%"} for r in rows]
     top = rows[0]
-    hook = (f"{top['name']} {'up' if top['value'] > 0 else 'down'} {abs(top['value']):.0f}%", "in one year",
-            "red" if top["value"] > 0 else "")
-    mp4, cover = make_reel(out_dir, "reel_groceries", hook, lambda p: T.bar_ranking(
-        "Everyday prices<br><em>vs. a year ago</em>", f"U.S. average prices, {month:%B %Y}", rows,
-        tag="Prices", source="Bureau of Labor Statistics", size="reel", p=p, hook=hook, glance=True, invert=True),
-        "Prices", f"groceries-{month}")
-    lines = "\n".join(f"{'🔴' if r['value'] > 0 else '🟢'} {r['name']}: {r['value_label']} ({r['record']})" for r in rows)
-    caption = with_question(f"What everyday stuff costs now vs. a year ago 🛒\n\n{lines}", "prices", f"{month}-groceries",
+    hook = (f"{top['name']} up {top['ch']:.0f}%", "in one year", "red")
+    mp4, cover = make_reel(out_dir, "reel_groceries", hook, lambda p: L.bars(
+        "Biggest Price {hl}", "Jumps", f"Change vs. a year ago · U.S. average prices, {month:%b %Y}", items,
+        f"BLS, {month:%b %Y}", p=p, hl_color="#F97316"), "Prices", f"groceries-{month}")
+    lines = "\n".join(f"🔴 {r['name']}: +{r['ch']:.0f}% ({r['sub']})" for r in rows)
+    caption = with_question(f"The biggest price jumps of the past year 🛒\n\n{lines}", "prices", f"{month}-groceries",
                             item=top["name"].lower())
     caption += f"\n\nSource: U.S. Bureau of Labor Statistics average prices, {month:%B %Y}.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#groceryprices {TAGS}"
     return "groceries", hook, mp4, cover, caption
+
+
+def _price_drops(out_dir, month, rep):
+    """Prices that DROPPED vs a year ago (good-news post)."""
+    rows = sorted([r for r in _price_rows(rep) if r["ch"] < -0.5], key=lambda r: r["ch"])[:5]
+    if len(rows) < 2:
+        raise NoContent("Fewer than 2 items fell in price; skipping the price-drops chart.")
+    items = [{"label": r["name"], "sub": r["sub"], "value": -r["ch"], "icon": ICON[r["name"]],
+              "value_label": f"-{-r['ch']:.0f}%"} for r in rows]
+    top = rows[0]
+    hook = (f"{top['name']} down {-top['ch']:.0f}%", "in one year")
+    mp4, cover = make_reel(out_dir, "reel_drops", hook, lambda p: L.bars(
+        "Prices That {hl}", "Dropped", f"Change vs. a year ago · U.S. average prices, {month:%b %Y}", items,
+        f"BLS, {month:%b %Y}", p=p, hl_color=DOWN_GREEN), "Prices", f"drops-{month}")
+    lines = "\n".join(f"🟢 {r['name']}: {r['ch']:.0f}% ({r['sub']})" for r in rows)
+    caption = with_question(f"Some good news for your wallet: these got cheaper 📉\n\n{lines}", "prices", f"{month}-drops",
+                            item=top["name"].lower())
+    caption += f"\n\nSource: U.S. Bureau of Labor Statistics average prices, {month:%B %Y}.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#groceryprices {TAGS}"
+    return "price_drops", hook, mp4, cover, caption
 
 
 def _minutes(out_dir, month, rep):
@@ -106,10 +144,12 @@ def _minutes(out_dir, month, rep):
     rows.sort(key=lambda r: -abs(r["value"]))
     gas = next(r for r in rows if r["name"].startswith("Gas"))
     hook = ("Minutes of work", "to buy everyday stuff")
-    mp4, cover = make_reel(out_dir, "reel_minutes", hook, lambda p: T.bar_ranking(
-        "Minutes of work<br><em>to buy it</em>", f"At the average hourly wage (${wage:.2f}/hr), {month:%B %Y}",
-        rows, tag="Paycheck math", source="BLS prices & wages", size="reel", p=p, hook=hook, glance=True,
-        note="Bar = change vs. a year ago"), "Paycheck math", f"minutes-{month}")
+    items = [{"label": r["name"].split(" (")[0], "sub": r["record"].replace(" a year ago", " last yr"),
+              "value": float(r["value_label"].split()[0]), "icon": ICON[r["name"].split(" (")[0]],
+              "value_label": r["value_label"].replace(" min", "m")} for r in sorted(rows, key=lambda r: -float(r["value_label"].split()[0]))]
+    mp4, cover = make_reel(out_dir, "reel_minutes", hook, lambda p: L.bars(
+        "Minutes of Work to {hl}", "Buy It", f"At the average wage of ${wage:.2f}/hr · {month:%b %Y} · gas = 15-gal tank",
+        items, "BLS prices & wages", p=p, hl_color=BLUE), "Paycheck math", f"minutes-{month}")
     lines = "\n".join(f"{'🔴' if not r['good'] else '🟢'} {r['name']}: {r['value_label']} ({r['record']})" for r in rows)
     caption = with_question(f"How many minutes of work it takes to buy everyday stuff ⏱️\n\nAt the U.S. average wage of ${wage:.2f}/hr:\n{lines}",
                             "minutes", f"{month}-minutes")
@@ -137,10 +177,12 @@ def _pay_vs_prices(out_dir, month, rep):
         r["good"] = r["value"] <= pay           # green if it rose less than pay
     worst = max(rows[1:], key=lambda r: r["value"])
     hook = (f"{worst['name']} +{worst['value']:.0f}%", f"your pay +{pay:.0f}%", "red" if worst["value"] > pay else "")
-    mp4, cover = make_reel(out_dir, "reel_payvs", hook, lambda p: T.bar_ranking(
-        "Your pay<br><em>vs. prices</em>", f"Change since January 2020, through {month:%B %Y}", rows,
-        tag="Pay vs prices", source="Bureau of Labor Statistics", size="reel", p=p, hook=hook, glance=True,
-        diverging=False), "Pay vs prices", f"payvs-{month}")
+    palette = ["#22C55E", "#A855F7", "#3B82F6", "#F97316", "#EF4444"]
+    items = [{"label": r["name"], "sub": "since 2020", "value": max(r["value"], 0.1), "icon": ICON[r["name"]],
+              "value_label": r["value_label"], "color": palette[i]} for i, r in enumerate(rows)]
+    mp4, cover = make_reel(out_dir, "reel_payvs", hook, lambda p: L.bars(
+        "Your Pay vs. {hl}", "Prices", f"Change since January 2020, through {month:%b %Y}", items,
+        f"BLS, {month:%b %Y}", p=p, hl_color="#EF4444"), "Pay vs prices", f"payvs-{month}")
     lines = "\n".join(f"{'🟢' if r['good'] else '🔴'} {r['name']}: {r['value_label']}" for r in rows)
     caption = with_question(f"Since January 2020, has your paycheck kept up? 💵\n\n{lines}\n\n(Green = rose less than average pay. Red = rose more.)",
                             "paycheck", f"{month}-payvs")
@@ -156,10 +198,14 @@ def _gas(out_dir, month, rep):
     up = ch > 0
     hook = (f"Gas is {'up' if up else 'down'} {abs(ch):.0f}%", "from a year ago", "red" if up else "")
     who = {"abbr": "GAS", "color": GOLD, "name": f"U.S. average, {d:%B}"}
-    mp4, cover = make_reel(out_dir, "reel_gas", hook, lambda p: T.one_stat(
-        hook, f"${v:.2f}", f"per gallon · was ${ya:.2f}", who, "red" if up else "green", tag="Gas prices",
-        source="Bureau of Labor Statistics", p=p, note=f"A 15-gallon fill-up: ${v * 15:.0f} (was ${ya * 15:.0f})"),
-        "Gas prices", f"gas-{month}")
+    yd = date(d.year - 1, d.month, 1)
+    items = [{"label": "A year ago", "sub": f"{yd:%B %Y}", "value": ya, "icon": "gas", "value_label": f"${ya:.2f}", "color": BLUE},
+             {"label": "Now", "sub": f"{d:%B %Y}", "value": v, "icon": "gas", "value_label": f"${v:.2f}",
+              "color": UP_RED if up else DOWN_GREEN}]
+    mp4, cover = make_reel(out_dir, "reel_gas", hook, lambda p: L.bars(
+        "Gas Prices {hl}", "Went Up" if up else "Came Down",
+        f"Regular, U.S. average per gallon · a 15-gal fill-up is ${v * 15:.0f} (was ${ya * 15:.0f})", items,
+        f"BLS, {d:%b %Y}", p=p, hl_color=UP_RED if up else DOWN_GREEN), "Gas prices", f"gas-{month}")
     caption = with_question(f"Regular gas averaged ${v:.2f}/gallon in {d:%B}, {'up' if up else 'down'} {abs(ch):.0f}% from ${ya:.2f} a year ago ⛽\n\nA 15-gallon fill-up: ${v * 15:.0f} vs ${ya * 15:.0f}.",
                             "prices", f"{month}-gas", item="gas")
     caption += f"\n\nSource: BLS average price data, unleaded regular.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#gasprices {TAGS}"
@@ -190,10 +236,11 @@ def _trend_format(sid, name, unit, fmt, up_good):
         rep.require(len(pts) >= 30, f"{name}: 3-year history", f"only {len(pts)} months")
         mi = [k for k, (dd, _) in enumerate(pts) if dd == ya[0]][0]
         hook = (f"{name} {'up' if ch > 0 else 'down'} {abs(ch):.0f}%", "in one year", "" if good else "red")
-        mp4, cover = make_reel(out_dir, f"reel_trend_{name.lower().replace(' ', '_')}", hook, lambda p: T.line_chart(
-            hook, pts, fmt, tag="Price trend" if not up_good else "Paycheck trend", source="Bureau of Labor Statistics",
-            color="green" if good else "red", p=p, end_label=f"{unit} · U.S. average · last 3 years",
-            marker=(mi, f"a year ago {fmt(ya[1])}")), "Trend", f"trend-{sid}-{month}")
+        word = f"{'Up' if ch > 0 else 'Down'} {abs(ch):.0f}%"
+        mp4, cover = make_reel(out_dir, f"reel_trend_{name.lower().replace(' ', '_')}", hook, lambda p: L.line(
+            f"{name} {{hl}}", word, f"{unit} · U.S. average · vs. a year ago", pts, fmt, f"BLS, {d:%b %Y}",
+            color=BLUE if up_good else "#F97316", marker=(mi, f"a year ago {fmt(ya[1])}"), p=p,
+            hl_color=DOWN_GREEN if good else UP_RED), "Trend", f"trend-{sid}-{month}")
         caption = with_question(
             f"{unit}: {fmt(v)} in {d:%B %Y}, {'up' if ch > 0 else 'down'} {abs(ch):.0f}% from {fmt(ya[1])} a year ago "
             f"{'📈' if ch > 0 else '📉'}", "paycheck" if up_good else "prices", f"{month}-trend-{sid}", item=name.lower())
@@ -203,7 +250,7 @@ def _trend_format(sid, name, unit, fmt, up_good):
     return build
 
 
-FORMATS = [_pay_vs_prices, _groceries, _minutes, _gas] + [_trend_format(*t) for t in TRENDS]
+FORMATS = [_pay_vs_prices, _groceries, _price_drops, _minutes, _gas] + [_trend_format(*t) for t in TRENDS]
 
 
 def _yoy_size(fmt):
@@ -215,7 +262,7 @@ def _yoy_size(fmt):
                 return abs(_pct(D.latest(sid)[1], D.year_ago(sid)[1]))
             except Exception:
                 return 0
-    return 999   # the four core formats always go first
+    return 999   # the core chart formats always go first
 
 
 def reel_monthly(out_dir, posted=None):
@@ -228,7 +275,10 @@ def reel_monthly(out_dir, posted=None):
         if key in posted:
             continue
         rep = C.Report(name)
-        _, hook, mp4, cover, caption, *_ = fmt(os.path.join(out_dir), month, rep)
+        try:
+            _, hook, mp4, cover, caption, *_ = fmt(os.path.join(out_dir), month, rep)
+        except NoContent:
+            continue          # this format doesn't apply this month (e.g. nothing got cheaper)
         return _post(key, mp4, cover, caption, rep)
     raise NoContent(f"All monthly formats for {month:%B %Y} already posted; waiting for new BLS data.")
 
