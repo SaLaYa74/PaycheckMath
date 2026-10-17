@@ -29,6 +29,16 @@
     "scheduled": "12:00",
     "trial": false
   },
+  "2026-09-reel-groceries": {
+    "images": 1,
+    "job": "monthly_fri",
+    "media": "reel",
+    "media_id": "18145910386576509",
+    "permalink": "https://www.instagram.com/reel/Dek0QEWmdIW/",
+    "posted_at": "2026-10-17T00:26:16+00:00",
+    "scheduled": "16:00",
+    "trial": false
+  },
   "2026-09-reel-pay_vs_prices": {
     "images": 1,
     "job": "monthly_wed",
