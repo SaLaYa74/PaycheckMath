@@ -27,6 +27,7 @@ from pm import checks as C
 from pm import core as P
 from pm import reels as R
 from pm.schedule import JOBS, WINDOW_HOURS, Job
+from pm.voice import humanize
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 PT = ZoneInfo("America/Los_Angeles")
@@ -108,6 +109,7 @@ class Runner:
         except P.DataError as e:
             return "waiting", str(e)
 
+        post.caption = humanize(post.key, post.caption)     # human opener/sign-off; data lines untouched
         posted = load(POSTED)
         if post.key in posted and not self.force:
             return "duplicate", f"{post.key} already posted"
