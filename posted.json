@@ -59,6 +59,16 @@
     "scheduled": "12:00",
     "trial": false
   },
+  "2026-09-reel-price_drops": {
+    "images": 1,
+    "job": "monthly_sun",
+    "media": "reel",
+    "media_id": "18110113067071453",
+    "permalink": "https://www.instagram.com/reel/DepV7z4gdaD/",
+    "posted_at": "2026-10-18T18:37:31+00:00",
+    "scheduled": "10:00",
+    "trial": false
+  },
   "2026-10-15-reel-mortgage": {
     "images": 1,
     "job": "mortgage",
