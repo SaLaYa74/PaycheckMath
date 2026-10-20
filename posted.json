@@ -79,6 +79,16 @@
     "scheduled": "10:00",
     "trial": false
   },
+  "2026-09-reel-trend_eggs": {
+    "images": 1,
+    "job": "monthly_tue",
+    "media": "reel",
+    "media_id": "18141046276621618",
+    "permalink": "https://www.instagram.com/reel/DeumT3zl_tN/",
+    "posted_at": "2026-10-20T19:36:42+00:00",
+    "scheduled": "12:00",
+    "trial": false
+  },
   "2026-10-15-reel-mortgage": {
     "images": 1,
     "job": "mortgage",
