@@ -1,0 +1,120 @@
+{
+  "subject": "trend_ground_beef",
+  "counts": {
+    "pass": 22,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef: 3-year history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_ground_beef.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_ground_beef.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_ground_beef.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_ground_beef.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_ground_beef.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_ground_beef.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_ground_beef_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_ground_beef_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_ground_beef_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_ground_beef_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
