@@ -89,6 +89,16 @@
     "scheduled": "12:00",
     "trial": false
   },
+  "2026-09-reel-trend_electricity": {
+    "images": 1,
+    "job": "monthly_fri",
+    "media": "reel",
+    "media_id": "18005907266794608",
+    "permalink": "https://www.instagram.com/reel/De23I47gCug/",
+    "posted_at": "2026-10-24T00:37:49+00:00",
+    "scheduled": "16:00",
+    "trial": false
+  },
   "2026-09-reel-trend_ground_beef": {
     "images": 1,
     "job": "monthly_wed",
