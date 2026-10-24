@@ -18,12 +18,22 @@ OPENERS = {
 }
 SIGNOFFS = ["— Penny 🐿️", "Penny, out 🐿️💵", "— Penny (your money-math squirrel) 🐿️"]
 
+# Save/share prompt on every post: saves and shares are what push a post to non-followers.
+SAVE_SHARE = {
+    "home": ["📌 Save this if you're house hunting. 📤 Send it to someone who's buying.",
+             "📤 Send this to a friend shopping for a home. 📌 Save it to compare next week."],
+    "money": ["📤 Send this to the person who does the grocery run. 📌 Save it for your budget.",
+              "📌 Save this for your next budget check. 📤 Share it with someone who'd be surprised.",
+              "📤 Send this to a friend who says \"everything costs more.\" 📌 Save it for later."],
+}
+
 
 def _kind(key, caption):
     k, first = key.lower(), caption.split("\n")[0].lower()
     if "mortgage" in k:
         return "mortgage_up" if "(+" in first else "mortgage_down"
-    for part, kind in (("pay_vs", "pay_vs"), ("groceries", "groceries"), ("minutes", "minutes"), ("-gas", "gas")):
+    for part, kind in (("pay_vs", "pay_vs"), ("payvs", "pay_vs"), ("groceries", "groceries"), ("minutes", "minutes"),
+                       ("-gas", "gas"), ("price_drops", "trend_down")):
         if part in k:
             return kind
     if "trend" in k:
@@ -44,6 +54,9 @@ def humanize(key, caption):
     body = lines[:cut]
     while body and not body[-1].strip():
         body.pop()
+    if "save this" not in caption.lower():
+        bank = SAVE_SHARE["home" if kind.startswith("mortgage") else "money"]
+        body += ["", bank[(h >> 16) % len(bank)]]
     if (h >> 8) % 2 == 0:
         body += ["", SIGNOFFS[(h >> 12) % len(SIGNOFFS)]]
     return "\n".join([opener, ""] + body + [""] + lines[cut:]).replace("\n\n\n", "\n\n")

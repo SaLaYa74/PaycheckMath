@@ -30,17 +30,20 @@ def _ease(x):
     return 1 - (1 - x) ** 3  # ease-out cubic
 
 
-def make_reel(out_dir, name, hook, chart_html, tag, seed, hold=5.2):
-    """Motion from frame 1: the chart animates in under the hook headline, holds so it can be read,
-    and ends on the full chart (loops cleanly back to the empty chart). chart_html(p) -> HTML.
+START_P = 0.35  # frame 1 already shows bars + numbers mid-motion (viewers leave around 3s)
+
+
+def make_reel(out_dir, name, hook, chart_html, tag, seed, hold=4.0):
+    """Motion from frame 1: the chart is already a third built and moving under the hook headline,
+    finishes fast, holds so it can be read (~4.8s total). chart_html(p) -> HTML.
     `hook` and `tag` are baked into chart_html by the caller. Returns (mp4, cover_jpg)."""
     os.makedirs(out_dir, exist_ok=True)
     work = tempfile.mkdtemp(prefix="reel_")
     seq = []  # (png, seconds)
-    steps = 24
-    for i in range(steps):                                   # 1.6s build-in, starting at t=0
+    steps = 12
+    for i in range(steps):                                   # 0.8s build-in, starting at t=0
         path = os.path.join(work, f"{i:03d}.png")
-        html_to_png(chart_html(_ease(i / (steps - 1))), path, "reel")
+        html_to_png(chart_html(START_P + (1 - START_P) * _ease(i / (steps - 1))), path, "reel")
         seq.append((path, 0.067))
     last_chart = seq[-1][0]
     seq.append((last_chart, hold))                           # hold long enough to read
@@ -55,7 +58,7 @@ def make_reel(out_dir, name, hook, chart_html, tag, seed, hold=5.2):
     mp4 = os.path.join(out_dir, f"{name}.mp4")
     subprocess.run([ffmpeg_exe(), "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", listing,
                     "-i", audio, "-vf", f"fps={FPS},format=yuv420p", "-c:v", "libx264", "-preset", "medium",
-                    "-crf", "20", "-profile:v", "high", "-c:a", "aac", "-b:a", "128k", "-ar", "44100",
+                    "-crf", "14", "-profile:v", "high", "-c:a", "aac", "-b:a", "192k", "-ar", "44100",
                     "-shortest", "-movflags", "+faststart", mp4], check=True)
     cover = os.path.join(out_dir, f"{name}_cover.jpg")
     Image.open(last_chart).convert("RGB").save(cover, "JPEG", quality=90)
