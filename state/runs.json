@@ -68,5 +68,10 @@
     "at": "2026-10-23T17:36-07:00",
     "detail": "https://www.instagram.com/reel/De23I47gCug/",
     "status": "posted"
+  },
+  "2026-10-24:monthly_sat": {
+    "at": "2026-10-24T09:43-07:00",
+    "detail": "HTTPError: HTTP Error 503: Service Unavailable",
+    "status": "error"
   }
 }
