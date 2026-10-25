@@ -1,0 +1,120 @@
+{
+  "subject": "trend_hourly_pay",
+  "counts": {
+    "pass": 22,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Average hourly pay: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Hourly pay: 3-year history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_hourly_pay.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_hourly_pay.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_hourly_pay.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_hourly_pay.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_hourly_pay.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_hourly_pay.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_hourly_pay_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_hourly_pay_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_hourly_pay_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_hourly_pay_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
