@@ -17,6 +17,7 @@ import subprocess
 import sys
 import time
 import traceback
+import urllib.error
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
@@ -236,6 +237,10 @@ def main():
     for job, final in todo:
         try:
             status, detail = runner.run(job, now)
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+            # upstream outage (a data source or Instagram is temporarily down): retry quietly,
+            # only report it as an error on the final attempt of the posting window
+            status, detail = ("error" if final else "waiting"), f"Data source temporarily unavailable ({e}); will retry"
         except Exception as e:
             traceback.print_exc()
             status, detail = "error", f"{type(e).__name__}: {e}"
