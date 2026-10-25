@@ -2,8 +2,6 @@
 One idea per graphic. All artwork (icons, Penny) is original."""
 from html import escape
 
-from .templates import mascot_svg
-
 HANDLE = "@paycheck_math"
 PALETTE = ["#EF4444", "#F97316", "#22C55E", "#3B82F6", "#A855F7", "#EAB308", "#14B8A6"]
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
@@ -31,7 +29,7 @@ body{background:#FFFDF7;color:#1F2937;font-family:Nunito,Arial,sans-serif;overfl
 .lab{flex:1;text-align:center;font-weight:800;font-size:30px;line-height:1.1;min-width:0}
 .lab small{display:block;font-size:22px;color:#6B7280;font-weight:700;margin-top:4px}
 .foot{display:flex;justify-content:space-between;align-items:center;margin-top:26px;font-size:24px;color:#6B7280;font-weight:700}
-.brand{display:flex;align-items:center;gap:12px;font-family:"Baloo 2";font-weight:800;color:#1F2937;font-size:30px;letter-spacing:1px}
+.handle{font-size:22px;opacity:.6}
 """
 
 # Simple original icons (viewBox 0 0 64 64)
@@ -59,7 +57,7 @@ def icon(name, px=78):
 def _page(body, tall, source):
     return f'''<!doctype html><html><head><meta charset="utf-8">{FONTS}<style>{CSS}</style></head>
 <body><div class="f{' tall' if tall else ''}">{body}
-<div class="foot"><div class="brand">{mascot_svg(54)}PAYCHECK MATH</div><div>Source: {escape(source)}</div></div></div></body></html>'''
+<div class="foot"><div>Source: {escape(source)}</div><div class="handle">{HANDLE}</div></div></div></body></html>'''
 
 
 def bars(title, highlight, subtitle, items, source, tall=True, p=1.0, hl_color="#F97316", fmt=None):

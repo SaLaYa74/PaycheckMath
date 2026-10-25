@@ -103,7 +103,8 @@ def _groceries(out_dir, month, rep):
         "Biggest Price {hl}", "Jumps", f"Change vs. a year ago · U.S. average prices, {month:%b %Y}", items,
         f"BLS, {month:%b %Y}", p=p, hl_color="#F97316"), "Prices", f"groceries-{month}")
     lines = "\n".join(f"🔴 {r['name']}: +{r['ch']:.0f}% ({r['sub']})" for r in rows)
-    caption = with_question(f"The biggest price jumps of the past year 🛒\n\n{lines}", "prices", f"{month}-groceries",
+    caption = with_question(f"{top['name']}: up {top['ch']:.0f}% from a year ago ({top['sub']}). "
+                            f"The biggest jumps:\n\n{lines}", "prices", f"{month}-groceries",
                             item=top["name"].lower())
     caption += f"\n\nSource: U.S. Bureau of Labor Statistics average prices, {month:%B %Y}.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#groceryprices {TAGS}"
     return "groceries", hook, mp4, cover, caption
@@ -122,7 +123,8 @@ def _price_drops(out_dir, month, rep):
         "Prices That {hl}", "Dropped", f"Change vs. a year ago · U.S. average prices, {month:%b %Y}", items,
         f"BLS, {month:%b %Y}", p=p, hl_color=DOWN_GREEN), "Prices", f"drops-{month}")
     lines = "\n".join(f"🟢 {r['name']}: {r['ch']:.0f}% ({r['sub']})" for r in rows)
-    caption = with_question(f"Some good news for your wallet: these got cheaper 📉\n\n{lines}", "prices", f"{month}-drops",
+    caption = with_question(f"{top['name']}: down {-top['ch']:.0f}% from a year ago ({top['sub']}). "
+                            f"Everything that got cheaper:\n\n{lines}", "prices", f"{month}-drops",
                             item=top["name"].lower())
     caption += f"\n\nSource: U.S. Bureau of Labor Statistics average prices, {month:%B %Y}.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#groceryprices {TAGS}"
     return "price_drops", hook, mp4, cover, caption
@@ -151,7 +153,8 @@ def _minutes(out_dir, month, rep):
         "Minutes of Work to {hl}", "Buy It", f"At the average wage of ${wage:.2f}/hr · {month:%b %Y} · gas = 15-gal tank",
         items, "BLS prices & wages", p=p, hl_color=BLUE), "Paycheck math", f"minutes-{month}")
     lines = "\n".join(f"{'🔴' if not r['good'] else '🟢'} {r['name']}: {r['value_label']} ({r['record']})" for r in rows)
-    caption = with_question(f"How many minutes of work it takes to buy everyday stuff ⏱️\n\nAt the U.S. average wage of ${wage:.2f}/hr:\n{lines}",
+    caption = with_question(f"At the U.S. average wage of ${wage:.2f}/hr, a 15-gallon tank of gas takes {gas['value_label']} of work "
+                            f"({gas['record']}).\n\nEveryday stuff, in minutes of work:\n{lines}",
                             "minutes", f"{month}-minutes")
     caption += f"\n\nSource: BLS average prices and average hourly earnings (all private employees). Pre-tax.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{TAGS}"
     return "minutes", hook, mp4, cover, caption
@@ -184,7 +187,8 @@ def _pay_vs_prices(out_dir, month, rep):
         "Your Pay vs. {hl}", "Prices", f"Change since January 2020, through {month:%b %Y}", items,
         f"BLS, {month:%b %Y}", p=p, hl_color="#EF4444"), "Pay vs prices", f"payvs-{month}")
     lines = "\n".join(f"{'🟢' if r['good'] else '🔴'} {r['name']}: {r['value_label']}" for r in rows)
-    caption = with_question(f"Since January 2020, has your paycheck kept up? 💵\n\n{lines}\n\n(Green = rose less than average pay. Red = rose more.)",
+    caption = with_question(f"Since January 2020, average pay is up {pay:.0f}%. {worst['name']}: up {worst['value']:.0f}%.\n\n"
+                            f"{lines}\n\n(Green = rose less than average pay. Red = rose more.)",
                             "paycheck", f"{month}-payvs")
     caption += f"\n\nSource: BLS average hourly earnings and Consumer Price Index (not seasonally adjusted).\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{TAGS}"
     return "payvs", hook, mp4, cover, caption
