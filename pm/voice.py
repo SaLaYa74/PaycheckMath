@@ -23,7 +23,7 @@ def humanize(key, caption):
     body = lines[:cut]
     while body and not body[-1].strip():
         body.pop()
-    if "save this" not in caption.lower():
+    if "save this" not in caption.lower() and "📤" not in caption:   # keep a builder's own share line
         bank = SAVE_SHARE["home" if "mortgage" in key.lower() else "money"]
         body += ["", bank[(h >> 16) % len(bank)]]
     return "\n".join(body + [""] + lines[cut:]).replace("\n\n\n", "\n\n")

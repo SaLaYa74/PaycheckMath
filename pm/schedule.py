@@ -29,4 +29,7 @@ JOBS = [
     Job("monthly_fri", "reel_monthly",  (FRI,), "16:00", live=True, note="Reel: monthly rotation (7pm ET)"),
     Job("monthly_sat", "reel_monthly",  (SAT,), "09:00", live=True, note="Reel: monthly rotation"),
     Job("monthly_sun", "reel_monthly",  (SUN,), "10:00", live=True, note="Reel: monthly rotation"),
+    # Monthly share-first board: BLS state pay comes out mid-to-late month; checked every Saturday,
+    # posts once per new data month (idles otherwise).
+    Job("find_state",  "reel_find_state", (SAT,), "17:00", live=True, note="Reel: Find Your State (weekly pay, all 50 + DC)"),
 ]

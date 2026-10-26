@@ -287,5 +287,49 @@ def reel_monthly(out_dir, posted=None):
     raise NoContent(f"All monthly formats for {month:%B %Y} already posted; waiting for new BLS data.")
 
 
+# ---------------------------------------------------------------- monthly: find your state (share-first)
+
+def reel_find_state(out_dir, posted=None):
+    """All 50 states + DC on one screen, ranked by average weekly pay. Built for 'find your state, send it
+    to a friend'. Posts once per BLS state data month; idles until the next release."""
+    rep = C.Report("find_state")
+    month, rows = D.check_state_pay(rep)
+    if not rows:
+        raise DataError("State pay data failed checks: " + "; ".join(i["detail"] for i in rep.blocked))
+    key = f"{month:%Y-%m}-reel-find_state"
+    if key in (posted or {}):
+        raise NoContent(f"Find Your State for {month:%B %Y} already posted; waiting for new BLS state data.")
+    prelim = any(month in D.state_weekly_pay()[r["fips"]]["prelim"] for r in rows)
+    items = []
+    for k, r in enumerate(rows):
+        yoy = r["yoy"]
+        items.append({"label": r["name"], "value_label": f"${r['value']:,.0f}",
+                      "note": "" if yoy is None else f"{yoy:+.1f}%",
+                      "note_color": DOWN_GREEN if (yoy or 0) >= 0 else UP_RED,
+                      "color": DOWN_GREEN if k < 10 else (UP_RED if k >= len(rows) - 10 else "#1F2937")})
+    top, low = rows[0], rows[-1]
+    gap = top["value"] - low["value"]
+    hook = ("Find your state", "average weekly pay")
+    sub = f"Avg. weekly pay, pre-tax · {month:%b %Y} · % = vs. a year ago"
+    mp4, cover = make_reel(out_dir, "reel_find_state", hook, lambda p: L.board(
+        "Find Your {hl}", "State", sub, items, f"BLS, {month:%b %Y}{' (preliminary)' if prelim else ''}", p=p,
+        hl_color=BLUE), "Find your state", f"states-{month}", hold=7.0)
+    medal = ["🥇", "🥈", "🥉", "4.", "5."]
+    lines = "\n".join(f"{medal[k]} {r['name']}: ${r['value']:,.0f}/week" for k, r in enumerate(rows[:5]))
+    bottom = "\n".join(f"{len(rows) - 2 + k}. {r['name']}: ${r['value']:,.0f}/week" for k, r in enumerate(rows[-3:]))
+    caption = with_question(
+        f"Average weekly pay by state, {month:%B %Y} (private-sector jobs, before taxes) 💵\n\n"
+        f"Highest:\n{lines}\n\nLowest:\n{bottom}\n\n"
+        f"That's a ${gap:,.0f} gap every week between {top['name']} and {low['name']}.",
+        "states", key)
+    caption += (f"\n\n📤 Send this to someone in {low['name']}."
+                f"\n\nSource: U.S. Bureau of Labor Statistics, State and Metro Area Employment (CES): average weekly "
+                f"earnings of all employees, total private, not seasonally adjusted."
+                f"{f' {month:%B %Y} figures are preliminary.' if prelim else ''}"
+                f"\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#paycheck #salary #wages {TAGS}")
+    return _post(key, mp4, cover, caption, rep)
+
+
 BUILDERS = {"reel_mortgage": lambda out_dir, posted=None: reel_mortgage(out_dir),
-            "reel_monthly": reel_monthly}
+            "reel_monthly": reel_monthly,
+            "reel_find_state": reel_find_state}

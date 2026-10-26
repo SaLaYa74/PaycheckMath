@@ -129,3 +129,90 @@ def check_series(rep, ids):
         rep.require((today - d1).days <= max_age, f"{label}: data is current", f"latest {src} data is {d1}")
         move = abs(v1 - v0) / v0
         rep.require(move <= max_move, f"{label}: realistic change", f"{v0} → {v1} ({move:.0%}) looks like a data error")
+
+
+# ---------------- state pay (BLS State and Metro Area Employment, CES) ----------------
+
+# FIPS: (state, postal abbreviation). All 50 states + DC.
+STATES = {
+    "01": ("Alabama", "AL"), "02": ("Alaska", "AK"), "04": ("Arizona", "AZ"), "05": ("Arkansas", "AR"),
+    "06": ("California", "CA"), "08": ("Colorado", "CO"), "09": ("Connecticut", "CT"), "10": ("Delaware", "DE"),
+    "11": ("D.C.", "DC"), "12": ("Florida", "FL"), "13": ("Georgia", "GA"), "15": ("Hawaii", "HI"),
+    "16": ("Idaho", "ID"), "17": ("Illinois", "IL"), "18": ("Indiana", "IN"), "19": ("Iowa", "IA"),
+    "20": ("Kansas", "KS"), "21": ("Kentucky", "KY"), "22": ("Louisiana", "LA"), "23": ("Maine", "ME"),
+    "24": ("Maryland", "MD"), "25": ("Massachusetts", "MA"), "26": ("Michigan", "MI"), "27": ("Minnesota", "MN"),
+    "28": ("Mississippi", "MS"), "29": ("Missouri", "MO"), "30": ("Montana", "MT"), "31": ("Nebraska", "NE"),
+    "32": ("Nevada", "NV"), "33": ("New Hampshire", "NH"), "34": ("New Jersey", "NJ"), "35": ("New Mexico", "NM"),
+    "36": ("New York", "NY"), "37": ("North Carolina", "NC"), "38": ("North Dakota", "ND"), "39": ("Ohio", "OH"),
+    "40": ("Oklahoma", "OK"), "41": ("Oregon", "OR"), "42": ("Pennsylvania", "PA"), "44": ("Rhode Island", "RI"),
+    "45": ("South Carolina", "SC"), "46": ("South Dakota", "SD"), "47": ("Tennessee", "TN"), "48": ("Texas", "TX"),
+    "49": ("Utah", "UT"), "50": ("Vermont", "VT"), "51": ("Virginia", "VA"), "53": ("Washington", "WA"),
+    "54": ("West Virginia", "WV"), "55": ("Wisconsin", "WI"), "56": ("Wyoming", "WY"),
+}
+# Average weekly earnings of all employees, total private, not seasonally adjusted.
+STATE_WEEKLY = "SMU{}000000500000011"
+STATE_WEEKLY_RANGE = (700, 2800)    # $/week; anything outside is a data error
+STATE_YOY_RANGE = (-12, 15)         # % change vs. a year ago; outside = likely a glitch or series break
+_state_cache = {}
+
+
+def state_weekly_pay():
+    """{fips: {"pts": [(date, value)] oldest→newest, "prelim": {date, ...}}} for all 51.
+    The free API allows 25 series per request, so this is 3 requests."""
+    if _state_cache:
+        return _state_cache
+    year = date.today().year
+    fips = list(STATES)
+    for i in range(0, len(fips), 25):
+        ids = [STATE_WEEKLY.format(f) for f in fips[i:i + 25]]
+        body = json.dumps({"seriesid": ids, "startyear": str(year - 2), "endyear": str(year)}).encode()
+        d = json.loads(_get(BLS_API, data=body))
+        if d.get("status") != "REQUEST_SUCCEEDED":
+            raise RuntimeError(f"BLS API: {d.get('status')}: {' '.join(d.get('message', []))}")
+        for s in d["Results"]["series"]:
+            pts, prelim = [], set()
+            for p in s["data"]:
+                if p["period"].startswith("M") and p["period"] != "M13" and p["value"] not in ("-", ""):
+                    when = date(int(p["year"]), int(p["period"][1:]), 1)
+                    pts.append((when, float(p["value"])))
+                    if any(f.get("code") == "P" for f in p.get("footnotes") or []):
+                        prelim.add(when)
+            _state_cache[s["seriesID"][3:5]] = {"pts": sorted(pts), "prelim": prelim}
+    return _state_cache
+
+
+def check_state_pay(rep):
+    """All 51 present, same latest month everywhere, current, plausible values, exact year-ago month,
+    realistic year-over-year change. Returns (month, rows sorted high→low) where each row is
+    dict(fips, name, abbr, value, year_ago, yoy)."""
+    data = state_weekly_pay()
+    missing = [STATES[f][1] for f in STATES if not data.get(f, {}).get("pts")]
+    rep.require(not missing, "State pay: all 50 states + DC present", f"no data for {missing}")
+    extra = sorted(set(data) - set(STATES))
+    rep.require(not extra, "State pay: no unexpected series", f"unexpected FIPS {extra}")
+    if missing:
+        return None, []
+    latest = {f: data[f]["pts"][-1][0] for f in STATES}
+    month = max(latest.values())
+    behind = [f"{STATES[f][1]} ({d:%b %Y})" for f, d in latest.items() if d != month]
+    rep.require(not behind, "State pay: same latest month for every state", f"{month:%b %Y} for most, but {behind}")
+    rep.require((date.today() - month).days <= 80, "State pay: data is current", f"latest BLS state data is {month:%b %Y}")
+    lo, hi = STATE_WEEKLY_RANGE
+    ylo, yhi = STATE_YOY_RANGE
+    rows, no_ya = [], []
+    for f, (name, abbr) in STATES.items():
+        d, v = data[f]["pts"][-1]
+        rep.require(lo <= v <= hi, f"{abbr}: weekly pay plausible", f"${v:,.2f} outside ${lo:,}-${hi:,}")
+        ya = next((x for dd, x in data[f]["pts"] if (dd.year, dd.month) == (d.year - 1, d.month)), None)
+        yoy = None
+        if ya is None:
+            no_ya.append(abbr)
+        else:
+            yoy = (v - ya) / ya * 100
+            rep.require(ylo <= yoy <= yhi, f"{abbr}: realistic change vs. a year ago",
+                        f"${ya:,.2f} → ${v:,.2f} ({yoy:+.1f}%) looks like a data error")
+        rows.append({"fips": f, "name": name, "abbr": abbr, "value": v, "year_ago": ya, "yoy": yoy})
+    rep.expect(not no_ya, "State pay: year-ago month available for every state", f"missing {month.year - 1} value for {no_ya}")
+    rows.sort(key=lambda r: -r["value"])
+    rep.require(len({r["name"] for r in rows}) == 51, "State pay: 51 unique rows", f"{len(rows)} rows")
+    return month, rows

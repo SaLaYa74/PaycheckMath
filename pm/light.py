@@ -118,3 +118,34 @@ def line(title, highlight, subtitle, pts, fmt, source, color="#3B82F6", marker=N
     body = f'''<div class="t" style="--hl:{hl_color}">{t}</div><div class="s">{escape(subtitle)}</div>
 <div style="flex:1;display:flex;align-items:center;margin-top:20px">{svg}</div>'''
     return _page(body, tall, source)
+
+
+def board(title, highlight, subtitle, rows, source, tall=True, p=1.0, hl_color="#3B82F6"):
+    """'Find your state' board: every row on one screen, two columns, highest → lowest.
+    rows: [dict(label, value_label, note?, note_color?, color?)] in display order. Rows fade in top-down with p."""
+    n = len(rows)
+    half = (n + 1) // 2
+    html_cols = []
+    for c, part in enumerate((rows[:half], rows[half:])):
+        cells = []
+        for j, r in enumerate(part):
+            k = c * half + j
+            op = max(0.0, min(1.0, (p - k / n * 0.6) / 0.4))
+            note = (f'<div class="nt" style="color:{r.get("note_color", "#6B7280")}">{escape(r["note"])}</div>'
+                    if r.get("note") else "")
+            cells.append(f'''<div class="row" style="opacity:{op:.2f}"><div class="rk">{k + 1}</div>
+  <div class="nm">{escape(r["label"])}</div>{note}
+  <div class="vl" style="color:{r.get("color", "#1F2937")}">{escape(r["value_label"])}</div></div>''')
+        html_cols.append(f'<div class="bcol">{"".join(cells)}</div>')
+    t = escape(title).replace("{hl}", f"<em>{escape(highlight)}</em>")
+    css = f"""<style>.board{{flex:1;display:flex;gap:22px;margin-top:24px;min-height:0}}
+.bcol{{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:0}}
+.row{{display:flex;align-items:center;gap:8px;background:#fff;border-radius:14px;padding:0 14px 0 6px;
+     box-shadow:0 3px 0 rgba(0,0,0,.06);height:{92 / half:.2f}%}}
+.rk{{width:38px;font-family:"Baloo 2";font-weight:800;font-size:22px;color:#9CA3AF;text-align:center}}
+.nm{{flex:1;font-weight:800;font-size:26px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}}
+.nt{{font-size:18px;font-weight:800;white-space:nowrap}}
+.vl{{font-family:"Baloo 2";font-weight:800;font-size:30px;line-height:1;white-space:nowrap;min-width:92px;text-align:right}}</style>"""
+    body = f'''{css}<div class="t" style="--hl:{hl_color}">{t}</div><div class="s">{escape(subtitle)}</div>
+<div class="board">{"".join(html_cols)}</div>'''
+    return _page(body, tall, source)

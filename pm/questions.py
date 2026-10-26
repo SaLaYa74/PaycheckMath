@@ -18,6 +18,11 @@ BANK = {
         "Pay vs. prices: who's winning in your house? 👇",
         "What's harder to afford now than in 2020? 👇",
     ],
+    "states": [
+        "Where did your state land? 👇",
+        "Does your paycheck beat your state's average? 👇",
+        "Which state surprised you most? 👇",
+    ],
     "minutes": [
         "Which one surprised you most? 👇",
         "How many hours of work is your rent? 👇",
