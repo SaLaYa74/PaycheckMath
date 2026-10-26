@@ -78,5 +78,15 @@
     "at": "2026-10-25T11:58-07:00",
     "detail": "https://www.instagram.com/reel/De7Z_a0D6Yc/",
     "status": "posted"
+  },
+  "2026-10-26:monthly_mon": {
+    "at": "2026-10-26T16:12-07:00",
+    "detail": "https://www.instagram.com/reel/De-b1glAS7K/",
+    "status": "posted"
+  },
+  "2026-10-26:release": {
+    "at": "2026-10-26T16:12-07:00",
+    "detail": "No fresh jobs report ahead of CPI right now.",
+    "status": "skipped"
   }
 }

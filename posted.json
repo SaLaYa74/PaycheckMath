@@ -79,6 +79,16 @@
     "scheduled": "10:00",
     "trial": false
   },
+  "2026-09-reel-trend_coffee": {
+    "images": 1,
+    "job": "monthly_mon",
+    "media": "reel",
+    "media_id": "18074664545756629",
+    "permalink": "https://www.instagram.com/reel/De-b1glAS7K/",
+    "posted_at": "2026-10-26T23:13:05+00:00",
+    "scheduled": "16:00",
+    "trial": false
+  },
   "2026-09-reel-trend_eggs": {
     "images": 1,
     "job": "monthly_tue",
