@@ -18,6 +18,11 @@ class Job:
 
 
 JOBS = [
+    # Moments, not the calendar: BLS posts CPI and the jobs report at 8:30am ET (5:30 PT). This checks every
+    # morning and posts "just released" the day new numbers land (idles otherwise). Listed first so it beats
+    # the monthly rotation to a brand-new month.
+    Job("release",     "reel_release",  (MON, TUE, WED, THU, FRI, SAT, SUN), "06:00", live=True,
+        note="Reel: just-released inflation / jobs-report numbers"),
     # Weekly: Freddie Mac publishes Thursdays at noon ET (9am PT)
     Job("mortgage",    "reel_mortgage", (THU,), "12:00", live=True, note="Reel: this week's mortgage rate"),
     # Monthly BLS data: 11 rotating formats (pay vs prices, groceries, minutes of work, gas, 7 trend lines),

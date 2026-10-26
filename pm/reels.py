@@ -273,7 +273,8 @@ def reel_monthly(out_dir, posted=None):
     """Posts the next not-yet-posted format for the latest BLS month; skips once all are used."""
     month = D.latest("CUUR0000SA0")[0]
     posted = posted or {}
-    for fmt in sorted(FORMATS, key=_yoy_size, reverse=True):
+    fresh = _cpi_is_new(month, posted)
+    for fmt in ([_release] if fresh else []) + sorted(FORMATS, key=_yoy_size, reverse=True):
         name = fmt.__name__.strip("_")
         key = f"{month:%Y-%m}-reel-{name}"
         if key in posted:
@@ -285,6 +286,105 @@ def reel_monthly(out_dir, posted=None):
             continue          # this format doesn't apply this month (e.g. nothing got cheaper)
         return _post(key, mp4, cover, caption, rep)
     raise NoContent(f"All monthly formats for {month:%B %Y} already posted; waiting for new BLS data.")
+
+
+# ---------------------------------------------------------------- release day: react the morning BLS publishes
+
+RELEASE_ROWS = [("CUUR0000SA0", "Overall prices"), ("CUUR0000SEHA", "Rent"), ("CUUR0000SAF11", "Groceries"),
+                ("APU000074714", "Gas"), ("APU000072610", "Electricity")]
+
+
+def _yoy(rep, sid):
+    return _pct(D.latest(sid)[1], D.year_ago_checked(rep, sid)[1])
+
+
+def _release(out_dir, month, rep):
+    """'Just released' inflation post for a brand-new CPI month (first post of the month, see reel_monthly)."""
+    D.check_series(rep, [sid for sid, _ in RELEASE_ROWS])
+    for sid, name in RELEASE_ROWS:
+        rep.require(D.latest(sid)[0] == month, f"{name}: same month as the CPI release", f"latest {D.latest(sid)[0]}")
+    rows = [(name, _yoy(rep, sid)) for sid, name in RELEASE_ROWS]
+    cpi = rows[0][1]
+
+    def sub(sid):            # real prices where BLS publishes them, so the % has something concrete behind it
+        if not sid.startswith("APU"):
+            return "vs. a year ago"
+        f = (lambda x: f"{x * 100:.1f}¢") if sid == "APU000072610" else (lambda x: f"${x:.2f}")
+        return f"{f(D.year_ago(sid)[1])} → {f(D.latest(sid)[1])}"
+    items = [{"label": n, "sub": sub(sid), "value": max(abs(v), 0.1), "icon": ICON[n],
+              "value_label": f"{v:+.0f}%" if abs(v) >= 10 else f"{v:+.1f}%", "color": UP_RED if v > 0 else DOWN_GREEN}
+             for (sid, _), (n, v) in zip(RELEASE_ROWS, rows)]
+    up = cpi >= 0
+    hook = (f"Prices {'up' if up else 'down'} {abs(cpi):.1f}%", "new numbers just out", "red" if up else "")
+    mp4, cover = make_reel(out_dir, "reel_release", hook, lambda p: L.bars(
+        "What Got {hl}?", "Pricier" if up else "Cheaper", f"Just released · {month:%B %Y} vs. a year ago", items,
+        f"BLS CPI & average prices, {month:%b %Y}", p=p, hl_color=UP_RED if up else DOWN_GREEN), "Just released",
+        f"release-{month}")
+    lines = "\n".join(f"{'🔴' if v > 0 else '🟢'} {n}: {v:+.1f}%" for n, v in rows)
+    biggest = max(rows[1:], key=lambda r: abs(r[1]))
+    caption = with_question(
+        f"🚨 New inflation numbers just came out: prices are {'up' if up else 'down'} {abs(cpi):.1f}% from a year ago "
+        f"({month:%B %Y}).\n\nBiggest mover: {biggest[0].lower()}, {biggest[1]:+.1f}%.\n\n{lines}",
+        "prices", f"{month}-release", item=biggest[0].lower())
+    caption += (f"\n\n📤 Send this to whoever handles the bills in your house."
+                f"\n\nSource: U.S. Bureau of Labor Statistics, Consumer Price Index and average prices "
+                f"(not seasonally adjusted), {month:%B %Y}.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#inflation #cpi #costofliving #money")
+    return "release", hook, mp4, cover, caption
+
+
+def _payday(out_dir, rep):
+    """Jobs-report morning: did average pay beat prices? Only in the window after a jobs report and before
+    the matching CPI month is out (pay month newer than the latest CPI month)."""
+    pay_m, cpi_m = D.latest("CES0500000003")[0], D.latest("CUUR0000SA0")[0]
+    if pay_m <= cpi_m:
+        raise NoContent("No fresh jobs report ahead of CPI right now.")
+    ids = ["CES0500000003", "CUUR0000SA0", "CUUR0000SEHA", "CUUR0000SAF11"]
+    D.check_series(rep, ids)
+    pay = _yoy(rep, "CES0500000003")
+    rows = [("Your pay", pay)] + [(n, _yoy(rep, sid)) for sid, n in RELEASE_ROWS[:3]]
+    cpi = rows[1][1]
+    items = [{"label": n, "sub": f"{(pay_m if n == 'Your pay' else cpi_m):%b %Y}", "value": max(abs(v), 0.1),
+              "icon": ICON[n], "value_label": f"{v:+.0f}%" if abs(v) >= 10 else f"{v:+.1f}%",
+              "color": "#22C55E" if n == "Your pay" else (DOWN_GREEN if v <= pay else UP_RED)} for n, v in rows]
+    won = pay > cpi
+    hook = (f"Pay {pay:+.1f}%", f"prices {cpi:+.1f}%", "" if won else "red")
+    mp4, cover = make_reel(out_dir, "reel_payday", hook, lambda p: L.bars(
+        "Did Your Pay {hl}?", "Win", f"Change vs. a year ago · new jobs report ({pay_m:%B %Y})", items,
+        f"BLS, pay {pay_m:%b %Y} · prices {cpi_m:%b %Y}", p=p, hl_color=DOWN_GREEN if won else UP_RED),
+        "Jobs report", f"payday-{pay_m}")
+    lines = "\n".join(f"{'🟢' if (n == 'Your pay' or v <= pay) else '🔴'} {n}: {v:+.1f}%" for n, v in rows)
+    gap = pay - cpi
+    caption = with_question(
+        f"🚨 New jobs report: average hourly pay is up {pay:.1f}% from a year ago ({pay_m:%B %Y}). "
+        f"Prices are up {cpi:.1f}% (latest CPI, {cpi_m:%B %Y}). "
+        + (f"Pay is winning by {gap:.1f} points 💪" if won else f"Prices are winning by {-gap:.1f} points 😬")
+        + f"\n\n{lines}\n\n(Green = rose less than pay. Red = rose more.)",
+        "paycheck", f"{pay_m}-payday")
+    caption += (f"\n\n📤 Send this to someone who's due for a raise."
+                f"\n\nSource: U.S. Bureau of Labor Statistics, average hourly earnings of all private employees "
+                f"({pay_m:%B %Y}) and Consumer Price Index ({cpi_m:%B %Y}), not seasonally adjusted."
+                f"\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#jobsreport #paycheck #inflation #money")
+    return f"{pay_m:%Y-%m}-reel-payday", mp4, cover, caption
+
+
+def _cpi_is_new(month, posted):
+    """A CPI month counts as 'just released' only if nothing for it has posted yet and it's recent."""
+    started = any(k.startswith(f"{month:%Y-%m}-reel-") for k in (posted or {}))
+    return not started and (date.today() - month).days <= 75
+
+
+def reel_release(out_dir, posted=None):
+    """Daily early-morning watch: posts the moment BLS publishes new CPI or jobs-report data."""
+    month = D.latest("CUUR0000SA0")[0]
+    if _cpi_is_new(month, posted):
+        rep = C.Report("release")
+        _, hook, mp4, cover, caption = _release(out_dir, month, rep)
+        return _post(f"{month:%Y-%m}-reel-release", mp4, cover, caption, rep)
+    rep = C.Report("payday")
+    key, mp4, cover, caption = _payday(out_dir, rep)      # raises NoContent outside the window
+    if key in (posted or {}):
+        raise NoContent("Jobs-report post already made for this month.")
+    return _post(key, mp4, cover, caption, rep)
 
 
 # ---------------------------------------------------------------- monthly: find your state (share-first)
@@ -332,4 +432,5 @@ def reel_find_state(out_dir, posted=None):
 
 BUILDERS = {"reel_mortgage": lambda out_dir, posted=None: reel_mortgage(out_dir),
             "reel_monthly": reel_monthly,
-            "reel_find_state": reel_find_state}
+            "reel_find_state": reel_find_state,
+            "reel_release": reel_release}
