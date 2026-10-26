@@ -152,6 +152,12 @@ def make_beat(path, seconds, seed="sharpcharts"):
         for i in range(max(0, s0), min(n, s0 + int(0.22 * RATE))):
             duck[i] = min(duck[i], 0.35 + 0.65 * ((i - s0) / (0.22 * RATE)) ** 1.6)
     mix = [d + duck[i] * (b + m + l) for i, (d, b, m, l) in enumerate(zip(drums.b, bass.b, music.b, lead.b))]
+    _write(path, mix)
+    return {"style": style, "bpm": bpm, "key": key}
+
+
+def _write(path, mix):
+    n = len(mix)
     peak = max(1e-6, max(abs(x) for x in mix))
     fade_in, fade_out = int(0.05 * RATE), int(0.8 * RATE)
     frames = bytearray()
@@ -163,4 +169,113 @@ def make_beat(path, seconds, seed="sharpcharts"):
         w.setsampwidth(2)
         w.setframerate(RATE)
         w.writeframes(bytes(frames))
-    return {"style": style, "bpm": bpm, "key": key}
+
+
+# ---------------------------------------------------------------- Paycheck Math's own sound (Oct 26)
+# SharpCharts went dark and heavy; this page should feel friendly and smart instead. Two moods:
+#   "marimba": bouncy wooden mallets, round plucked bass, finger snaps: playful, Penny-the-squirrel energy
+#   "jazz"   : jazzy hip-hop: piano 9th chords, walking upright bass, brushed snare: classy "money talk"
+# Optional coin "cha-ching" when the chart lands (chime_at seconds), as the page's sound signature.
+
+def _lowpass(buf, hz, passes=2):
+    a = 1 - math.exp(-TAU * hz / RATE)
+    for _ in range(passes):
+        y = 0.0
+        for i, x in enumerate(buf):
+            y += a * (x - y)
+            buf[i] = y
+    return buf
+
+
+def _mallet(f, t):      # marimba: mostly fundamental, a quick 4th-partial knock, short ring
+    return math.sin(TAU * f * t) * math.exp(-7 * t) + 0.12 * math.sin(TAU * 4 * f * t) * math.exp(-40 * t)
+
+
+def _piano(f, t):
+    return (math.sin(TAU * f * t) + 0.35 * math.sin(TAU * 2 * f * t) * math.exp(-4 * t)
+            + 0.12 * math.sin(TAU * 3 * f * t) * math.exp(-8 * t)) * math.exp(-1.4 * t)
+
+
+def _upright(f, t):     # plucked upright bass: thump + round body
+    return (math.sin(TAU * f * t) + 0.4 * math.sin(TAU * 2 * f * t) * math.exp(-9 * t)) * math.exp(-3.2 * t)
+
+
+def _chime(bus, at):
+    """Cash-register 'ka-ching': drawer click, then a two-note bell that rings out. Mid register, not piercing."""
+    noise = random.Random(7)
+    clicks = [noise.uniform(-1, 1) for _ in range(800)]
+    bus.add(at, 0.04, lambda t: 0.35 * clicks[int(t * RATE) % 800] * math.exp(-90 * t))
+    for k, (m, amp) in enumerate(((72, 0.24), (76, 0.22))):           # C5 then E5
+        f = _hz(m)
+        bus.add(at + 0.06 + k * 0.07, 1.6, lambda t, f=f, a=amp: a * (math.sin(TAU * f * t) + 0.2 * math.sin(TAU * 2.76 * f * t)
+                                                                     * math.exp(-9 * t)) * math.exp(-2.6 * t) * min(1, t * 400))
+
+
+def make_pm(path, seconds, seed="paycheckmath", mood="marimba", chime_at=None):
+    rnd = random.Random(seed)
+    key = rnd.choice(KEYS)
+    prog = rnd.choice(PROGRESSIONS)
+    hook = rnd.choice(HOOKS)
+    bpm = (108 if mood == "marimba" else 90) + rnd.choice([-2, 0, 2])
+    beat = 60.0 / bpm
+    step = beat / 4
+    swing = step * (0.08 if mood == "marimba" else 0.2)
+    at = lambda b0, s16: b0 + s16 * step + (swing if s16 % 2 else 0)
+    n = int(seconds * RATE)
+    drums, bass, music, lead, fx = _Bus(n), _Bus(n), _Bus(n), _Bus(n), _Bus(n)
+    noise = [rnd.uniform(-1, 1) for _ in range(RATE)]
+    nz = lambda t, off=0: noise[(int(t * RATE) + off) % RATE]
+    kick = lambda amp: (lambda t: amp * math.sin(TAU * (50 * t + 80 / 30 * (1 - math.exp(-30 * t)))) * math.exp(-8 * t))
+    snap = lambda t: 0.4 * (nz(t, 500) - nz(t, 499)) * math.exp(-45 * t)
+    brush = lambda t: 0.30 * nz(t, 900) * math.exp(-14 * t) * min(1, t * 300)
+    shaker = lambda amp: (lambda t: amp * (nz(t, 2000) - nz(t, 1999)) * math.sin(math.pi * min(1, t / 0.05)))
+    bars = int(seconds / (beat * 4)) + 1
+    for bar in range(bars):
+        b0 = bar * beat * 4
+        root = key + prog[bar % len(prog)]
+        second_half = bar % 2 == 1
+        if mood == "marimba":
+            for s16 in (0, 8) + ((11,) if second_half else ()):
+                drums.add(at(b0, s16), 0.3, kick(0.7))
+            for q in (1, 3):
+                drums.add(b0 + q * beat, 0.12, snap)
+            for s16 in range(16):
+                drums.add(at(b0, s16), 0.05, shaker(0.05 if s16 % 2 else 0.03))
+            for j, m in enumerate((root, root + 3, root + 7, root + 12)):          # rolled chord on the downbeat
+                f = _hz(m)
+                music.add(b0 + j * step / 2, beat * 1.5, lambda t, f=f: 0.10 * _mallet(f, t))
+            for s16, o in ((0, 0), (6, 7), (8, 12), (14, 7)):                   # bouncy root-fifth-octave bass
+                bass.add(at(b0, s16), step * 2.5, lambda t, f=_hz(root - 12 + o): 0.40 * math.sin(TAU * f * t)
+                         * min(1, t * 120) * math.exp(-7 * t))
+            notes, tone, amp = [(s, d) for s, d in enumerate(hook) if d is not None], _mallet, 0.20
+        else:  # jazz
+            for s16 in (0, 10) + ((7,) if second_half else ()):
+                drums.add(at(b0, s16), 0.35, kick(0.85))
+            for q in (1, 3):
+                drums.add(b0 + q * beat, 0.25, brush)
+            for s16 in range(0, 16, 2):
+                drums.add(at(b0, s16), 0.08, shaker(0.035))
+            chord = [root, root + 3, root + 7, root + 10, root + 14]                # minor 9th
+            for start, dur in ((0, beat * 1.6), (at(0, 6), beat * 2.2)):
+                for j, m in enumerate(chord):
+                    f = _hz(m)
+                    music.add(b0 + start + j * 0.012, dur, lambda t, f=f, d=dur: 0.055 * _piano(f, t) * min(1, (d - t) * 10))
+            nxt = key + prog[(bar + 1) % len(prog)]
+            for q, m in enumerate((root, root + 3, root + 7, nxt - 1)):            # walking bass into next chord
+                bass.add(b0 + q * beat, beat * 0.95, lambda t, f=_hz(m - 12): 0.42 * _upright(f, t) * min(1, t * 200))
+            notes, tone, amp = [(s, d) for s, d in enumerate(hook) if d is not None and s % 4 in (0, 3)], _piano, 0.16
+        for s16, deg in notes:
+            if second_half and s16 >= 12:
+                deg = min(deg + 1, len(PENTA) - 1)
+            f = _hz(key + PENTA[deg])              # melody sits in the middle of the piano, not on top
+            lead.add(at(b0, s16), step * 3, lambda t, f=f: amp * tone(f, t) * min(1, t * 150))
+    if chime_at is not None:
+        _chime(fx, chime_at)
+    _lowpass(music.b, 2000)
+    _lowpass(lead.b, 1600)
+    _lowpass(drums.b, 4500)
+    _lowpass(fx.b, 3500)
+    lead.echo(beat * 0.75, 0.25, 0.3)
+    mix = [sum(v) for v in zip(drums.b, bass.b, music.b, lead.b, fx.b)]
+    _write(path, mix)
+    return {"style": mood, "bpm": bpm, "key": key}
