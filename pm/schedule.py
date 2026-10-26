@@ -2,7 +2,7 @@
 live=False means PREVIEW (built + checked, not published)."""
 from dataclasses import dataclass
 
-WINDOW_HOURS = 6
+WINDOW_HOURS = 12
 MON, TUE, WED, THU, FRI, SAT, SUN = range(7)
 
 
