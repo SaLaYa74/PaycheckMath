@@ -87,7 +87,9 @@ def kind_of(key, job):
     if not key:
         return "manual (posted by hand)"
     for part, label in (("mortgage", "Reel: mortgage"), ("pay_vs", "Reel: pay vs prices"), ("groceries", "Reel: groceries"),
-                        ("minutes", "Reel: minutes of work"), ("gas", "Reel: gas")):
+                        ("minutes", "Reel: minutes of work"), ("trend_", "Reel: trend line"),
+                        ("price_drops", "Reel: price drops"), ("release", "Reel: release day"),
+                        ("payday", "Reel: jobs report"), ("find_state", "Reel: find your state"), ("gas", "Reel: gas")):
         if part in key:
             return label
     return job or key

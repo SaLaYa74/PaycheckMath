@@ -32,6 +32,11 @@ SERIES = {
     "APU0000702111": ("Bread (lb)", "$", "BLS", 80, (1, 4), 0.15),
     "APU0000717311": ("Coffee (lb)", "$", "BLS", 80, (3, 15), 0.20),
     "APU000072610": ("Electricity (kWh)", "$", "BLS", 80, (0.08, 0.35), 0.15),
+    # Added Oct 26 2026 (Jarvis) for more single-item trend Reels; ranges bracket the 2016-2026 history.
+    "APU0000704111": ("Bacon (lb)", "$", "BLS", 80, (3, 12), 0.15),
+    "APU0000712311": ("Tomatoes (lb)", "$", "BLS", 80, (1, 4), 0.25),
+    "APU0000701111": ("Flour (lb)", "$", "BLS", 80, (0.3, 1.2), 0.15),
+    "APU000072620": ("Utility gas (therm)", "$", "BLS", 80, (0.7, 3.5), 0.25),
 }
 BLS_IDS = [s for s, v in SERIES.items() if v[2] == "BLS"]
 

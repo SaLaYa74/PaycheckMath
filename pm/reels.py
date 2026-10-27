@@ -225,6 +225,10 @@ TRENDS = [
     ("APU0000702111", "Bread", "White bread, per lb", lambda v: f"${v:.2f}", False),
     ("APU000072610", "Electricity", "Electricity, per kWh", lambda v: f"{v * 100:.1f}¢", False),
     ("CES0500000003", "Hourly pay", "Average hourly pay (private sector)", lambda v: f"${v:.2f}", True),
+    ("APU0000704111", "Bacon", "Bacon, sliced, per lb", lambda v: f"${v:.2f}", False),
+    ("APU0000712311", "Tomatoes", "Tomatoes, per lb", lambda v: f"${v:.2f}", False),
+    ("APU0000701111", "Flour", "Flour, per lb", lambda v: f"${v:.2f}", False),
+    ("APU000072620", "Natural gas", "Utility (piped) gas, per therm", lambda v: f"${v:.2f}", False),
 ]
 
 
@@ -234,6 +238,8 @@ def _trend_format(sid, name, unit, fmt, up_good):
         d, v = D.latest(sid)
         ya = D.year_ago_checked(rep, sid)
         ch = _pct(v, ya[1])
+        if round(abs(ch)) < 1:
+            raise NoContent(f"{name} barely moved ({ch:+.1f}%); an 'up 0%' headline isn't worth a post.")
         good = (ch > 0) == up_good
         start = date(d.year - 3, d.month, 1)
         pts = [p for p in D.series(sid) if p[0] >= start]
