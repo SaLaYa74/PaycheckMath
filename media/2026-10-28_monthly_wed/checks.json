@@ -1,0 +1,120 @@
+{
+  "subject": "trend_natural_gas",
+  "counts": {
+    "pass": 22,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Utility gas (therm): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Utility gas (therm): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Utility gas (therm): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Utility gas (therm): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Utility gas (therm): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Natural gas: 3-year history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_natural_gas.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_natural_gas.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_natural_gas.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_natural_gas.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_natural_gas.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_natural_gas.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_natural_gas_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_natural_gas_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_natural_gas_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_natural_gas_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
