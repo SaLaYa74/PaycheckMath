@@ -139,6 +139,16 @@
     "scheduled": "10:00",
     "trial": false
   },
+  "2026-09-reel-trend_natural_gas": {
+    "images": 1,
+    "job": "monthly_wed",
+    "media": "reel",
+    "media_id": "18345505108283939",
+    "permalink": "https://www.instagram.com/reel/DfDIls-Dcev/",
+    "posted_at": "2026-10-28T19:01:10+00:00",
+    "scheduled": "12:00",
+    "trial": false
+  },
   "2026-10-15-reel-mortgage": {
     "images": 1,
     "job": "mortgage",
