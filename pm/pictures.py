@@ -321,12 +321,110 @@ def world_inflation(out_dir, month, rep):
     return _post(key, [_render(out_dir, "world_inflation", html)], caption, rep)
 
 
+# ---------------------------------------------------------------- states (Census ACS, yearly)
+
+TOP_TO_BOTTOM = ["#DC2626", "#EF4444", "#F97316", "#F59E0B", "#EAB308", None, "#84CC16", "#22C55E", "#16A34A", "#14B8A6", "#0D9488"]
+
+
+def _state_rows(vals, us, fmt):
+    """Top 5, the U.S. (highlighted), bottom 5. Colors run hot (top) to cool (bottom)."""
+    order = sorted(vals.items(), key=lambda kv: -kv[1])
+    pick = order[:5] + [None] + order[-5:]
+    rows = []
+    for k, item in enumerate(pick):
+        if item is None:
+            rows.append({"label": "U.S.", "sub": "median", "value": us, "value_label": fmt(us), "chip": "US",
+                         "color": BLUE, "mark": True})
+            continue
+        f, v = item
+        name, abbr = D.STATES[f]
+        rank = order.index(item) + 1
+        rows.append({"label": name, "sub": f"#{rank} of 51", "value": v, "value_label": fmt(v), "chip": abbr,
+                     "color": TOP_TO_BOTTOM[k]})
+    return order, rows
+
+
+def _money_k(v):
+    return f"${v / 1e6:.2f}M" if v >= 1e6 else f"${v / 1e3:,.0f}K"
+
+
+STATE_POSTS = {
+    # name: (ACS measure, title, highlight, subtitle, value format, caption line, hashtag)
+    "state_rent": ("rent", "Rent by {hl}", "State", "Median monthly rent · highest and lowest states",
+                   lambda v: f"${v:,.0f}", "Median monthly rent (including utilities), by state", "#rent"),
+    "state_home": ("home", "Home Prices by {hl}", "State", "Median home value · highest and lowest states",
+                   _money_k, "Median home value (owner-occupied homes), by state", "#realestate"),
+    "state_burden": ("burden", "Where Rent Eats Your {hl}", "Paycheck", "Median rent as a share of renters' income",
+                     lambda v: f"{v:.1f}%", "Typical renter's rent as a share of their household income", "#renting"),
+}
+
+
+def _state_post(name):
+    which, title, hl, sub, fmt, line, tag = STATE_POSTS[name]
+
+    def build(out_dir, month, rep):
+        year, vals, us = D.acs_states(rep, which)
+        if not vals:
+            raise NoContent("Census data unavailable")
+        order, rows = _state_rows(vals, us, fmt)
+        (tf, tv), (bf, bv) = order[0], order[-1]
+        html = L.hbars(title, hl, f"{sub} · {year}", rows, f"U.S. Census Bureau, American Community Survey {year}",
+                       hl_color=UP_RED, note=f"{D.STATES[tf][0]} vs. {D.STATES[bf][0]}: "
+                       + (f"{tv / bv:.1f}x" if which != "burden" else f"{tv - bv:.1f} points apart"))
+        key = f"acs{year}-pic-{name}"
+        caption = with_question(
+            f"{line}, {year} 🗺️\n\nHighest:\n" + "\n".join(f"{k + 1}. {D.STATES[f][0]}: {fmt(v)}" for k, (f, v) in enumerate(order[:5]))
+            + f"\n\nLowest:\n" + "\n".join(f"{len(order) - 4 + k}. {D.STATES[f][0]}: {fmt(v)}" for k, (f, v) in enumerate(order[-5:]))
+            + f"\n\nU.S.: {fmt(us)}.", "states", key)
+        caption += (f"\n\n📤 Send this to someone in {D.STATES[tf][0]}. 📌 Save it if you're thinking about moving."
+                    f"\n\nSource: U.S. Census Bureau, American Community Survey {year} 1-year estimates "
+                    f"(50 states + DC). Medians; each state's figure has a margin of error.\n{DISCLAIMER}\n{tag} {TAGS}")
+        return _post(key, [_render(out_dir, name, html)], caption, rep)
+    build.__name__ = name
+    return build
+
+
+def state_years(out_dir, month, rep):
+    """Years of income to buy the typical home: median home value ÷ median household income, by state."""
+    year, home, us_home = D.acs_states(rep, "home")
+    year2, inc, us_inc = D.acs_states(rep, "income")
+    rep.require(year == year2, "home value and income from the same ACS year", f"{year} vs {year2}")
+    if not home or not inc:
+        raise NoContent("Census data unavailable")
+    ratio = {f: home[f] / inc[f] for f in home if f in inc}
+    fmt = lambda v: f"{v:.1f} yrs"
+    order, rows = _state_rows(ratio, us_home / us_inc, fmt)
+    (tf, tv), (bf, bv) = order[0], order[-1]
+    html = L.hbars("Years to Buy a {hl}", "Home", f"Years of income: median home value ÷ median household income · {year}", rows,
+                   f"U.S. Census Bureau, American Community Survey {year}", hl_color=UP_RED,
+                   note="Before taxes, with zero spending. That's why it feels out of reach.")
+    key = f"acs{year}-pic-state_years"
+    caption = with_question(
+        f"How many years of income it takes to buy the typical home, by state ({year}) 🏠\n\n"
+        f"Most:\n" + "\n".join(f"{k + 1}. {D.STATES[f][0]}: {v:.1f} years" for k, (f, v) in enumerate(order[:5]))
+        + "\n\nFewest:\n" + "\n".join(f"{len(order) - 4 + k}. {D.STATES[f][0]}: {v:.1f} years" for k, (f, v) in enumerate(order[-5:]))
+        + f"\n\nU.S.: {us_home / us_inc:.1f} years (median home ${us_home:,.0f}, median household income ${us_inc:,.0f}).",
+        "states", key)
+    caption += (f"\n\n📤 Send this to the friend who's saving for a house. 📌 Save it for your move."
+                f"\n\nSource: U.S. Census Bureau, American Community Survey {year} 1-year estimates (50 states + DC). "
+                f"Math: median value of owner-occupied homes ÷ median household income.\n{DISCLAIMER}\n#homebuying {TAGS}")
+    return _post(key, [_render(out_dir, "state_years", html)], caption, rep)
+
+
+def _acs_key(name):
+    return lambda m: f"acs{D.acs_year()}-pic-{name}"
+
+
 # (name, key for the latest CPI month, builder). Comparisons are spaced between the monthly staples.
 FORMATS = [("cheatsheet", lambda m: f"{m:%Y-%m}-pic-cheatsheet", cheatsheet),
            ("protein", lambda m: f"{m:%Y-%m}-pic-protein", protein),
            ("receipt", lambda m: f"{m:%Y-%m}-pic-receipt", receipt),
            ("gas_regions", lambda m: f"{m:%Y-%m}-pic-gas_regions", gas_regions),
-           ("world_inflation", lambda m: f"{date.today().year - 1}-pic-world_inflation", world_inflation)]
+           ("state_rent", _acs_key("state_rent"), _state_post("state_rent")),
+           ("world_inflation", lambda m: f"{date.today().year - 1}-pic-world_inflation", world_inflation),
+           ("state_years", _acs_key("state_years"), state_years),
+           ("state_home", _acs_key("state_home"), _state_post("state_home")),
+           ("state_burden", _acs_key("state_burden"), _state_post("state_burden"))]
 
 
 def pic_monthly(out_dir, posted=None):

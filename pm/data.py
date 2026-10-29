@@ -9,6 +9,8 @@ prior period is realistic (catches typos/glitches). Anything failing blocks the 
 import csv
 import io
 import json
+import os
+import subprocess
 import time
 import urllib.error
 import urllib.request
@@ -223,6 +225,73 @@ def world_inflation(rep):
             rep.require(False, f"{COUNTRIES[c][0]}: second source", "not in World Bank data")
         out[c] = v
     return year, out
+
+
+# ---------------- states: Census American Community Survey (ACS 1-year) ----------------
+
+CENSUS = "https://api.census.gov/data/{}/acs/acs1{}?get=NAME,{}&for={}&key={}"
+# name: (detailed-table variable, same estimate in the data-profile table or None, plausible state range,
+#        max realistic change vs. the year before)
+ACS = {
+    "rent":   ("B25064_001E", "DP04_0134E", (500, 3500), 0.15),        # median gross rent, $/month
+    "home":   ("B25077_001E", "DP04_0089E", (80_000, 1_500_000), 0.20),  # median home value, owner-occupied
+    "income": ("B19013_001E", "DP03_0062E", (35_000, 160_000), 0.15),    # median household income
+    "burden": ("B25071_001E", None, (20, 45), 0.15),                    # median rent as % of renters' income
+}
+
+
+def census_key():
+    """CENSUS_KEY env var (GitHub secret) or the Mac Keychain item 'paycheckmath-census'. Never printed."""
+    k = os.environ.get("CENSUS_KEY", "").strip()
+    if not k:
+        try:
+            k = subprocess.run(["security", "find-generic-password", "-s", "paycheckmath-census", "-a", "census", "-w"],
+                               capture_output=True, text=True, timeout=10).stdout.strip()
+        except (OSError, subprocess.SubprocessError):
+            k = ""
+    return k
+
+
+def _acs(year, var, geo, profile=False):
+    rows = json.loads(_plain_get(CENSUS.format(year, "/profile" if profile else "", var, geo, census_key())))
+    return {r[-1]: float(r[1]) for r in rows[1:] if r[1] not in (None, "", "-666666666")}
+
+
+def acs_year():
+    """Newest ACS 1-year release (the Census publishes each year's in September of the next year)."""
+    for y in (date.today().year - 1, date.today().year - 2, date.today().year - 3):
+        try:
+            if _acs(y, "B25064_001E", "us:1"):
+                return y
+        except (urllib.error.HTTPError, ValueError):
+            continue
+    return None
+
+
+def acs_states(rep, which):
+    """(year, {fips: value} for the 50 states + DC, U.S. value), every value checked."""
+    var, prof, (lo, hi), max_move = ACS[which]
+    if not rep.require(bool(census_key()), "Census API key available", "CENSUS_KEY not set"):
+        return None, {}, None
+    year = acs_year()
+    if not rep.require(year is not None, "Census ACS data reachable", "no recent ACS 1-year release found"):
+        return None, {}, None
+    vals = {f: v for f, v in _acs(year, var, "state:*").items() if f in STATES}
+    rep.require(len(vals) == len(STATES), f"ACS {year} {which}: all 50 states + DC", f"{len(vals)} found")
+    for f, v in vals.items():
+        rep.require(lo <= v <= hi, f"{STATES[f][1]} {which}: value plausible", f"{v} outside {lo}-{hi}")
+    if prof:
+        same = _acs(year, prof, "state:*", profile=True)
+        bad = [STATES[f][1] for f, v in vals.items() if same.get(f) != v]
+        rep.require(not bad, f"ACS {year} {which}: detailed and profile tables agree", f"differ for {bad[:6]}")
+    prev = year - 1 if year - 1 != 2020 else 2019          # no standard 2020 1-year release (pandemic)
+    before = _acs(prev, var, "state:*")
+    jumpy = [STATES[f][1] for f, v in vals.items() if f in before and abs(v / before[f] - 1) > max_move * (year - prev)]
+    rep.require(not jumpy, f"ACS {year} {which}: realistic change vs. {prev}", f"big jumps in {jumpy[:6]}")
+    us = _acs(year, var, "us:1").get("1")
+    rep.require(us is not None and min(vals.values()) <= us <= max(vals.values()),
+                f"ACS {year} {which}: U.S. value between the states", f"U.S. {us}")
+    return year, vals, us
 
 
 # ---------------- state pay (BLS State and Metro Area Employment, CES) ----------------
