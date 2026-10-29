@@ -34,5 +34,6 @@ jobs:
       - name: Run due jobs
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          CENSUS_KEY: ${{ secrets.CENSUS_KEY }}          
           POSTING_ENABLED: ${{ vars.POSTING_ENABLED }}
         run: python autopost.py "${{ inputs.target || 'scheduled' }}"
