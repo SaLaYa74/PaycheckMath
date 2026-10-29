@@ -16,6 +16,21 @@ ICON = {"Eggs": "egg", "Milk": "milk", "Ground beef": "beef", "Bread": "bread", 
 TAGS = "#personalfinance #costofliving #money #inflation"
 
 
+HOT = ("#B91C1C", "#DC2626", "#EA580C", "#F97316", "#F59E0B")     # price rises: biggest = deepest red
+COOLS = ("#166534", "#15803D", "#16A34A", "#22C55E", "#4ADE80")    # price drops: biggest = deepest green
+
+
+def heat(values):
+    """One color per value: rises run deep red → amber by size, drops deep green → light green.
+    Red/green keep their meaning (up = red, down = green); the shades add color and show size."""
+    out = [None] * len(values)
+    for sign, stops in ((1, HOT), (-1, COOLS)):
+        idx = sorted((i for i, v in enumerate(values) if (v > 0 if sign > 0 else v <= 0)), key=lambda i: -abs(values[i]))
+        for k, i in enumerate(idx):
+            out[i] = L.ramp(k, max(len(idx), 3), stops)
+    return out
+
+
 def _post(key, mp4, cover, caption, rep):
     video_checks(rep, mp4)
     C.image(rep, cover, "reel")
@@ -96,7 +111,7 @@ def _groceries(out_dir, month, rep):
     if len(rows) < 3:
         raise NoContent("Fewer than 3 items rose in price; skipping the price-jumps chart.")
     items = [{"label": r["name"], "sub": r["sub"], "value": r["ch"], "icon": ICON[r["name"]],
-              "value_label": f"+{r['ch']:.0f}%"} for r in rows]
+              "value_label": f"+{r['ch']:.0f}%", "color": c} for r, c in zip(rows, heat([r["ch"] for r in rows]))]
     top = rows[0]
     hook = (f"{top['name']} up {top['ch']:.0f}%", "in one year", "red")
     mp4, cover = make_reel(out_dir, "reel_groceries", hook, lambda p: L.bars(
@@ -116,7 +131,7 @@ def _price_drops(out_dir, month, rep):
     if len(rows) < 2:
         raise NoContent("Fewer than 2 items fell in price; skipping the price-drops chart.")
     items = [{"label": r["name"], "sub": r["sub"], "value": -r["ch"], "icon": ICON[r["name"]],
-              "value_label": f"-{-r['ch']:.0f}%"} for r in rows]
+              "value_label": f"-{-r['ch']:.0f}%", "color": c} for r, c in zip(rows, heat([r["ch"] for r in rows]))]
     top = rows[0]
     hook = (f"{top['name']} down {-top['ch']:.0f}%", "in one year")
     mp4, cover = make_reel(out_dir, "reel_drops", hook, lambda p: L.bars(
@@ -317,9 +332,10 @@ def _release(out_dir, month, rep):
             return "vs. a year ago"
         f = (lambda x: f"{x * 100:.1f}¢") if sid == "APU000072610" else (lambda x: f"${x:.2f}")
         return f"{f(D.year_ago(sid)[1])} → {f(D.latest(sid)[1])}"
+    shades = heat([v for _, v in rows])
     items = [{"label": n, "sub": sub(sid), "value": max(abs(v), 0.1), "icon": ICON[n],
-              "value_label": f"{v:+.0f}%" if abs(v) >= 10 else f"{v:+.1f}%", "color": UP_RED if v > 0 else DOWN_GREEN}
-             for (sid, _), (n, v) in zip(RELEASE_ROWS, rows)]
+              "value_label": f"{v:+.0f}%" if abs(v) >= 10 else f"{v:+.1f}%", "color": c}
+             for (sid, _), (n, v), c in zip(RELEASE_ROWS, rows, shades)]
     up = cpi >= 0
     hook = (f"Prices {'up' if up else 'down'} {abs(cpi):.1f}%", "new numbers just out", "red" if up else "")
     mp4, cover = make_reel(out_dir, "reel_release", hook, lambda p: L.bars(

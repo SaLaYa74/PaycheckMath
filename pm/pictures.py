@@ -17,7 +17,7 @@ from . import checks as C
 from . import data as D
 from . import light as L
 from .core import DISCLAIMER, NoContent, Post, with_question
-from .reels import BLUE, DOWN_GREEN, ICON, RELEASE_ROWS, TAGS, UP_RED, _pct, _yoy
+from .reels import BLUE, DOWN_GREEN, ICON, RELEASE_ROWS, TAGS, UP_RED, _pct, _yoy, heat
 from .render import html_to_png
 from .templates import mascot_svg
 
@@ -159,7 +159,8 @@ def cheatsheet(out_dir, month, rep):
     # 2: what got pricier (same rows and colors as the release-day Reel)
     yoy = [(sid, n, _yoy(rep, sid)) for sid, n in RELEASE_ROWS]
     items = [{"label": n, "sub": "vs. a year ago", "value": max(abs(v), 0.1), "icon": ICON[n],
-              "value_label": f"{v:+.0f}%" if abs(v) >= 10 else f"{v:+.1f}%", "color": red_if(v > 0)} for sid, n, v in yoy]
+              "value_label": f"{v:+.0f}%" if abs(v) >= 10 else f"{v:+.1f}%", "color": c}
+             for (sid, n, v), c in zip(yoy, heat([v for _, _, v in yoy]))]
     slides.append(L.bars("What Got {hl}?", "Pricier" if cpi >= 0 else "Cheaper", f"{month:%B %Y} vs. a year ago",
                          items, f"BLS CPI & average prices, {month:%b %Y}", tall=False, hl_color=red_if(cpi >= 0)))
     # 3: pay vs prices since January 2020

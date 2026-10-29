@@ -59,6 +59,17 @@ ICONS = {
 def icon(name, px=78):
     return f'<svg width="{px}" height="{px}" viewBox="0 0 64 64">{ICONS.get(name, ICONS["prices"])}</svg>'
 
+GOOD_TO_BAD = ("#16A34A", "#65A30D", "#CA8A04", "#EA580C", "#DC2626")
+
+
+def ramp(k, n, stops=GOOD_TO_BAD):
+    """Color k of n along a gradient (default green → red), for coloring ranked rows."""
+    t = k / max(1, n - 1) * (len(stops) - 1)
+    i = min(int(t), len(stops) - 2)
+    f = t - i
+    a, b = (tuple(int(c[j:j + 2], 16) for j in (1, 3, 5)) for c in (stops[i], stops[i + 1]))
+    return "#" + "".join(f"{round(x + (y - x) * f):02X}" for x, y in zip(a, b))
+
 
 def _page(body, tall, source):
     return f'''<!doctype html><html><head><meta charset="utf-8">{FONTS}<style>{CSS}</style></head>
@@ -139,7 +150,8 @@ def board(title, highlight, subtitle, rows, source, tall=True, p=1.0, hl_color="
             op = max(0.0, min(1.0, (p - k / n * 0.6) / 0.4))
             note = (f'<div class="nt" style="color:{r.get("note_color", "#6B7280")}">{escape(r["note"])}</div>'
                     if r.get("note") else "")
-            cells.append(f'''<div class="row" style="opacity:{op:.2f}"><div class="rk">{k + 1}</div>
+            tint = ramp(k, n)
+            cells.append(f'''<div class="row" style="opacity:{op:.2f};background:{tint}1A;box-shadow:inset 7px 0 0 {tint}"><div class="rk" style="background:{tint}">{k + 1}</div>
   <div class="nm">{escape(r["label"])}</div>{note}
   <div class="vl" style="color:{r.get("color", "#1F2937")}">{escape(r["value_label"])}</div></div>''')
         html_cols.append(f'<div class="bcol">{"".join(cells)}</div>')
@@ -148,7 +160,8 @@ def board(title, highlight, subtitle, rows, source, tall=True, p=1.0, hl_color="
 .bcol{{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:0}}
 .row{{display:flex;align-items:center;gap:8px;background:#fff;border-radius:14px;padding:0 14px 0 6px;
      box-shadow:0 3px 0 rgba(0,0,0,.06);height:{92 / half:.2f}%}}
-.rk{{width:38px;font-family:"Baloo 2";font-weight:800;font-size:22px;color:#9CA3AF;text-align:center}}
+.rk{{width:32px;height:32px;border-radius:50%;flex:none;margin-left:8px;font-family:"Baloo 2";font-weight:800;font-size:18px;
+     color:#fff;display:flex;align-items:center;justify-content:center;line-height:1}}
 .nm{{flex:1;font-weight:800;font-size:26px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}}
 .nt{{font-size:18px;font-weight:800;white-space:nowrap}}
 .vl{{font-family:"Baloo 2";font-weight:800;font-size:30px;line-height:1;white-space:nowrap;min-width:92px;text-align:right}}</style>"""
