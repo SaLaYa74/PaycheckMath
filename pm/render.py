@@ -5,6 +5,10 @@ import subprocess
 import sys
 import tempfile
 
+from PIL import Image
+
+SUPERSAMPLE = 2   # draw at 2x, shrink to the post size: crisper edges, icons and text (Oct 28)
+
 CHROME = os.environ.get("CHROME") or next(
     (c for c in ("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
                  shutil.which("google-chrome"), shutil.which("google-chrome-stable"),
@@ -31,10 +35,14 @@ def html_to_png(html, out_path, size="feed"):
         linux = ["--no-sandbox"] if sys.platform.startswith("linux") else []
         subprocess.run([
             CHROME, *linux, "--headless=new", "--disable-gpu", "--hide-scrollbars",
-            "--force-device-scale-factor=1", f"--window-size={w},{h}",
+            f"--force-device-scale-factor={SUPERSAMPLE}", f"--window-size={w},{h}",
             "--virtual-time-budget=6000", "--default-background-color=00000000",
             f"--screenshot={os.path.abspath(out_path)}", "file://" + src,
         ], check=True, capture_output=True, timeout=90)
     finally:
         os.unlink(src)
+    if SUPERSAMPLE != 1:
+        im = Image.open(out_path)
+        if im.size != (w, h):
+            im.resize((w, h), Image.LANCZOS).save(out_path, optimize=False)
     return out_path

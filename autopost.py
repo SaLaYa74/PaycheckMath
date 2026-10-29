@@ -87,7 +87,7 @@ def wait_public(url, tries=24, video=False):
 
 def to_jpeg(png):
     jpg = png[:-4] + ".jpg"
-    Image.open(png).convert("RGB").save(jpg, "JPEG", quality=90, optimize=True)  # API requires JPEG
+    Image.open(png).convert("RGB").save(jpg, "JPEG", quality=95, subsampling=0, optimize=True)  # API requires JPEG
     os.remove(png)
     return jpg
 

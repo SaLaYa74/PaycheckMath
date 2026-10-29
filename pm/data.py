@@ -37,8 +37,19 @@ SERIES = {
     "APU0000712311": ("Tomatoes (lb)", "$", "BLS", 80, (1, 4), 0.25),
     "APU0000701111": ("Flour (lb)", "$", "BLS", 80, (0.3, 1.2), 0.15),
     "APU000072620": ("Utility gas (therm)", "$", "BLS", 80, (0.7, 3.5), 0.25),
+    # Added Oct 28 2026 for comparison charts: price per pound of common proteins, and gas by Census region.
+    "APU0000706111": ("Whole chicken (lb)", "$", "BLS", 80, (1, 4), 0.15),
+    "APU0000FF1101": ("Chicken breast, boneless (lb)", "$", "BLS", 80, (2.5, 8), 0.15),
+    "APU0000FD3101": ("Pork chops (lb)", "$", "BLS", 80, (2.5, 8), 0.15),
+    "APU0000703511": ("Round steak, boneless (lb)", "$", "BLS", 80, (5, 15), 0.15),
+    "APU010074714": ("Regular gas, Northeast (gallon)", "$", "BLS", 80, (1.5, 8), 0.20),
+    "APU020074714": ("Regular gas, Midwest (gallon)", "$", "BLS", 80, (1.5, 8), 0.20),
+    "APU030074714": ("Regular gas, South (gallon)", "$", "BLS", 80, (1.5, 8), 0.20),
+    "APU040074714": ("Regular gas, West (gallon)", "$", "BLS", 80, (1.5, 8), 0.20),
 }
 BLS_IDS = [s for s, v in SERIES.items() if v[2] == "BLS"]
+assert len(BLS_IDS) <= 25, "the free BLS API takes at most 25 series per request; split _load_bls first"
+FRED_CSV = "https://fred.stlouisfed.org/graph/fredgraph.csv?id={}"
 
 
 def _get(url, data=None, tries=4, timeout=60):
@@ -54,6 +65,18 @@ def _get(url, data=None, tries=4, timeout=60):
             if attempt == tries - 1:
                 raise
         time.sleep(3 * (attempt + 1))
+
+
+def _plain_get(url, tries=3, timeout=45):
+    """GET without our custom User-Agent: FRED and the IMF drop or refuse requests that carry it."""
+    for attempt in range(tries):
+        try:
+            with urllib.request.urlopen(url, timeout=timeout) as r:
+                return r.read()
+        except (urllib.error.URLError, TimeoutError, ConnectionError, OSError):
+            if attempt == tries - 1:
+                raise
+            time.sleep(3 * (attempt + 1))
 
 
 _cache = {}
@@ -134,6 +157,72 @@ def check_series(rep, ids):
         rep.require((today - d1).days <= max_age, f"{label}: data is current", f"latest {src} data is {d1}")
         move = abs(v1 - v0) / v0
         rep.require(move <= max_move, f"{label}: realistic change", f"{v0} → {v1} ({move:.0%}) looks like a data error")
+
+
+def fred_check(rep, ids, when):
+    """Second source for comparison charts: the St. Louis Fed (FRED) republishes these BLS series through its
+    own pipeline. Every value we chart for month `when` must match FRED's to the published 3 decimals."""
+    try:
+        rows = list(csv.DictReader(io.StringIO(_plain_get(FRED_CSV.format(",".join(ids))).decode())))
+    except Exception as e:
+        rep.require(False, "FRED cross-check reachable", str(e)[:120])
+        return
+    row = next((r for r in rows if r.get("observation_date") == when.isoformat()), None)
+    if not rep.require(row is not None, f"FRED has {when:%b %Y}", "FRED hasn't published this month yet"):
+        return
+    for sid in ids:
+        mine = value_on_or_before(sid, when)
+        theirs = row.get(sid, "")
+        ok = mine is not None and mine[0] == when and theirs not in ("", ".") and abs(float(theirs) - mine[1]) < 0.0015
+        rep.require(ok, f"{SERIES[sid][0]}: BLS matches FRED", f"BLS {mine} vs FRED {theirs!r}")
+
+
+# ---------------- countries (IMF World Economic Outlook, checked against the World Bank) ----------------
+
+# ISO3: (label, flag code)
+COUNTRIES = {"USA": ("U.S.", "us"), "CAN": ("Canada", "ca"), "MEX": ("Mexico", "mx"), "BRA": ("Brazil", "br"),
+             "GBR": ("U.K.", "gb"), "DEU": ("Germany", "de"), "FRA": ("France", "fr"), "JPN": ("Japan", "jp"),
+             "CHN": ("China", "cn"), "IND": ("India", "in")}
+IMF_URL = "https://www.imf.org/external/datamapper/api/v1/{}/{}?periods={}"
+WB_URL = "https://api.worldbank.org/v2/country/{}/indicator/{}?format=json&date={}&per_page=100"
+
+
+def world_inflation(rep):
+    """(year, {iso3: % change in consumer prices}) for the latest year the World Bank has actual data.
+    Numbers shown are the IMF's (complete, one methodology). Each must be within 1 point of the World Bank's
+    figure; the U.S. (often missing at the World Bank) must match our own BLS CPI annual average within 0.3."""
+    iso = list(COUNTRIES)
+    year = None
+    for y in (date.today().year - 1, date.today().year - 2):
+        wb = json.loads(_plain_get(WB_URL.format(";".join(iso), "FP.CPI.TOTL.ZG", y)))
+        got = {r["countryiso3code"]: r["value"] for r in (wb[1] if len(wb) > 1 and wb[1] else []) if r["value"] is not None}
+        if len(got) >= len(iso) - 2:
+            year = y
+            break
+    if not rep.require(year is not None, "World Bank has a recent full year", "no year with data for most countries"):
+        return None, {}
+    imf = json.loads(_plain_get(IMF_URL.format("PCPIPCH", "/".join(iso), year)))["values"]["PCPIPCH"]
+    out = {}
+    for c in iso:
+        v = (imf.get(c) or {}).get(str(year))
+        if not rep.require(v is not None, f"{COUNTRIES[c][0]}: IMF {year} inflation", "missing"):
+            continue
+        rep.require(-5 <= v <= 60, f"{COUNTRIES[c][0]}: inflation plausible", f"{v}")
+        if c in got:
+            rep.require(abs(v - got[c]) <= 1.0, f"{COUNTRIES[c][0]}: IMF matches World Bank",
+                        f"IMF {v} vs World Bank {got[c]:.2f}")
+        elif c == "USA":
+            # Average of the months BLS has in both years (2025 has no October: the shutdown stopped collection).
+            by = {(d.year, d.month): x for d, x in series("CUUR0000SA0")}
+            months = [m for m in range(1, 13) if (year, m) in by and (year - 1, m) in by]
+            bls = ((sum(by[(year, m)] for m in months) / sum(by[(year - 1, m)] for m in months) - 1) * 100
+                   if len(months) >= 10 else None)
+            rep.require(bls is not None and abs(v - bls) <= 0.3, "U.S.: IMF matches BLS CPI (yearly average)",
+                        f"IMF {v} vs BLS {bls}")
+        else:
+            rep.require(False, f"{COUNTRIES[c][0]}: second source", "not in World Bank data")
+        out[c] = v
+    return year, out
 
 
 # ---------------- state pay (BLS State and Metro Area Employment, CES) ----------------

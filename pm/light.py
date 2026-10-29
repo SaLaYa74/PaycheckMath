@@ -46,6 +46,12 @@ ICONS = {
     "prices": '<path d="M12 14h22l18 18-20 20-20-18z" fill="#C4B5FD" stroke="#1F2937" stroke-width="3.5" stroke-linejoin="round"/><circle cx="22" cy="24" r="4" fill="#fff" stroke="#1F2937" stroke-width="3"/>',
     "rent": '<rect x="14" y="10" width="36" height="44" rx="3" fill="#93C5FD" stroke="#1F2937" stroke-width="3.5"/><g fill="#fff"><rect x="20" y="16" width="8" height="8"/><rect x="36" y="16" width="8" height="8"/><rect x="20" y="30" width="8" height="8"/><rect x="36" y="30" width="8" height="8"/></g><rect x="28" y="42" width="8" height="12" fill="#1F2937"/>',
     "cart": '<path d="M8 14h8l6 26h26l6-18H20" fill="none" stroke="#1F2937" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="26" cy="48" r="4" fill="#1F2937"/><circle cx="44" cy="48" r="4" fill="#1F2937"/><path d="M22 22h28l-4 12H25z" fill="#FCD34D"/>',
+    # proteins (Oct 28)
+    "chicken": '<path d="M40 10c9 0 15 7 14 16-1 10-11 15-20 13l-9 9" fill="none" stroke="#1F2937" stroke-width="3.5"/><path d="M40 10c9 0 15 7 14 16-1 10-11 15-20 13-6-2-8-8-6-14 2-9 6-15 12-15z" fill="#F4B860" stroke="#1F2937" stroke-width="3.5"/><path d="M28 36l-9 9" stroke="#1F2937" stroke-width="7" stroke-linecap="round"/><circle cx="15" cy="47" r="5" fill="#fff" stroke="#1F2937" stroke-width="3"/><circle cx="19" cy="51" r="5" fill="#fff" stroke="#1F2937" stroke-width="3"/>',
+    "breast": '<path d="M14 40c-2-14 10-26 24-26 9 0 14 6 14 13 0 14-14 25-26 25-7 0-11-5-12-12z" fill="#FBCFE8" stroke="#1F2937" stroke-width="3.5"/><path d="M24 40c6-2 12-8 16-16" fill="none" stroke="#F9A8D4" stroke-width="3" stroke-linecap="round"/>',
+    "pork": '<path d="M12 30c0-10 10-16 22-16s20 8 20 18-8 18-20 18c-6 0-9-4-12-4s-10 2-10-16z" fill="#FCA5A5" stroke="#1F2937" stroke-width="3.5"/><path d="M17 28c1-7 8-11 17-11" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="38" cy="33" r="5" fill="#fff" stroke="#1F2937" stroke-width="3"/>',
+    "steak": '<path d="M10 34c0-12 12-20 26-20 11 0 18 6 18 15 0 13-14 22-28 22-10 0-16-7-16-17z" fill="#DC2626" stroke="#1F2937" stroke-width="3.5"/><path d="M22 36c5 0 8-6 14-6s8 4 8 4" fill="none" stroke="#FEE2E2" stroke-width="4" stroke-linecap="round"/>',
+    "bacon": '<path d="M8 22c8-6 14 6 22 0s14 6 22 0l4 10c-8 6-14-6-22 0s-14-6-22 0z" fill="#F87171" stroke="#1F2937" stroke-width="3.5" stroke-linejoin="round"/><path d="M10 40c8-6 14 6 22 0s14 6 22 0" fill="none" stroke="#1F2937" stroke-width="3.5"/><path d="M14 27c6-3 10 3 16 0s10 3 16 0" fill="none" stroke="#FFF7ED" stroke-width="3"/>',
     "clock": '<circle cx="32" cy="32" r="22" fill="#fff" stroke="#1F2937" stroke-width="3.5"/><path d="M32 18v14l10 6" fill="none" stroke="#1F2937" stroke-width="3.5" stroke-linecap="round"/>',
 }
 
@@ -148,4 +154,47 @@ def board(title, highlight, subtitle, rows, source, tall=True, p=1.0, hl_color="
 .vl{{font-family:"Baloo 2";font-weight:800;font-size:30px;line-height:1;white-space:nowrap;min-width:92px;text-align:right}}</style>"""
     body = f'''{css}<div class="t" style="--hl:{hl_color}">{t}</div><div class="s">{escape(subtitle)}</div>
 <div class="board">{"".join(html_cols)}</div>'''
+    return _page(body, tall, source)
+
+
+def hbars(title, highlight, subtitle, rows, source, hl_color="#3B82F6", tall=False, note=""):
+    """Simple side-by-side comparison: one horizontal bar per row, biggest first, big type.
+    rows: [dict(label, value, value_label, sub?, color?, icon? (ICONS name), img? (image URI, e.g. a flag),
+    chip? (short text badge), mark? (highlight this row, e.g. the U.S.))]. Values must be >= 0."""
+    n = len(rows)
+    hi = max(r["value"] for r in rows) or 1
+    out = []
+    for k, r in enumerate(rows):
+        color = r.get("color") or PALETTE[k % len(PALETTE)]
+        if r.get("img"):
+            badge = f'<img src="{r["img"]}" style="width:96px;height:64px;object-fit:cover;border-radius:10px;border:4px solid #1F2937">'
+        elif r.get("chip"):
+            badge = (f'<div style="width:84px;height:84px;border-radius:50%;background:{color};border:5px solid #1F2937;display:flex;'
+                     f'align-items:center;justify-content:center;font-family:\'Baloo 2\';font-weight:800;font-size:30px;color:#fff">{escape(r["chip"])}</div>')
+        else:
+            badge = (f'<div style="width:96px;height:96px;border-radius:50%;background:#fff;border:5px solid #1F2937;display:flex;'
+                     f'align-items:center;justify-content:center">{icon(r.get("icon"), 74)}</div>')
+        w = max(1.5, r["value"] / hi * 100)
+        inside = w > 30
+        val = f'<div class="hv{" in" if inside else ""}">{escape(r["value_label"])}</div>'
+        sub = f'<small>{escape(r["sub"])}</small>' if r.get("sub") else ""
+        out.append(f'''<div class="hr{" mk" if r.get("mark") else ""}"><div class="hb">{badge}</div>
+  <div class="hl">{escape(r["label"])}{sub}</div>
+  <div class="ht"><div class="hf" style="width:{w:.1f}%;background:{color}">{val if inside else ""}</div>{"" if inside else val}</div></div>''')
+    css = f"""<style>.hrs{{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;margin-top:24px;min-height:0}}
+.hr{{display:flex;align-items:center;gap:18px;height:{min(13, 88 / n):.2f}%;padding:0 14px;border-radius:22px}}
+.hr.mk{{background:#fff;box-shadow:0 0 0 5px {hl_color} inset,0 6px 0 rgba(0,0,0,.06)}}
+.hb{{width:100px;display:flex;justify-content:center;flex:none}}
+.hl{{width:{250 if n > 6 else 300}px;flex:none;font-weight:800;font-size:{32 if n > 6 else 38}px;line-height:1.05}}
+.hl small{{display:block;font-size:{20 if n > 6 else 24}px;color:#6B7280;font-weight:700;margin-top:4px}}
+.ht{{flex:1;display:flex;align-items:center;gap:12px;height:100%;min-width:0}}
+.hf{{height:{58 if n > 6 else 76}%;max-height:84px;border-radius:14px;display:flex;align-items:center;justify-content:flex-end;
+     box-shadow:inset 0 -8px 0 rgba(0,0,0,.08)}}
+.hv{{font-family:"Baloo 2";font-weight:800;font-size:{42 if n > 6 else 52}px;white-space:nowrap;color:#1F2937;line-height:1}}
+.hv.in{{color:#fff;padding:0 18px;text-shadow:0 2px 0 rgba(0,0,0,.15)}}
+.nt{{text-align:center;font-size:26px;font-weight:700;color:#6B7280;margin-top:10px}}</style>"""
+    t = escape(title).replace("{hl}", f"<em>{escape(highlight)}</em>")
+    size = 104 if len(title.replace("{hl}", highlight)) <= 16 else 88          # keep short titles on one line
+    body = f'''{css}<div class="t" style="--hl:{hl_color};font-size:{size}px">{t}</div><div class="s">{escape(subtitle)}</div>
+<div class="hrs">{"".join(out)}</div>{f'<div class="nt">{escape(note)}</div>' if note else ""}'''
     return _page(body, tall, source)

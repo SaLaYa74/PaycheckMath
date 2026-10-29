@@ -4,8 +4,11 @@ Reels win on reach; pictures and carousels win on saves ("I'll come back to this
 Instagram reads as "useful". Each format posts once per BLS data month, like the monthly Reel rotation.
   receipt    : one picture. The same grocery basket at January 2020 prices vs. now, as a store receipt.
   cheatsheet : a 6-slide carousel. "Your money this month": prices, pay, mortgage rate, gas, in one swipe.
+  protein / gas_regions / world_inflation : simple side-by-side comparisons (owner, Oct 28: "people like
+               comparisons"). Every price is also checked against FRED's copy; countries against the World Bank.
 Every number goes through the same pm.data checks as the Reels.
 """
+import base64
 import os
 from datetime import date
 from html import escape
@@ -195,15 +198,142 @@ def cheatsheet(out_dir, month, rep):
     return _post(key, images, caption, rep)
 
 
-FORMATS = [("cheatsheet", cheatsheet), ("receipt", receipt)]
+# ---------------------------------------------------------------- comparisons
+
+FLAGS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "flags")
+WARM_TO_COOL = ["#EF4444", "#F97316", "#F59E0B", "#EAB308", "#14B8A6", "#16A34A"]   # priciest red → cheapest green
+
+
+def _flag(code):
+    """Country flag as a data URI (flagcdn.com, public-domain flag images), cached in data/flags."""
+    path = os.path.join(FLAGS, f"{code}.png")
+    try:
+        if not os.path.exists(path):
+            png = D._plain_get(f"https://flagcdn.com/w320/{code}.png")
+            if not png.startswith(b"\x89PNG"):
+                raise ValueError("not a PNG")
+            os.makedirs(FLAGS, exist_ok=True)
+            open(path, "wb").write(png)
+        return "data:image/png;base64," + base64.b64encode(open(path, "rb").read()).decode()
+    except Exception as e:
+        print(f"  ! flag {code}: {e}")
+        return None
+
+
+def _prices(rep, month, ids):
+    """Checked, FRED-confirmed prices for `month`: [(sid, now, year_ago)]."""
+    D.check_series(rep, ids)
+    for sid in ids:
+        rep.require(D.latest(sid)[0] == month, f"{D.SERIES[sid][0]}: same month as the CPI release", f"latest {D.latest(sid)[0]}")
+    D.fred_check(rep, ids, month)
+    return [(sid, D.latest(sid)[1], D.year_ago_checked(rep, sid)[1]) for sid in ids]
+
+
+PROTEINS = [("APU0000703511", "Round steak", "steak"), ("APU0000703112", "Ground beef", "beef"), ("APU0000704111", "Bacon", "bacon"),
+            ("APU0000FD3101", "Pork chops", "pork"), ("APU0000FF1101", "Chicken breast", "breast"),
+            ("APU0000706111", "Whole chicken", "chicken")]
+
+
+def protein(out_dir, month, rep):
+    meta = {sid: (n, ic) for sid, n, ic in PROTEINS}
+    got = sorted(_prices(rep, month, [sid for sid, _, _ in PROTEINS]), key=lambda r: -r[1])
+    rows = [{"label": meta[sid][0], "sub": f"{_pct(v, ya):+.0f}% vs. last year", "value": v, "value_label": f"${v:.2f}",
+             "icon": meta[sid][1], "color": WARM_TO_COOL[k]}
+            for k, (sid, v, ya) in enumerate(got)]
+    hi, lo = got[0], got[-1]
+    ratio = hi[1] / lo[1]
+    html = L.hbars("Price Per {hl}", "Pound", f"Meat at the grocery store · U.S. average, {month:%B %Y}", rows,
+                   f"BLS average prices, {month:%b %Y} (checked vs. FRED)", hl_color="#F97316",
+                   note=f"{meta[hi[0]][0]} costs {ratio:.1f}x as much as {meta[lo[0]][0].lower()}")
+    key = f"{month:%Y-%m}-pic-protein"
+    caption = with_question(
+        f"Price per pound at the grocery store, {month:%B %Y} 🛒\n\n"
+        + "\n".join(f"• {meta[sid][0]}: ${v:.2f}/lb ({_pct(v, ya):+.0f}% vs. a year ago)" for sid, v, ya in got)
+        + f"\n\n{meta[hi[0]][0]} costs {ratio:.1f}x as much as {meta[lo[0]][0].lower()} per pound.",
+        "prices", key, item=meta[hi[0]][0].lower())
+    caption += (f"\n\n📌 Save this for your next grocery run. 📤 Send it to the person who meal-preps."
+                f"\n\nSource: U.S. Bureau of Labor Statistics average retail prices, U.S. city average, {month:%B %Y}; "
+                f"every price matched against the St. Louis Fed's FRED database.\n{DISCLAIMER}\n#mealprep {TAGS}")
+    return _post(key, [_render(out_dir, "protein", html)], caption, rep)
+
+
+REGIONS = [("APU040074714", "West", "W", "incl. CA, AZ, WA"),
+           ("APU010074714", "Northeast", "NE", "incl. NY, PA, MA"),
+           ("APU020074714", "Midwest", "MW", "incl. IL, OH, MI"),
+           ("APU030074714", "South", "S", "incl. TX, FL, GA")]
+US_GAS = "APU000074714"
+
+
+def gas_regions(out_dir, month, rep):
+    meta = {sid: (n, chip, sub) for sid, n, chip, sub in REGIONS}
+    got = _prices(rep, month, [sid for sid, *_ in REGIONS] + [US_GAS])
+    us = next(r for r in got if r[0] == US_GAS)
+    regions = sorted([r for r in got if r[0] != US_GAS], key=lambda r: -r[1])
+    rep.require(regions[-1][1] <= us[1] <= regions[0][1], "U.S. average sits between the regions",
+                f"U.S. {us[1]} vs regions {regions[-1][1]}-{regions[0][1]}")
+    pal = ["#EF4444", "#F97316", "#EAB308", "#22C55E"]
+    rows = [{"label": meta[sid][0], "sub": meta[sid][2], "value": v, "value_label": f"${v:.2f}", "chip": meta[sid][1],
+             "color": pal[k]} for k, (sid, v, ya) in enumerate(regions)]
+    rows.insert(next(k for k, r in enumerate(rows) if r["value"] < us[1]),
+                {"label": "U.S. average", "sub": "all urban areas", "value": us[1], "value_label": f"${us[1]:.2f}",
+                 "chip": "US", "color": BLUE, "mark": True})
+    gap = regions[0][1] - regions[-1][1]
+    html = L.hbars("Gas Prices by {hl}", "Region", f"Regular unleaded, per gallon · {month:%B %Y}", rows,
+                   f"BLS average prices, {month:%b %Y} (checked vs. FRED)", hl_color=BLUE,
+                   note=f"A 15-gallon fill-up costs ${gap * 15:.0f} more in the {meta[regions[0][0]][0]} than the {meta[regions[-1][0]][0]}")
+    key = f"{month:%Y-%m}-pic-gas_regions"
+    caption = with_question(
+        f"What a gallon of regular costs depends a lot on where you live ⛽ ({month:%B %Y})\n\n"
+        + "\n".join(f"• {meta[sid][0]}: ${v:.2f} (was ${ya:.2f} a year ago)" for sid, v, ya in regions)
+        + f"\n• U.S. average: ${us[1]:.2f} (was ${us[2]:.2f})"
+        + f"\n\nA 15-gallon fill-up: ${regions[0][1] * 15:.0f} in the {meta[regions[0][0]][0]} vs. "
+          f"${regions[-1][1] * 15:.0f} in the {meta[regions[-1][0]][0]}.",
+        "prices", key, item="gas")
+    caption += (f"\n\n📤 Send this to a friend in the {meta[regions[0][0]][0]}. 📌 Save it for your next road trip."
+                f"\n\nSource: U.S. Bureau of Labor Statistics average prices, unleaded regular, by Census region "
+                f"(urban areas), {month:%B %Y}; matched against the St. Louis Fed's FRED database.\n{DISCLAIMER}\n#gasprices {TAGS}")
+    return _post(key, [_render(out_dir, "gas_regions", html)], caption, rep)
+
+
+def world_inflation(out_dir, month, rep):
+    year, vals = D.world_inflation(rep)
+    if year != date.today().year - 1:
+        raise NoContent(f"Waiting for {date.today().year - 1} world inflation data (latest full year: {year}).")
+    us = vals.get("USA")
+    order = sorted(vals.items(), key=lambda kv: -kv[1])
+    rows = [{"label": D.COUNTRIES[c][0], "value": max(v, 0), "value_label": f"{v:.1f}%", "img": _flag(D.COUNTRIES[c][1]),
+             "chip": D.COUNTRIES[c][0][:2].upper(), "mark": c == "USA",
+             "color": BLUE if c == "USA" else (UP_RED if v > us else DOWN_GREEN)} for c, v in order]
+    higher = [D.COUNTRIES[c][0] for c, v in order if v > us]
+    html = L.hbars("{hl} Inflation", "World", f"How much prices rose in {year}, by country", rows,
+                   "IMF (checked vs. World Bank & BLS)", hl_color=BLUE,
+                   note="Red = prices rose faster than in the U.S. · Green = slower")
+    key = f"{year}-pic-world_inflation"
+    caption = with_question(
+        f"How much prices rose in {year}, around the world 🌍\n\n"
+        + "\n".join(f"{'🔵' if c == 'USA' else ('🔴' if v > us else '🟢')} {D.COUNTRIES[c][0]}: {v:.1f}%" for c, v in order)
+        + f"\n\nThe U.S. came in at {us:.1f}%. {len(higher)} of these {len(order) - 1} countries had faster inflation"
+        + (f" ({', '.join(higher)})." if higher else "."),
+        "prices", key, item="prices")
+    caption += (f"\n\n📤 Send this to a friend abroad. 📌 Save it for the next \"prices are crazy\" debate."
+                f"\n\nSource: International Monetary Fund, World Economic Outlook (consumer prices, annual average, {year}); "
+                f"each figure checked against the World Bank, and the U.S. against BLS.\n{DISCLAIMER}\n#economy {TAGS}")
+    return _post(key, [_render(out_dir, "world_inflation", html)], caption, rep)
+
+
+# (name, key for the latest CPI month, builder). Comparisons are spaced between the monthly staples.
+FORMATS = [("cheatsheet", lambda m: f"{m:%Y-%m}-pic-cheatsheet", cheatsheet),
+           ("protein", lambda m: f"{m:%Y-%m}-pic-protein", protein),
+           ("receipt", lambda m: f"{m:%Y-%m}-pic-receipt", receipt),
+           ("gas_regions", lambda m: f"{m:%Y-%m}-pic-gas_regions", gas_regions),
+           ("world_inflation", lambda m: f"{date.today().year - 1}-pic-world_inflation", world_inflation)]
 
 
 def pic_monthly(out_dir, posted=None):
     """Posts the next not-yet-posted picture format for the latest CPI month; idles once all are used."""
     month = D.latest(CPI)[0]
-    for name, fmt in FORMATS:
-        key = f"{month:%Y-%m}-pic-{name}"
-        if key in (posted or {}):
+    for name, keyfn, fmt in FORMATS:
+        if keyfn(month) in (posted or {}):
             continue
         try:
             return fmt(out_dir, month, C.Report(name))

@@ -61,7 +61,7 @@ def make_reel(out_dir, name, hook, chart_html, tag, seed, hold=4.0):
                     "-crf", "14", "-profile:v", "high", "-c:a", "aac", "-b:a", "192k", "-ar", "44100",
                     "-shortest", "-movflags", "+faststart", mp4], check=True)
     cover = os.path.join(out_dir, f"{name}_cover.jpg")
-    Image.open(last_chart).convert("RGB").save(cover, "JPEG", quality=90)
+    Image.open(last_chart).convert("RGB").save(cover, "JPEG", quality=95, subsampling=0)
     shutil.rmtree(work, ignore_errors=True)
     return mp4, cover
 
