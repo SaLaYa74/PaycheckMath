@@ -26,6 +26,7 @@ from PIL import Image
 
 from pm import checks as C
 from pm import core as P
+from pm import pictures as PIC
 from pm import reels as R
 from pm.schedule import JOBS, WINDOW_HOURS, Job
 from pm.voice import humanize
@@ -98,7 +99,7 @@ class Runner:
         self.touched = set()
 
     def build(self, job, out_dir):
-        return R.BUILDERS[job.builder](out_dir, posted=load(POSTED))
+        return {**R.BUILDERS, **PIC.BUILDERS}[job.builder](out_dir, posted=load(POSTED))
 
     def run(self, job, now):
         """Returns (status, detail)."""

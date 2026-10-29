@@ -88,7 +88,7 @@ def line(title, highlight, subtitle, pts, fmt, source, color="#3B82F6", marker=N
     """Light-theme trend line, drawn left→right; optional labeled reference point (e.g. 'a year ago')."""
     vals = [v for _, v in pts]
     W, H, pl, pt, pb = 900, 900, 30, 90, 70
-    pr = 170 + 38 * max(0, len(fmt(vals[-1])) - 5)   # room for the end label ("$37.81" needs more than "$6.79")
+    pr = 200 + 38 * max(0, len(fmt(vals[-1])) - 5)   # room for the end label ("$37.81" needs more than "$6.79"; "7.32%" clipped at 170)
     lo, hi = min(vals), max(vals)
     sp = (hi - lo) or 1
     lo, hi = lo - sp * .15, hi + sp * .2

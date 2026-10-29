@@ -34,6 +34,11 @@ JOBS = [
     Job("monthly_fri", "reel_monthly",  (FRI,), "16:00", live=True, note="Reel: monthly rotation (7pm ET)"),
     Job("monthly_sat", "reel_monthly",  (SAT,), "09:00", live=True, note="Reel: monthly rotation"),
     Job("monthly_sun", "reel_monthly",  (SUN,), "10:00", live=True, note="Reel: monthly rotation"),
+    # Pictures (Oct 28, owner asked for still images too): carousels and pictures earn saves, Reels earn reach.
+    # Each slot posts the next unused picture format for the latest BLS month (cheat-sheet carousel, then the
+    # grocery receipt), then idles until new data.
+    Job("pics_sun",    "pic_monthly",   (SUN,), "11:00", live=True, note="Picture/carousel: monthly cheat sheet / grocery receipt"),
+    Job("pics_thu",    "pic_monthly",   (THU,), "17:00", live=True, note="Picture/carousel: monthly cheat sheet / grocery receipt"),
     # Monthly share-first board: BLS state pay comes out mid-to-late month; checked every Saturday,
     # posts once per new data month (idles otherwise).
     Job("find_state",  "reel_find_state", (SAT,), "17:00", live=True, note="Reel: Find Your State (weekly pay, all 50 + DC)"),
