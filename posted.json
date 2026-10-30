@@ -29,6 +29,16 @@
     "scheduled": "12:00",
     "trial": false
   },
+  "2026-09-pic-cheatsheet": {
+    "images": 6,
+    "job": "pics_thu",
+    "media": "feed",
+    "media_id": "17999011998012668",
+    "permalink": "https://www.instagram.com/p/DfGP0wfgNZT/",
+    "posted_at": "2026-10-30T00:01:46+00:00",
+    "scheduled": "17:00",
+    "trial": false
+  },
   "2026-09-reel-gas": {
     "images": 1,
     "job": "monthly_mon",
