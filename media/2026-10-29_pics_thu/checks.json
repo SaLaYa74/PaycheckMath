@@ -1,0 +1,550 @@
+{
+  "subject": "cheatsheet",
+  "counts": {
+    "pass": 108,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Overall prices (CPI): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices (CPI): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices (CPI): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices (CPI): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Electricity (kWh): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Electricity (kWh): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Electricity (kWh): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Electricity (kWh): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "30-year mortgage rate: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "30-year mortgage rate: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "30-year mortgage rate: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "30-year mortgage rate: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Gas: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Electricity: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices (CPI): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "30-year mortgage rate: year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices (CPI): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Electricity (kWh): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Your pay: value for Sep 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Your pay: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices: value for Sep 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: value for Sep 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: value for Sep 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Gas: value for Sep 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Gas: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Mortgage Rates: 3-year history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Gas Prices: 3-year history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_1.png: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_1.png: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_1.png: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_1.png: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_2.png: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_2.png: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_2.png: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_2.png: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_3.png: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_3.png: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_3.png: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_3.png: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_4.png: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_4.png: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_4.png: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_4.png: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_5.png: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_5.png: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_5.png: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_5.png: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_6.png: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_6.png: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_6.png: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_6.png: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_1.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_1.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_1.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_1.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_2.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_2.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_2.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_2.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_3.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_3.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_3.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_3.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_4.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_4.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_4.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_4.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_5.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_5.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_5.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_5.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_6.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_6.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_6.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "cheatsheet_6.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
