@@ -1,0 +1,120 @@
+{
+  "subject": "trend_tomatoes",
+  "counts": {
+    "pass": 22,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Tomatoes (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Tomatoes (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Tomatoes (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Tomatoes (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Tomatoes (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Tomatoes: 3-year history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_tomatoes.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_tomatoes.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_tomatoes.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_tomatoes.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_tomatoes.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_tomatoes.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_tomatoes_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_tomatoes_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_tomatoes_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_trend_tomatoes_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
