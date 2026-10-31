@@ -17,7 +17,7 @@ from . import checks as C
 from . import data as D
 from . import light as L
 from .core import DISCLAIMER, NoContent, Post, with_question
-from .reels import BLUE, DOWN_GREEN, ICON, RELEASE_ROWS, TAGS, UP_RED, _pct, _yoy, heat
+from .reels import BLUE, DOWN_GREEN, ICON, RELEASE_ROWS, TAGS, UP_RED, _pct, _yoy, heat, yearly, yearly_items
 from .render import html_to_png
 from .templates import mascot_svg
 
@@ -135,11 +135,6 @@ def _outro():
     return L._page(body, False, "BLS · Freddie Mac")
 
 
-def _three_years(sid, end):
-    start = date(end.year - 3, end.month, 1)
-    return [p for p in D.series(sid) if p[0] >= start]
-
-
 def cheatsheet(out_dir, month, rep):
     gas, mort = "APU000074714", "MORTGAGE30"
     D.check_series(rep, [sid for sid, _ in RELEASE_ROWS] + [PAY, mort])
@@ -172,16 +167,15 @@ def cheatsheet(out_dir, month, rep):
               "color": palette[i]} for i, (n, v) in enumerate(since)]
     slides.append(L.bars("Your Pay vs. {hl}", "Prices", f"Change from January 2020 to {month:%B %Y}", items,
                          f"BLS, {month:%b %Y}", tall=False, hl_color=UP_RED))
-    # 4-5: mortgage rate and gas, last 3 years
-    for sid, title, word, fmt, ya, end in ((mort, "Mortgage", "Rates", lambda v: f"{v:.2f}%", mya, mw),
-                                          (gas, "Gas", "Prices", lambda v: f"${v:.2f}", g_ya, month)):
-        pts = _three_years(sid, end)
-        rep.require(len(pts) >= 30, f"{title} {word}: 3-year history", f"only {len(pts)} points")
-        mi = min(range(len(pts)), key=lambda k: abs((pts[k][0] - ya[0]).days))
-        up = pts[-1][1] > ya[1]
-        slides.append(L.line(f"{title} {{hl}}", word, "Last 3 years · U.S. average · dot = a year ago", pts, fmt,
-                             "Freddie Mac PMMS" if sid == mort else f"BLS, {month:%b %Y}", color=red_if(up),
-                             marker=(mi, f"a year ago {fmt(ya[1])}"), tall=False, hl_color=BLUE))
+    # 4-5: mortgage rate and gas, the same week/month in each of the last 5 years (bars only, owner Oct 31)
+    for sid, title, word, fmt, ya, end, icon in ((mort, "Mortgage", "Rates", lambda v: f"{v:.2f}%", mya, mw, "house"),
+                                                (gas, "Gas", "Prices", lambda v: f"${v:.2f}", g_ya, month, "gas")):
+        pts = yearly(sid, end)
+        rep.require(abs((pts[-2][0] - ya[0]).days) <= 7 and pts[-2][1] == ya[1], f"{title} {word}: last-year bar is the checked year-ago value",
+                    f"{pts[-2]} vs {ya}")
+        slides.append(L.bars(f"{title} {{hl}}", word, f"U.S. average · every {end:%B}" if sid == gas else
+                             f"30-yr fixed · same week each year", yearly_items(pts, fmt, icon, False),
+                             "Freddie Mac PMMS" if sid == mort else f"BLS, {month:%b %Y}", tall=False, hl_color=BLUE))
     slides.append(_outro())
     images = [_render(out_dir, f"cheatsheet_{k + 1}", h) for k, h in enumerate(slides)]
     key = f"{month:%Y-%m}-pic-cheatsheet"

@@ -247,6 +247,37 @@ TRENDS = [
 ]
 
 
+TREND_ICON = {"Eggs": "egg", "Ground beef": "beef", "Coffee": "coffee", "Milk": "milk", "Bread": "bread",
+              "Electricity": "bulb", "Hourly pay": "pay", "Bacon": "bacon", "Tomatoes": "cart", "Flour": "bread",
+              "Natural gas": "house"}
+PAST = ("#BFDBFE", "#93C5FD", "#60A5FA", "#3B82F6", "#2563EB")      # earlier years: light → deeper blue
+
+
+def yearly(sid, end, years=5):
+    """The same month (weekly mortgage data: the same week, within 7 days) in each of the last `years` years,
+    oldest first. Skips the post (NoContent) if BLS has a gap in any of those months."""
+    pts = []
+    for k in range(years - 1, -1, -1):
+        target = date(end.year - k, end.month, min(end.day, 28))
+        got = D.value_on_or_before(sid, target)
+        ok = got is not None and (abs((target - got[0]).days) <= 7 if sid == "MORTGAGE30"
+                                  else (got[0].year, got[0].month) == (target.year, target.month))
+        if not ok:
+            raise NoContent(f"{D.SERIES[sid][0]}: no value for {target:%b %Y}, so no clean year-by-year bars")
+        pts.append(got)
+    return pts
+
+
+def yearly_items(pts, fmt, icon, up_good):
+    """Bars for yearly(): earlier years in blues, this year red/green by its move vs. a year ago."""
+    (_, last), (_, prev) = pts[-1], pts[-2]
+    good = (last > prev) == up_good if last != prev else True
+    pal = PAST[len(PAST) - len(pts) + 1:] if len(pts) <= len(PAST) else PAST
+    return [{"label": f"{d:%Y}", "sub": f"{d:%b}" if k < len(pts) - 1 else f"{d:%b} · now", "value": v,
+             "icon": icon, "value_label": fmt(v), "color": (DOWN_GREEN if good else UP_RED) if k == len(pts) - 1 else pal[k]}
+            for k, (d, v) in enumerate(pts)]
+
+
 def _trend_format(sid, name, unit, fmt, up_good):
     def build(out_dir, month, rep):
         D.check_series(rep, [sid])
@@ -256,19 +287,20 @@ def _trend_format(sid, name, unit, fmt, up_good):
         if round(abs(ch)) < 1:
             raise NoContent(f"{name} barely moved ({ch:+.1f}%); an 'up 0%' headline isn't worth a post.")
         good = (ch > 0) == up_good
-        start = date(d.year - 3, d.month, 1)
-        pts = [p for p in D.series(sid) if p[0] >= start]
-        rep.require(len(pts) >= 30, f"{name}: 3-year history", f"only {len(pts)} months")
-        mi = [k for k, (dd, _) in enumerate(pts) if dd == ya[0]][0]
+        pts = yearly(sid, d)                      # owner, Oct 31: bar charts only, no line charts
+        rep.require(pts[-2] == ya, f"{name}: last-year bar is the checked year-ago value", f"{pts[-2]} vs {ya}")
+        items = yearly_items(pts, fmt, TREND_ICON.get(name, "prices"), up_good)
         hook = (f"{name} {'up' if ch > 0 else 'down'} {abs(ch):.0f}%", "in one year", "" if good else "red")
         word = f"{'Up' if ch > 0 else 'Down'} {abs(ch):.0f}%"
-        mp4, cover = make_reel(out_dir, f"reel_trend_{name.lower().replace(' ', '_')}", hook, lambda p: L.line(
-            f"{name} {{hl}}", word, f"{unit} · U.S. average · vs. a year ago", pts, fmt, f"BLS, {d:%b %Y}",
-            color=BLUE if up_good else "#F97316", marker=(mi, f"a year ago {fmt(ya[1])}"), p=p,
-            hl_color=DOWN_GREEN if good else UP_RED), "Trend", f"trend-{sid}-{month}")
+        mp4, cover = make_reel(out_dir, f"reel_trend_{name.lower().replace(' ', '_')}", hook, lambda p: L.bars(
+            f"{name} {{hl}}", word, f"{unit} · U.S. average, every {d:%B}", items, f"BLS, {d:%b %Y}",
+            p=p, hl_color=DOWN_GREEN if good else UP_RED), "Trend", f"trend-{sid}-{month}")
+        first = pts[0]
         caption = with_question(
             f"{unit}: {fmt(v)} in {d:%B %Y}, {'up' if ch > 0 else 'down'} {abs(ch):.0f}% from {fmt(ya[1])} a year ago "
-            f"{'📈' if ch > 0 else '📉'}", "paycheck" if up_good else "prices", f"{month}-trend-{sid}", item=name.lower())
+            f"{'📈' if ch > 0 else '📉'}\n\nEvery {d:%B}:\n" + "\n".join(f"{dd:%Y}: {fmt(x)}" for dd, x in pts)
+            + f"\n\nThat's {'up' if v >= first[1] else 'down'} {abs(_pct(v, first[1])):.0f}% since {first[0]:%B %Y}.",
+            "paycheck" if up_good else "prices", f"{month}-trend-{sid}", item=name.lower())
         caption += f"\n\nSource: U.S. Bureau of Labor Statistics.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{TAGS}"
         return f"trend_{name.lower().replace(' ', '_')}", hook, mp4, cover, caption, abs(ch)
     build.__name__ = f"_trend_{name.lower().replace(' ', '_')}"
