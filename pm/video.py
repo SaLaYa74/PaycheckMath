@@ -26,6 +26,18 @@ def ffmpeg_exe():
     return imageio_ffmpeg.get_ffmpeg_exe()
 
 
+STEP = 1 / 30          # one video frame: every animation step is its own frame (smooth, Oct 31)
+
+
+def _render_all(htmls, work):
+    """Render frames 4 at a time (each is its own headless Chrome) and return their PNG paths in order."""
+    from concurrent.futures import ThreadPoolExecutor
+    paths = [os.path.join(work, f"{i:03d}.png") for i in range(len(htmls))]
+    with ThreadPoolExecutor(4) as ex:
+        list(ex.map(lambda hp: html_to_png(hp[0], hp[1], "reel"), zip(htmls, paths)))
+    return paths
+
+
 def _ease(x):
     return 1 - (1 - x) ** 3  # ease-out cubic
 
@@ -39,12 +51,9 @@ def make_reel(out_dir, name, hook, chart_html, tag, seed, hold=4.0):
     `hook` and `tag` are baked into chart_html by the caller. Returns (mp4, cover_jpg)."""
     os.makedirs(out_dir, exist_ok=True)
     work = tempfile.mkdtemp(prefix="reel_")
-    seq = []  # (png, seconds)
-    steps = 12
-    for i in range(steps):                                   # 0.8s build-in, starting at t=0
-        path = os.path.join(work, f"{i:03d}.png")
-        html_to_png(chart_html(START_P + (1 - START_P) * _ease(i / (steps - 1))), path, "reel")
-        seq.append((path, 0.067))
+    steps = 24                                               # 0.8s build-in at 30 fps, starting at t=0
+    frames = _render_all([chart_html(START_P + (1 - START_P) * _ease(i / (steps - 1))) for i in range(steps)], work)
+    seq = [(f, STEP) for f in frames]  # (png, seconds)
     last_chart = seq[-1][0]
     seq.append((last_chart, hold))                           # hold long enough to read
     total = sum(s for _, s in seq)
