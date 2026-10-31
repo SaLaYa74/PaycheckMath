@@ -29,3 +29,17 @@ Midday and evening reach are the same once tonight's Reel is left out, so postin
 **Watch next time:** do the new trend Reels hold ~100+ reach? First "Find Your State" Reel (Sat 5pm):
 does it get shares? (It's the first post built to be sent to friends.) Shares, saves and follows are
 still all zero, and that's the real problem to work on once there are more posts to compare.
+
+## 2026-10-31 (Claude, with the owner): music test after a reach collapse
+
+**What happened:** Reels reached ~105-125 people every day through Oct 25. Starting with the first Reel that
+used the new jazz bed + cash-register chime (Oct 26 4:12pm), reach fell to 12, 49, 5, 2, 2 (cheat-sheet
+carousel), 25, 5. Owner checked Account Status: nothing flagged, account can be recommended. SharpCharts
+switched music the same day and its reach held at ~100-140, so it's not a general change on Instagram's side.
+
+**Changed:** Reels go back to the pre-Oct-26 beat (pm/music.make_beat) for a few days. Suspect: Instagram's
+audio matching treated the jazz bed (or the chime) as someone else's music and limited distribution.
+
+**Watch:** if reach returns to ~100 within 3-4 Reels, jazz was the cause: build a new Paycheck Math sound
+(owner disliked the old beat as too high-pitched) and test it on 2-3 Reels before rolling it out. If reach
+stays low, put jazz back (the owner chose it) and keep looking: posting cadence, repeated trend-line format.

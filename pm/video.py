@@ -8,7 +8,7 @@ import tempfile
 
 from PIL import Image
 
-from .music import make_pm
+from .music import make_beat, make_pm
 from .render import html_to_png
 
 FPS = 30
@@ -49,7 +49,10 @@ def make_reel(out_dir, name, hook, chart_html, tag, seed, hold=4.0):
     seq.append((last_chart, hold))                           # hold long enough to read
     total = sum(s for _, s in seq)
     audio = os.path.join(work, "beat.wav")
-    make_pm(audio, total + 0.2, seed, "jazz", chime_at=total - hold)   # jazz bed + ka-ching as the chart lands (picked Oct 26)
+    # TEST Oct 31: reach fell from ~110 to 2-49 per Reel starting with the first jazz Reel (Oct 26 4:12pm), with
+    # nothing else changed; suspect Instagram's audio matching. Back to the pre-Oct-26 beat for a few days to confirm.
+    # Jazz (owner's pick): make_pm(audio, total + 0.2, seed, "jazz", chime_at=total - hold)
+    make_beat(audio, total + 0.2, seed)
     listing = os.path.join(work, "frames.txt")
     with open(listing, "w") as f:
         for path, secs in seq:
