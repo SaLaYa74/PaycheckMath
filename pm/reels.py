@@ -74,7 +74,8 @@ def reel_mortgage(out_dir):
     sub = (f"30-yr fixed · {wk:+.2f} this week · $400k loan: ${pay(now):,.0f}/mo "
            f"({'+' if diff_yr >= 0 else '-'}${abs(diff_yr):,.0f} vs a year ago)")
     mp4, cover = make_reel(out_dir, "reel_mortgage", hook, lambda p: L.bars(
-        "Mortgage Rates {hl}", word, sub, items, "Freddie Mac PMMS", p=p, hl_color=UP_RED if yr_up else DOWN_GREEN),
+        f"A $400K Loan Costs {{hl}} {'More' if diff_yr >= 0 else 'Less'}", f"${abs(diff_yr):,.0f}/mo",
+        sub, items, "Freddie Mac PMMS", p=p, hl_color=UP_RED if yr_up else DOWN_GREEN),
         tag, f"pmms-{d1}")
     key = f"{d1.isoformat()}-reel-mortgage"
     caption = with_question(
@@ -115,7 +116,7 @@ def _groceries(out_dir, month, rep):
     top = rows[0]
     hook = (f"{top['name']} up {top['ch']:.0f}%", "in one year", "red")
     mp4, cover = make_reel(out_dir, "reel_groceries", hook, lambda p: L.bars(
-        "Biggest Price {hl}", "Jumps", f"Change vs. a year ago · U.S. average prices, {month:%b %Y}", items,
+        f"{top['name']} {{hl}} in a Year", f"Up {top['ch']:.0f}%", f"Biggest price jumps vs. a year ago · U.S. average, {month:%b %Y}", items,
         f"BLS, {month:%b %Y}", p=p, hl_color="#F97316"), "Prices", f"groceries-{month}")
     lines = "\n".join(f"🔴 {r['name']}: +{r['ch']:.0f}% ({r['sub']})" for r in rows)
     caption = with_question(f"{top['name']}: up {top['ch']:.0f}% from a year ago ({top['sub']}). "
@@ -135,7 +136,7 @@ def _price_drops(out_dir, month, rep):
     top = rows[0]
     hook = (f"{top['name']} down {-top['ch']:.0f}%", "in one year")
     mp4, cover = make_reel(out_dir, "reel_drops", hook, lambda p: L.bars(
-        "Prices That {hl}", "Dropped", f"Change vs. a year ago · U.S. average prices, {month:%b %Y}", items,
+        f"{top['name']} {{hl}} in a Year", f"Down {-top['ch']:.0f}%", f"Prices that dropped vs. a year ago · U.S. average, {month:%b %Y}", items,
         f"BLS, {month:%b %Y}", p=p, hl_color=DOWN_GREEN), "Prices", f"drops-{month}")
     lines = "\n".join(f"🟢 {r['name']}: {r['ch']:.0f}% ({r['sub']})" for r in rows)
     caption = with_question(f"{top['name']}: down {-top['ch']:.0f}% from a year ago ({top['sub']}). "
@@ -165,7 +166,8 @@ def _minutes(out_dir, month, rep):
               "value": float(r["value_label"].split()[0]), "icon": ICON[r["name"].split(" (")[0]],
               "value_label": r["value_label"].replace(" min", "m")} for r in sorted(rows, key=lambda r: -float(r["value_label"].split()[0]))]
     mp4, cover = make_reel(out_dir, "reel_minutes", hook, lambda p: L.bars(
-        "Minutes of Work to {hl}", "Buy It", f"At the average wage of ${wage:.2f}/hr · {month:%b %Y} · gas = 15-gal tank",
+        "A Tank of Gas = {hl} of Work", f"{gas['value_label'].split()[0]} Minutes",
+        f"Minutes of work to buy it, at the average wage of ${wage:.2f}/hr · {month:%b %Y}",
         items, "BLS prices & wages", p=p, hl_color=BLUE), "Paycheck math", f"minutes-{month}")
     lines = "\n".join(f"{'🔴' if not r['good'] else '🟢'} {r['name']}: {r['value_label']} ({r['record']})" for r in rows)
     caption = with_question(f"At the U.S. average wage of ${wage:.2f}/hr, a 15-gallon tank of gas takes {gas['value_label']} of work "
@@ -199,7 +201,8 @@ def _pay_vs_prices(out_dir, month, rep):
     items = [{"label": r["name"], "sub": "since 2020", "value": max(r["value"], 0.1), "icon": ICON[r["name"]],
               "value_label": r["value_label"], "color": palette[i]} for i, r in enumerate(rows)]
     mp4, cover = make_reel(out_dir, "reel_payvs", hook, lambda p: L.bars(
-        "Your Pay vs. {hl}", "Prices", f"Change since January 2020, through {month:%b %Y}", items,
+        f"{worst['name']} {{hl}} Since 2020", f"Up {worst['value']:.0f}%",
+        f"Your pay: up {pay:.0f}% · change from January 2020 to {month:%b %Y}", items,
         f"BLS, {month:%b %Y}", p=p, hl_color="#EF4444"), "Pay vs prices", f"payvs-{month}")
     lines = "\n".join(f"{'🟢' if r['good'] else '🔴'} {r['name']}: {r['value_label']}" for r in rows)
     caption = with_question(f"Since January 2020, average pay is up {pay:.0f}%. {worst['name']}: up {worst['value']:.0f}%.\n\n"
@@ -222,8 +225,8 @@ def _gas(out_dir, month, rep):
              {"label": "Now", "sub": f"{d:%B %Y}", "value": v, "icon": "gas", "value_label": f"${v:.2f}",
               "color": UP_RED if up else DOWN_GREEN}]
     mp4, cover = make_reel(out_dir, "reel_gas", hook, lambda p: L.bars(
-        "Gas Prices {hl}", "Went Up" if up else "Came Down",
-        f"Regular, U.S. average per gallon · a 15-gal fill-up is ${v * 15:.0f} (was ${ya * 15:.0f})", items,
+        "A Fill-Up Now Costs {hl}", f"${v * 15:.0f}",
+        f"15-gallon tank of regular, U.S. average · was ${ya * 15:.0f} a year ago", items,
         f"BLS, {d:%b %Y}", p=p, hl_color=UP_RED if up else DOWN_GREEN), "Gas prices", f"gas-{month}")
     caption = with_question(f"Regular gas averaged ${v:.2f}/gallon in {d:%B}, {'up' if up else 'down'} {abs(ch):.0f}% from ${ya:.2f} a year ago ⛽\n\nA 15-gallon fill-up: ${v * 15:.0f} vs ${ya * 15:.0f}.",
                             "prices", f"{month}-gas", item="gas")
@@ -371,7 +374,8 @@ def _release(out_dir, month, rep):
     up = cpi >= 0
     hook = (f"Prices {'up' if up else 'down'} {abs(cpi):.1f}%", "new numbers just out", "red" if up else "")
     mp4, cover = make_reel(out_dir, "reel_release", hook, lambda p: L.bars(
-        "What Got {hl}?", "Pricier" if up else "Cheaper", f"Just released · {month:%B %Y} vs. a year ago", items,
+        f"Prices Are {{hl}} in a Year", f"{'Up' if up else 'Down'} {abs(cpi):.1f}%",
+        f"Just released · {month:%B %Y} vs. a year ago", items,
         f"BLS CPI & average prices, {month:%b %Y}", p=p, hl_color=UP_RED if up else DOWN_GREEN), "Just released",
         f"release-{month}")
     lines = "\n".join(f"{'🔴' if v > 0 else '🟢'} {n}: {v:+.1f}%" for n, v in rows)
@@ -403,7 +407,7 @@ def _payday(out_dir, rep):
     won = pay > cpi
     hook = (f"Pay {pay:+.1f}%", f"prices {cpi:+.1f}%", "" if won else "red")
     mp4, cover = make_reel(out_dir, "reel_payday", hook, lambda p: L.bars(
-        "Did Your Pay {hl}?", "Win", f"Change vs. a year ago · new jobs report ({pay_m:%B %Y})", items,
+        f"Pay {{hl}}, Prices {cpi:+.1f}%", f"{pay:+.1f}%", f"Change vs. a year ago · new jobs report ({pay_m:%B %Y})", items,
         f"BLS, pay {pay_m:%b %Y} · prices {cpi_m:%b %Y}", p=p, hl_color=DOWN_GREEN if won else UP_RED),
         "Jobs report", f"payday-{pay_m}")
     lines = "\n".join(f"{'🟢' if (n == 'Your pay' or v <= pay) else '🔴'} {n}: {v:+.1f}%" for n, v in rows)

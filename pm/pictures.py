@@ -84,14 +84,14 @@ def receipt(out_dir, month, rep):
 .pay{margin:auto 0 0;font-size:36px;font-weight:800;text-align:center}
 .pay em{font-style:normal;color:var(--p)}
 </style>"""
-    body = f'''{MONO}{css}<div class="t" style="--hl:{stamp}">Your Grocery {{hl}}</div>
+    body = f'''{MONO}{css}<div class="t" style="--hl:{stamp}">Groceries {{hl}} Since 2020</div>
 <div class="s">The same 8 items, at U.S. average prices</div>
 <div class="rc"><div class="hd">PAYCHECK MATH MARKET</div><div class="sm">January 2020 vs. {month:%B %Y}</div>
 <div class="dash"></div><div class="r h"><span>ITEM</span><b>JAN 2020</b><b>{month:%b %Y}</b></div>{lines}
 <div class="dash"></div><div class="tot"><span>TOTAL</span><b>${then:.2f}</b><b>${now:.2f}</b></div>
 <div class="stamp" style="--c:{stamp}">{ch:+.0f}% SINCE 2020</div></div>
 <div class="pay" style="--p:{DOWN_GREEN if pch >= ch else UP_RED}">Average hourly pay: ${pay0:.2f} → ${pay1:.2f} <em>({pch:+.0f}%)</em></div>'''
-    html = L._page(body.replace("{hl}", f"<em>Receipt</em>"), False, f"BLS average prices & hourly earnings, {month:%b %Y}")
+    html = L._page(body.replace("{hl}", f"<em>{'Up' if up else 'Down'} {abs(ch):.0f}%</em>"), False, f"BLS average prices & hourly earnings, {month:%b %Y}")
     img = _render(out_dir, "receipt", html)
     key = f"{month:%Y-%m}-pic-receipt"
     biggest = max(rows, key=lambda r: _pct(r[2], r[1]))
@@ -156,7 +156,7 @@ def cheatsheet(out_dir, month, rep):
     items = [{"label": n, "sub": "vs. a year ago", "value": max(abs(v), 0.1), "icon": ICON[n],
               "value_label": f"{v:+.0f}%" if abs(v) >= 10 else f"{v:+.1f}%", "color": c}
              for (sid, n, v), c in zip(yoy, heat([v for _, _, v in yoy]))]
-    slides.append(L.bars("What Got {hl}?", "Pricier" if cpi >= 0 else "Cheaper", f"{month:%B %Y} vs. a year ago",
+    slides.append(L.bars("Prices Are {hl} in a Year", f"{'Up' if cpi >= 0 else 'Down'} {abs(cpi):.1f}%", f"{month:%B %Y} vs. a year ago",
                          items, f"BLS CPI & average prices, {month:%b %Y}", tall=False, hl_color=red_if(cpi >= 0)))
     # 3: pay vs prices since January 2020
     names = [(PAY, "Your pay"), (CPI, "Overall prices"), ("CUUR0000SEHA", "Rent"), ("CUUR0000SAF11", "Groceries"), (gas, "Gas")]
@@ -165,7 +165,8 @@ def cheatsheet(out_dir, month, rep):
     palette = ["#22C55E", "#A855F7", "#3B82F6", "#F97316", "#EF4444"]
     items = [{"label": n, "sub": "since 2020", "value": max(v, 0.1), "icon": ICON[n], "value_label": f"{v:+.0f}%",
               "color": palette[i]} for i, (n, v) in enumerate(since)]
-    slides.append(L.bars("Your Pay vs. {hl}", "Prices", f"Change from January 2020 to {month:%B %Y}", items,
+    worst = max(since[1:], key=lambda r: r[1])
+    slides.append(L.bars(f"{worst[0]} {{hl}} Since 2020", f"Up {worst[1]:.0f}%", f"Your pay: up {p20:.0f}% · January 2020 to {month:%B %Y}", items,
                          f"BLS, {month:%b %Y}", tall=False, hl_color=UP_RED))
     # 4-5: mortgage rate and gas, the same week/month in each of the last 5 years (bars only, owner Oct 31)
     for sid, title, word, fmt, ya, end, icon in ((mort, "Mortgage", "Rates", lambda v: f"{v:.2f}%", mya, mw, "house"),
@@ -237,7 +238,8 @@ def protein(out_dir, month, rep):
             for k, (sid, v, ya) in enumerate(got)]
     hi, lo = got[0], got[-1]
     ratio = hi[1] / lo[1]
-    html = L.hbars("Price Per {hl}", "Pound", f"Meat at the grocery store · U.S. average, {month:%B %Y}", rows,
+    html = L.hbars(f"{meta[hi[0]][0].title()} Costs {{hl}}", f"{ratio:.1f}x More",
+                   f"than {meta[lo[0]][0].lower()}, per pound · U.S. average, {month:%B %Y}", rows,
                    f"BLS average prices, {month:%b %Y} (checked vs. FRED)", hl_color="#F97316",
                    note=f"{meta[hi[0]][0]} costs {ratio:.1f}x as much as {meta[lo[0]][0].lower()}")
     key = f"{month:%Y-%m}-pic-protein"
@@ -273,7 +275,8 @@ def gas_regions(out_dir, month, rep):
                 {"label": "U.S. average", "sub": "all urban areas", "value": us[1], "value_label": f"${us[1]:.2f}",
                  "chip": "US", "color": BLUE, "mark": True})
     gap = regions[0][1] - regions[-1][1]
-    html = L.hbars("Gas Prices by {hl}", "Region", f"Regular unleaded, per gallon · {month:%B %Y}", rows,
+    html = L.hbars(f"Gas Costs {{hl}} More in the {meta[regions[0][0]][0]}", f"${gap:.2f}",
+                   f"Regular unleaded, per gallon, by region · {month:%B %Y}", rows,
                    f"BLS average prices, {month:%b %Y} (checked vs. FRED)", hl_color=BLUE,
                    note=f"A 15-gallon fill-up costs ${gap * 15:.0f} more in the {meta[regions[0][0]][0]} than the {meta[regions[-1][0]][0]}")
     key = f"{month:%Y-%m}-pic-gas_regions"
@@ -300,7 +303,7 @@ def world_inflation(out_dir, month, rep):
              "chip": D.COUNTRIES[c][0][:2].upper(), "mark": c == "USA",
              "color": BLUE if c == "USA" else (UP_RED if v > us else DOWN_GREEN)} for c, v in order]
     higher = [D.COUNTRIES[c][0] for c, v in order if v > us]
-    html = L.hbars("{hl} Inflation", "World", f"How much prices rose in {year}, by country", rows,
+    html = L.hbars(f"U.S. Prices Rose {{hl}} in {year}", f"{us:.1f}%", "How the U.S. compares: prices, by country", rows,
                    "IMF (checked vs. World Bank & BLS)", hl_color=BLUE,
                    note="Red = prices rose faster than in the U.S. · Green = slower")
     key = f"{year}-pic-world_inflation"
@@ -344,12 +347,13 @@ def _money_k(v):
 
 
 STATE_POSTS = {
-    # name: (ACS measure, title, highlight, subtitle, value format, caption line, hashtag)
-    "state_rent": ("rent", "Rent by {hl}", "State", "Median monthly rent · highest and lowest states",
+    # name: (ACS measure, title ({state} = the #1 state; {{hl}} = its value), unused, subtitle, value format,
+    #        caption line, hashtag)
+    "state_rent": ("rent", "{state} Rent: {{hl}} a Month", None, "Median monthly rent · highest and lowest states",
                    lambda v: f"${v:,.0f}", "Median monthly rent (including utilities), by state", "#rent"),
-    "state_home": ("home", "Home Prices by {hl}", "State", "Median home value · highest and lowest states",
+    "state_home": ("home", "{state}'s Typical Home: {{hl}}", None, "Median home value · highest and lowest states",
                    _money_k, "Median home value (owner-occupied homes), by state", "#realestate"),
-    "state_burden": ("burden", "Where Rent Eats Your {hl}", "Paycheck", "Median rent as a share of renters' income",
+    "state_burden": ("burden", "{state} Renters Spend {{hl}} on Rent", None, "Median rent as a share of renters' income",
                      lambda v: f"{v:.1f}%", "Typical renter's rent as a share of their household income", "#renting"),
 }
 
@@ -363,7 +367,7 @@ def _state_post(name):
             raise NoContent("Census data unavailable")
         order, rows = _state_rows(vals, us, fmt)
         (tf, tv), (bf, bv) = order[0], order[-1]
-        html = L.hbars(title, hl, f"{sub} · {year}", rows, f"U.S. Census Bureau, American Community Survey {year}",
+        html = L.hbars(title.format(state=D.STATES[tf][0]), fmt(tv), f"{sub} · {year}", rows, f"U.S. Census Bureau, American Community Survey {year}",
                        hl_color=UP_RED, note=f"{D.STATES[tf][0]} vs. {D.STATES[bf][0]}: "
                        + (f"{tv / bv:.1f}x" if which != "burden" else f"{tv - bv:.1f} points apart"))
         key = f"acs{year}-pic-{name}"
@@ -390,7 +394,8 @@ def state_years(out_dir, month, rep):
     fmt = lambda v: f"{v:.1f} yrs"
     order, rows = _state_rows(ratio, us_home / us_inc, fmt)
     (tf, tv), (bf, bv) = order[0], order[-1]
-    html = L.hbars("Years to Buy a {hl}", "Home", f"Years of income: median home value ÷ median household income · {year}", rows,
+    html = L.hbars(f"{D.STATES[tf][0]}: {{hl}} Years of Pay for a Home", f"{tv:.1f}",
+                   f"Median home value ÷ median household income · {year}", rows,
                    f"U.S. Census Bureau, American Community Survey {year}", hl_color=UP_RED,
                    note="Before taxes, with zero spending. That's why it feels out of reach.")
     key = f"acs{year}-pic-state_years"
@@ -406,12 +411,42 @@ def state_years(out_dir, month, rep):
     return _post(key, [_render(out_dir, "state_years", html)], caption, rep)
 
 
+def state_salary(out_dir, month, rep):
+    """The salary you'd need for the typical rent to be 30% of your pay, by state (owner, Oct 31: relatable)."""
+    year, rent, us_rent = D.acs_states(rep, "rent")
+    if not rent:
+        raise NoContent("Census data unavailable")
+    need = {f: v * 12 / 0.30 for f, v in rent.items()}
+    us = us_rent * 12 / 0.30
+    order, rows = _state_rows(need, us, _money_k)
+    for r in rows:
+        r["sub"] = f"${r['value'] / 2080:.0f}/hour"
+    (tf, tv), (bf, bv) = order[0], order[-1]
+    html = L.hbars(f"{D.STATES[tf][0]} Rent Takes a {{hl}} Salary", _money_k(tv),
+                   f"Pay needed so the typical rent is 30% of income · {year}", rows,
+                   f"U.S. Census Bureau, American Community Survey {year}", hl_color=UP_RED,
+                   note=f"That's ${tv / 2080:.0f}/hour full-time in {D.STATES[tf][0]} vs. ${bv / 2080:.0f}/hour in {D.STATES[bf][0]}")
+    key = f"acs{year}-pic-state_salary"
+    caption = with_question(
+        f"What you'd need to earn so the typical rent is 30% of your paycheck ({year}) 💸\n\nHighest:\n"
+        + "\n".join(f"{k + 1}. {D.STATES[f][0]}: ${v:,.0f}/year (${v / 2080:.0f}/hour)" for k, (f, v) in enumerate(order[:5]))
+        + "\n\nLowest:\n" + "\n".join(f"{len(order) - 4 + k}. {D.STATES[f][0]}: ${v:,.0f}/year (${v / 2080:.0f}/hour)"
+                                       for k, (f, v) in enumerate(order[-5:]))
+        + f"\n\nU.S.: ${us:,.0f}/year (${us / 2080:.0f}/hour) for a typical rent of ${us_rent:,.0f}/month.", "states", key)
+    caption += (f"\n\n📤 Send this to a friend who's apartment hunting. 📌 Save it before your next lease."
+                f"\n\nSource: U.S. Census Bureau, American Community Survey {year} 1-year estimates (median gross rent, "
+                f"50 states + DC). Math: rent × 12 ÷ 30%, the common rule of thumb; hourly = salary ÷ 2,080 hours."
+                f"\n{DISCLAIMER}\n#rent {TAGS}")
+    return _post(key, [_render(out_dir, "state_salary", html)], caption, rep)
+
+
 def _acs_key(name):
     return lambda m: f"acs{D.acs_year()}-pic-{name}"
 
 
 # (name, key for the latest CPI month, builder). Comparisons are spaced between the monthly staples.
-FORMATS = [("cheatsheet", lambda m: f"{m:%Y-%m}-pic-cheatsheet", cheatsheet),
+FORMATS = [("state_salary", _acs_key("state_salary"), state_salary),      # most relatable first (Oct 31)
+           ("cheatsheet", lambda m: f"{m:%Y-%m}-pic-cheatsheet", cheatsheet),
            ("protein", lambda m: f"{m:%Y-%m}-pic-protein", protein),
            ("receipt", lambda m: f"{m:%Y-%m}-pic-receipt", receipt),
            ("gas_regions", lambda m: f"{m:%Y-%m}-pic-gas_regions", gas_regions),
