@@ -228,5 +228,15 @@
     "posted_at": "2026-10-29T19:01:20+00:00",
     "scheduled": "12:00",
     "trial": false
+  },
+  "acs2025-pic-state_salary": {
+    "images": 1,
+    "job": "pics_sun",
+    "media": "feed",
+    "media_id": "17916327879497900",
+    "permalink": "https://www.instagram.com/p/DfNbvyUlqfA/",
+    "posted_at": "2026-11-01T19:00:42+00:00",
+    "scheduled": "11:00",
+    "trial": false
   }
 }
