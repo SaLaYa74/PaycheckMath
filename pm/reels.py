@@ -456,7 +456,9 @@ def reel_find_state(out_dir, posted=None):
         raise DataError("State pay data failed checks: " + "; ".join(i["detail"] for i in rep.blocked))
     key = f"{month:%Y-%m}-reel-find_state"
     if key in (posted or {}):
-        raise NoContent(f"Find Your State for {month:%B %Y} already posted; waiting for new BLS state data.")
+        # Jarvis Nov 2: the first Find Your State Reel reached 1,026 (other Reels ~30-120), so the Saturday slot
+        # no longer idles between BLS releases: it posts the Census rent edition once per ACS year instead.
+        return _find_rent(out_dir, posted)
     prelim = any(month in D.state_weekly_pay()[r["fips"]]["prelim"] for r in rows)
     items = []
     for k, r in enumerate(rows):
@@ -485,6 +487,43 @@ def reel_find_state(out_dir, posted=None):
                 f"earnings of all employees, total private, not seasonally adjusted."
                 f"{f' {month:%B %Y} figures are preliminary.' if prelim else ''}"
                 f"\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#paycheck #salary #wages {TAGS}")
+    return _post(key, mp4, cover, caption, rep)
+
+
+def _find_rent(out_dir, posted=None):
+    """Find Your State, Census edition: the salary needed so the typical rent is 30% of pay, all 50 states + DC.
+    Same board as the BLS pay Reel. Every state's rent is checked in pm.data (two Census tables agree,
+    plausible range, realistic move vs. last year)."""
+    rep = C.Report("find_rent")
+    year, rent, us_rent = D.acs_states(rep, "rent")
+    if not rent:
+        raise DataError("Census rent data failed checks: " + "; ".join(i["detail"] for i in rep.blocked))
+    key = f"acs{year}-reel-find_rent"
+    if key in (posted or {}):
+        raise NoContent("Find Your State (pay and rent) already posted; waiting for new BLS state data.")
+    need = sorted(((f, v * 12 / 0.30) for f, v in rent.items()), key=lambda kv: -kv[1])
+    us = us_rent * 12 / 0.30
+    items = [{"label": D.STATES[f][0], "value_label": f"${v / 1e3:,.0f}K", "note": f"${v / 2080:.0f}/hr",
+              "color": UP_RED if k < 10 else (DOWN_GREEN if k >= len(need) - 10 else "#1F2937")}
+             for k, (f, v) in enumerate(need)]
+    (tf, tv), (bf, bv) = need[0], need[-1]
+    hook = ("Find your state", "salary to afford rent")
+    sub = f"Pay so the typical rent is 30% of income · {year} · /hr = full-time"
+    mp4, cover = make_reel(out_dir, "reel_find_rent", hook, lambda p: L.board(
+        "Find Your {hl}", "State", sub, items, f"U.S. Census Bureau, ACS {year}", p=p, hl_color=UP_RED, flip=True),
+        "Find your state", f"rent-{year}", hold=7.0)
+    medal = ["🥇", "🥈", "🥉", "4.", "5."]
+    lines = "\n".join(f"{medal[k]} {D.STATES[f][0]}: ${v:,.0f}/year" for k, (f, v) in enumerate(need[:5]))
+    bottom = "\n".join(f"{len(need) - 2 + k}. {D.STATES[f][0]}: ${v:,.0f}/year" for k, (f, v) in enumerate(need[-3:]))
+    caption = with_question(
+        f"The salary you'd need so the typical rent is 30% of your pay, by state ({year}) 🏠\n\n"
+        f"Highest:\n{lines}\n\nLowest:\n{bottom}\n\n"
+        f"U.S.: ${us:,.0f}/year (${us / 2080:.0f}/hour) for a typical rent of ${us_rent:,.0f}/month.",
+        "states", key)
+    caption += (f"\n\n📤 Send this to a friend who's apartment hunting."
+                f"\n\nSource: U.S. Census Bureau, American Community Survey {year} 1-year estimates (median gross rent, "
+                f"50 states + DC). Math: rent × 12 ÷ 30%, the common rule of thumb; hourly = salary ÷ 2,080 hours."
+                f"\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#rent #salary {TAGS}")
     return _post(key, mp4, cover, caption, rep)
 
 

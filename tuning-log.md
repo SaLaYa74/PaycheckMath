@@ -43,3 +43,31 @@ audio matching treated the jazz bed (or the chime) as someone else's music and l
 **Watch:** if reach returns to ~100 within 3-4 Reels, jazz was the cause: build a new Paycheck Math sound
 (owner disliked the old beat as too high-pitched) and test it on 2-3 Reels before rolling it out. If reach
 stays low, put jazz back (the owner chose it) and keep looking: posting cadence, repeated trend-line format.
+
+## 2026-11-02 (Mon, full review)
+
+**Numbers (last 7 days):** 5 followers (+1). The first "Find Your State" Reel (Sat 10/31, 5pm) reached **1,026
+people** with 1,674 views and 7.7 s average watch, about 9x anything else this month. Every other Reel since
+Oct 26 reached 27-74. The 2 picture posts (cheat-sheet carousel, rent-salary picture) each reached 2 people.
+Saves 1, shares 0, follows 0.
+
+**Music test (old beat since Oct 31 11:54am):** 2 Reels so far: Find Your State 1,026 and a trend Reel 37.
+The big Reel proves the account isn't being held back as a whole, but the trend Reel didn't recover. Too early
+to call: 1-2 more Reels on the old beat this week, judged Thursday.
+
+**Changed:**
+1. **Find Your State gets a rent edition (the one new format this week).** The Saturday 5pm slot posts BLS
+   state pay once a month and then sat idle for 3 weeks. When this month's pay board is already out, it now
+   posts the same 51-state board with the Census numbers: the salary you'd need so the typical rent is 30% of
+   your pay (with the hourly rate). Same data and checks as the rent-salary picture: all 51 present, plausible
+   range, two separate Census tables must agree, realistic change vs. last year. Hand-checked: California rent
+   $2,160 → $86,400/yr ($42/hr), West Virginia $921 → $36,840/yr ($18/hr), D.C. $2,075. Colors run red at the
+   expensive end, green at the cheap end. Posts once per Census year (first one Sat Nov 7).
+2. **Calendar note** updated to say so.
+
+**Not changed, on purpose:** trend-line Reels look tired (8 posts, last 4 reached 27-74 vs ~110 before), but
+the music test overlaps them, so retiring them now would mix up two causes. Pictures reach ~2 people each, but
+that's only 2 posts and the owner asked for them; check again after 3+.
+
+**Watch next time:** does the rent edition land near the pay board (500+ reach)? If yes, add more 51-state
+boards (home price in years of pay, rent share of income). Trend Reels on the old beat: back to ~100 or not?

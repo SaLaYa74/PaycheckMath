@@ -42,5 +42,5 @@ JOBS = [
     Job("pics_thu",    "pic_monthly",   (THU,), "17:00", live=True, note="Picture/carousel: monthly cheat sheet / grocery receipt"),
     # Monthly share-first board: BLS state pay comes out mid-to-late month; checked every Saturday,
     # posts once per new data month (idles otherwise).
-    Job("find_state",  "reel_find_state", (SAT,), "17:00", live=True, note="Reel: Find Your State (weekly pay, all 50 + DC)"),
+    Job("find_state",  "reel_find_state", (SAT,), "17:00", live=True, note="Reel: Find Your State (weekly pay, all 50 + DC; Census rent edition between BLS releases)"),
 ]

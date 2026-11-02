@@ -137,8 +137,9 @@ def line(title, highlight, subtitle, pts, fmt, source, color="#3B82F6", marker=N
     return _page(body, tall, source)
 
 
-def board(title, highlight, subtitle, rows, source, tall=True, p=1.0, hl_color="#3B82F6"):
+def board(title, highlight, subtitle, rows, source, tall=True, p=1.0, hl_color="#3B82F6", flip=False):
     """'Find your state' board: every row on one screen, two columns, highest → lowest.
+    flip=True runs the rank colors red → green (for boards where the top is the bad end, e.g. rent).
     rows: [dict(label, value_label, note?, note_color?, color?)] in display order. Rows fade in top-down with p."""
     n = len(rows)
     half = (n + 1) // 2
@@ -150,7 +151,7 @@ def board(title, highlight, subtitle, rows, source, tall=True, p=1.0, hl_color="
             op = max(0.0, min(1.0, (p - k / n * 0.6) / 0.4))
             note = (f'<div class="nt" style="color:{r.get("note_color", "#6B7280")}">{escape(r["note"])}</div>'
                     if r.get("note") else "")
-            tint = ramp(k, n)
+            tint = ramp(n - 1 - k if flip else k, n)
             cells.append(f'''<div class="row" style="opacity:{op:.2f};background:{tint}1A;box-shadow:inset 7px 0 0 {tint}"><div class="rk" style="background:{tint}">{k + 1}</div>
   <div class="nm">{escape(r["label"])}</div>{note}
   <div class="vl" style="color:{r.get("color", "#1F2937")}">{escape(r["value_label"])}</div></div>''')
