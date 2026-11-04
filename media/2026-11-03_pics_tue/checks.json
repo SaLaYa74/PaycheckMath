@@ -1,0 +1,295 @@
+{
+  "subject": "protein",
+  "counts": {
+    "pass": 57,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Round steak, boneless (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Round steak, boneless (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Round steak, boneless (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Round steak, boneless (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Pork chops (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Pork chops (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Pork chops (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Pork chops (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Chicken breast, boneless (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Chicken breast, boneless (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Chicken breast, boneless (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Chicken breast, boneless (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Whole chicken (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Whole chicken (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Whole chicken (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Whole chicken (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Round steak, boneless (lb): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Pork chops (lb): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Chicken breast, boneless (lb): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Whole chicken (lb): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FRED has Sep 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Round steak, boneless (lb): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Pork chops (lb): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Chicken breast, boneless (lb): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Whole chicken (lb): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Round steak, boneless (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Pork chops (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Chicken breast, boneless (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Whole chicken (lb): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "protein.png: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "protein.png: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "protein.png: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "protein.png: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "protein.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "protein.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "protein.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "protein.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
