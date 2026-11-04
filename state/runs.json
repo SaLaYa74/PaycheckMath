@@ -189,6 +189,11 @@
     "detail": "No fresh jobs report ahead of CPI right now.",
     "status": "skipped"
   },
+  "2026-11-04:monthly_wed": {
+    "at": "2026-11-04T12:00-08:00",
+    "detail": "All monthly formats for September 2026 already posted; waiting for new BLS data.",
+    "status": "skipped"
+  },
   "2026-11-04:release": {
     "at": "2026-11-04T06:00-08:00",
     "detail": "No fresh jobs report ahead of CPI right now.",
