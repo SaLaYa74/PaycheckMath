@@ -71,3 +71,24 @@ that's only 2 posts and the owner asked for them; check again after 3+.
 
 **Watch next time:** does the rent edition land near the pay board (500+ reach)? If yes, add more 51-state
 boards (home price in years of pay, rent share of income). Trend Reels on the old beat: back to ~100 or not?
+
+## 2026-11-04 (Wed, check-in)
+
+**Numbers (last 4 days):** 5 followers (no change). 3 Reels: Find Your State 1,028 reach (7.7 s avg watch, 1 save),
+trend Reels 39 and 66 (2.0-2.4 s watch). 2 pictures reached 3 people each. No errors in the run log. The weekday
+rotation slots (Tue, Wed) are idle on purpose: all 11 September formats are used up until October CPI comes out.
+
+**Music test: verdict.** 3 Reels on the old beat so far. The two trend Reels on the old beat (39, 66) landed in the
+same range as the trend Reels on jazz (27, 49, 74), and well below trend Reels before Oct 26 (105-114). Swapping the
+music back did not bring reach back, so the jazz bed is very unlikely to be the cause. The likelier cause is the
+trend-line format itself wearing out (9 posts, last 6 at 27-74), while the share-built Find Your State board did
+1,028 on the same account the same week.
+
+**Changed:** nothing in code. Kept the old beat through this Saturday on purpose: the Find Your State rent edition
+(Sat Nov 7, 5pm) is the key spin-off test, and the first board ran on the old beat. Changing the music now would mix
+two causes in that one result.
+
+**Plan for Monday Nov 9:** (1) put the jazz bed back (the owner's pick) now that it's cleared, or build a new
+lower-pitched sound if the owner still dislikes the old beat; (2) retire or cut back the single-item trend-line Reels
+before October CPI refills the rotation (9 posts of evidence); (3) if the rent board lands near 500+ reach, add
+more 51-state boards.
