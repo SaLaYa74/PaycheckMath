@@ -92,3 +92,10 @@ two causes in that one result.
 lower-pitched sound if the owner still dislikes the old beat; (2) retire or cut back the single-item trend-line Reels
 before October CPI refills the rotation (9 posts of evidence); (3) if the rent board lands near 500+ reach, add
 more 51-state boards.
+
+## 2026-11-05 (Thu, check-in)
+
+No new posts since yesterday's check-in; no errors in the run log. Today: mortgage Reel (noon) and a picture (5pm).
+Pictures are now 0 for 4 (2-3 people reached each): queued for the Monday decision along with the trend-line Reels.
+The October jobs report should come out Fri Nov 6; the 6am release job will post the pay-vs-prices Reel if BLS has it.
+**Changed:** nothing (the plan for Monday Nov 9 above still stands; the rent board posts Sat Nov 7, 5pm).
