@@ -259,6 +259,16 @@
     "scheduled": "12:00",
     "trial": false
   },
+  "2026-10-reel-payday": {
+    "images": 1,
+    "job": "release",
+    "media": "reel",
+    "media_id": "18108961466196326",
+    "permalink": "https://www.instagram.com/reel/DfZxd0pDX-b/",
+    "posted_at": "2026-11-06T14:01:41+00:00",
+    "scheduled": "06:00",
+    "trial": false
+  },
   "2026-11-05-reel-mortgage": {
     "images": 1,
     "job": "mortgage",
