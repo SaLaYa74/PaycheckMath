@@ -49,6 +49,16 @@
     "scheduled": "17:00",
     "trial": false
   },
+  "2026-09-pic-receipt": {
+    "images": 1,
+    "job": "pics_thu",
+    "media": "feed",
+    "media_id": "18091216709703741",
+    "permalink": "https://www.instagram.com/p/DfYYIm8iAzT/",
+    "posted_at": "2026-11-06T01:00:52+00:00",
+    "scheduled": "17:00",
+    "trial": false
+  },
   "2026-09-reel-find_state": {
     "images": 1,
     "job": "find_state",
