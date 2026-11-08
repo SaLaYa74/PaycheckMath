@@ -99,3 +99,21 @@ No new posts since yesterday's check-in; no errors in the run log. Today: mortga
 Pictures are now 0 for 4 (2-3 people reached each): queued for the Monday decision along with the trend-line Reels.
 The October jobs report should come out Fri Nov 6; the 6am release job will post the pay-vs-prices Reel if BLS has it.
 **Changed:** nothing (the plan for Monday Nov 9 above still stands; the rent board posts Sat Nov 7, 5pm).
+
+## 2026-11-08 (Sun, Claude with the owner): double down on Find Your State
+
+**Numbers (21 days):** Find Your State is the breakout. Rent edition (Sat 11/7, 5pm): **15,830 views, 7,749 reached,
+12.3 s average watch, 3 saves, 2 shares**. Pay edition (Sat 10/31): 1,681 views, 1,030 reached, 7.7 s. Everything else:
+~50-130 views, 2-4 s watch. Account reach (28 days) jumped to 9,410. Followers: still 5, so people watch but don't follow.
+
+**Changed:**
+1. **Find Your State twice a week** (Wed + Sat, 5pm PT). Each run posts a new BLS pay month if there is one, otherwise the
+   next Census edition, most relatable first: salary to afford the typical home (new; 20% down, this week's 30-year rate,
+   28% rule, all assumptions in the caption), median household income, years of income to buy a home, rent as a share of
+   renters' income, median home value. All 50 states + DC, same board as the viral one. Test builds: 67-127 checks each,
+   0 blocking. Hand-checked the U.S. home math: $371,100 home, 20% down, 7.18% → $2,011/month → $86,193/year at 28%.
+2. **Follow prompt on the board**: "New state ranking every Wed & Sat · Follow", plus a matching caption line. The series
+   gives people a reason to follow (7,749 reached, 0 follows).
+
+**Watch:** does the home-salary edition (Wed 11/11) land near the rent one? Any follows from the new prompt? If two more
+editions top 1,000 views, give Find Your State a third slot and trim the trend-line Reels (2 s watch, ~70 reach).

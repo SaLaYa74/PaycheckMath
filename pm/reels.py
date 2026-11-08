@@ -456,9 +456,14 @@ def reel_find_state(out_dir, posted=None):
         raise DataError("State pay data failed checks: " + "; ".join(i["detail"] for i in rep.blocked))
     key = f"{month:%Y-%m}-reel-find_state"
     if key in (posted or {}):
-        # Jarvis Nov 2: the first Find Your State Reel reached 1,026 (other Reels ~30-120), so the Saturday slot
-        # no longer idles between BLS releases: it posts the Census rent edition once per ACS year instead.
-        return _find_rent(out_dir, posted)
+        # Jarvis Nov 2: the first Find Your State Reel reached 1,026 (other Reels ~30-120), so the slot no longer idles
+        # between BLS releases. Nov 8: the rent edition hit 15,830 views; it now runs Wed + Sat, one Census edition each.
+        for edition in EDITIONS:
+            try:
+                return edition(out_dir, posted)
+            except NoContent:
+                continue
+        raise NoContent("Every Find Your State edition is posted; waiting for new BLS state pay or a new ACS year.")
     prelim = any(month in D.state_weekly_pay()[r["fips"]]["prelim"] for r in rows)
     items = []
     for k, r in enumerate(rows):
@@ -525,6 +530,138 @@ def _find_rent(out_dir, posted=None):
                 f"50 states + DC). Math: rent × 12 ÷ 30%, the common rule of thumb; hourly = salary ÷ 2,080 hours."
                 f"\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#rent #salary {TAGS}")
     return _post(key, mp4, cover, caption, rep)
+
+
+# ---------------------------------------------------------------- Find Your State: more editions (Nov 8)
+# Owner, Nov 8: the Find Your State Reels get "a ton of views" (rent edition 15,830 views, 7,749 reached, 12.3 s
+# average watch; every other format ~50-130 views). Same board, new verified state measures, twice a week.
+
+CTA = "New state ranking every Wed & Sat · Follow"
+
+
+def _state_board(out_dir, rep, key, name, hook_line, rows, fmt, note, sub, source, flip, caption_head, us_line,
+                 method, share, tags, seed):
+    """rows: [(fips, value)] sorted high → low. Top 10 colored red (flip) or green, bottom 10 the other way."""
+    hi, lo = (UP_RED, DOWN_GREEN) if flip else (DOWN_GREEN, UP_RED)
+    items = [{"label": D.STATES[f][0], "value_label": fmt(v), "note": note(f, v) if note else "",
+              "color": hi if k < 10 else (lo if k >= len(rows) - 10 else "#1F2937")} for k, (f, v) in enumerate(rows)]
+    mp4, cover = make_reel(out_dir, name, ("Find your state", hook_line), lambda p: L.board(
+        "Find Your {hl}", "State", sub, items, source, p=p, hl_color=UP_RED if flip else BLUE, flip=flip, cta=CTA),
+        "Find your state", seed, hold=7.0)
+    medal = ["🥇", "🥈", "🥉", "4.", "5."]
+    top = "\n".join(f"{medal[k]} {D.STATES[f][0]}: {fmt(v)}" for k, (f, v) in enumerate(rows[:5]))
+    bottom = "\n".join(f"{len(rows) - 2 + k}. {D.STATES[f][0]}: {fmt(v)}" for k, (f, v) in enumerate(rows[-3:]))
+    caption = with_question(f"{caption_head}\n\nHighest:\n{top}\n\nLowest:\n{bottom}\n\n{us_line}", "states", key)
+    caption += (f"\n\n📤 {share}\n🔁 A new state ranking every Wednesday and Saturday. Follow so you don't miss yours."
+                f"\n\nSource: {method}\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{tags} {TAGS}")
+    return _post(key, mp4, cover, caption, rep)
+
+
+def _acs_edition(name, posted, need):
+    """(rep, year, {measure: (vals, us)}) for an edition, or NoContent if it's already posted this ACS year."""
+    rep = C.Report(name)
+    year = D.acs_year()
+    if year is None:
+        raise DataError("Census ACS data unreachable")
+    if f"acs{year}-reel-{name}" in (posted or {}):
+        raise NoContent(f"{name} already posted for ACS {year}")
+    got = {}
+    for m in need:
+        y, vals, us = D.acs_states(rep, m)
+        rep.require(y == year, f"{m}: same ACS year", f"{y} vs {year}")
+        if not vals or not rep.ok:
+            raise DataError(f"Census {m} data failed checks: " + "; ".join(i["detail"] for i in rep.blocked))
+        got[m] = (vals, us)
+    return rep, year, got
+
+
+ACS_SRC = "U.S. Census Bureau, American Community Survey {} 1-year estimates (50 states + DC)."
+
+
+def _find_home(out_dir, posted=None):
+    """Salary needed to afford the typical home: median home value, 20% down, 30-year fixed at this week's average
+    rate, principal + interest ≤ 28% of gross pay (the common lender rule of thumb). All assumptions in the caption."""
+    rep, year, got = _acs_edition("find_home", posted, ["home"])
+    D.check_series(rep, ["MORTGAGE30"])
+    rate_day, rate = D.series("MORTGAGE30")[-1]
+    home, us_home = got["home"]
+    r = rate / 1200
+
+    def pay(price):
+        loan = price * 0.80
+        return loan * r / (1 - (1 + r) ** -360)
+
+    # self-check against the textbook case: $200,000 at 6% for 30 years is $1,199.10 a month
+    r6 = 0.06 / 12
+    rep.require(abs(200_000 * r6 / (1 - (1 + r6) ** -360) - 1199.10) < 0.01, "mortgage formula self-check", "formula off")
+    need = sorted(((f, pay(v) * 12 / 0.28) for f, v in home.items()), key=lambda kv: -kv[1])
+    for f, v in need:
+        rep.require(30_000 <= v <= 700_000, f"{D.STATES[f][1]} home salary plausible", f"${v:,.0f}")
+    us = pay(us_home) * 12 / 0.28
+    return _state_board(
+        out_dir, rep, f"acs{year}-reel-find_home", "reel_find_home", "salary to afford a home", need,
+        lambda v: f"${v / 1e3:,.0f}K", lambda f, v: f"${v * 0.28 / 12:,.0f}/mo",
+        f"Salary to afford the typical home · 20% down · {rate:.2f}%", f"Census ACS {year} · Freddie Mac",
+        True, "The salary you'd need to afford the typical home, by state 🏡",
+        f"U.S.: ${us:,.0f}/year for a typical ${us_home:,.0f} home (${pay(us_home):,.0f}/month).",
+        ACS_SRC.format(year) + f" Median home value; 20% down; 30-year fixed at {rate:.2f}% (Freddie Mac weekly average, "
+        f"{rate_day:%b} {rate_day.day}); principal + interest only (taxes and insurance add more); payment = 28% of gross pay.",
+        "Send this to the friend who keeps saying they'll buy next year.", "#homebuying #mortgage", f"home-{year}")
+
+
+def _find_income(out_dir, posted=None):
+    rep, year, got = _acs_edition("find_income", posted, ["income"])
+    inc, us = got["income"]
+    rows = sorted(inc.items(), key=lambda kv: -kv[1])
+    return _state_board(
+        out_dir, rep, f"acs{year}-reel-find_income", "reel_find_income", "typical household income", rows,
+        lambda v: f"${v / 1e3:,.0f}K", None, f"Median household income, before taxes · {year}", f"Census ACS {year}",
+        False, f"Median household income by state ({year}) 💵", f"U.S.: ${us:,.0f}.",
+        ACS_SRC.format(year) + " Median household income in the past 12 months, before taxes.",
+        "Send this to someone who thinks they're underpaid.", "#income #salary", f"income-{year}")
+
+
+def _find_years(out_dir, posted=None):
+    rep, year, got = _acs_edition("find_years", posted, ["home", "income"])
+    (home, us_home), (inc, us_inc) = got["home"], got["income"]
+    rows = sorted(((f, home[f] / inc[f]) for f in home if f in inc), key=lambda kv: -kv[1])
+    rep.require(len(rows) == 51, "years: all 50 states + DC", f"{len(rows)}")
+    return _state_board(
+        out_dir, rep, f"acs{year}-reel-find_years", "reel_find_years", "years of pay to buy a home", rows,
+        lambda v: f"{v:.1f} yrs", None, f"Typical home ÷ typical household income · {year}", f"Census ACS {year}",
+        True, f"How many years of income the typical home costs, by state ({year}) 🏠",
+        f"U.S.: {us_home / us_inc:.1f} years (${us_home:,.0f} home, ${us_inc:,.0f} income). Before taxes, spending nothing.",
+        ACS_SRC.format(year) + " Median value of owner-occupied homes ÷ median household income.",
+        "Send this to the friend who's saving for a house.", "#homebuying #housing", f"years-{year}")
+
+
+def _find_burden(out_dir, posted=None):
+    rep, year, got = _acs_edition("find_burden", posted, ["burden"])
+    b, us = got["burden"]
+    rows = sorted(b.items(), key=lambda kv: -kv[1])
+    return _state_board(
+        out_dir, rep, f"acs{year}-reel-find_burden", "reel_find_burden", "share of pay that goes to rent", rows,
+        lambda v: f"{v:.1f}%", None, f"Typical renter's rent as a share of their income · {year}", f"Census ACS {year}",
+        True, f"How much of their income the typical renter spends on rent, by state ({year}) 😬",
+        f"U.S.: {us:.1f}%. The usual rule of thumb is 30%.",
+        ACS_SRC.format(year) + " Median gross rent as a percentage of household income (renters).",
+        "Send this to your roommate.", "#rent #renting", f"burden-{year}")
+
+
+def _find_homevalue(out_dir, posted=None):
+    rep, year, got = _acs_edition("find_homevalue", posted, ["home"])
+    home, us = got["home"]
+    rows = sorted(home.items(), key=lambda kv: -kv[1])
+    return _state_board(
+        out_dir, rep, f"acs{year}-reel-find_homevalue", "reel_find_homevalue", "typical home price", rows,
+        lambda v: f"${v / 1e6:.2f}M" if v >= 1e6 else f"${v / 1e3:,.0f}K", None, f"Median home value · {year}",
+        f"Census ACS {year}", True, f"What the typical home is worth, by state ({year}) 🏡", f"U.S.: ${us:,.0f}.",
+        ACS_SRC.format(year) + " Median value of owner-occupied homes (owners' estimates).",
+        "Send this to someone who's thinking about moving.", "#realestate #housing", f"homevalue-{year}")
+
+
+# Order = most relatable first (the rent edition, 15.8K views, already posted Nov 7).
+EDITIONS = [_find_rent, _find_home, _find_income, _find_years, _find_burden, _find_homevalue]
 
 
 BUILDERS = {"reel_mortgage": lambda out_dir, posted=None: reel_mortgage(out_dir),

@@ -42,5 +42,8 @@ JOBS = [
     Job("pics_thu",    "pic_monthly",   (THU,), "17:00", live=True, note="Picture/carousel: monthly cheat sheet / grocery receipt"),
     # Monthly share-first board: BLS state pay comes out mid-to-late month; checked every Saturday,
     # posts once per new data month (idles otherwise).
-    Job("find_state",  "reel_find_state", (SAT,), "17:00", live=True, note="Reel: Find Your State (weekly pay, all 50 + DC; Census rent edition between BLS releases)"),
+    # Nov 8: Find Your State is the breakout (rent edition 15,830 views vs ~50-130 for everything else). Twice a week now,
+    # Wed + Sat evenings: new BLS pay month first, otherwise the next Census edition (home salary, income, years, burden...).
+    Job("find_state",  "reel_find_state", (SAT,), "17:00", live=True, note="Reel: Find Your State (BLS pay month, else next Census edition)"),
+    Job("find_state_wed", "reel_find_state", (WED,), "17:00", live=True, note="Reel: Find Your State (BLS pay month, else next Census edition)"),
 ]

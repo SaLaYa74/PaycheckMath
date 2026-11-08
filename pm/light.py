@@ -137,7 +137,7 @@ def line(title, highlight, subtitle, pts, fmt, source, color="#3B82F6", marker=N
     return _page(body, tall, source)
 
 
-def board(title, highlight, subtitle, rows, source, tall=True, p=1.0, hl_color="#3B82F6", flip=False):
+def board(title, highlight, subtitle, rows, source, tall=True, p=1.0, hl_color="#3B82F6", flip=False, cta=""):
     """'Find your state' board: every row on one screen, two columns, highest → lowest.
     flip=True runs the rank colors red → green (for boards where the top is the bad end, e.g. rent).
     rows: [dict(label, value_label, note?, note_color?, color?)] in display order. Rows fade in top-down with p."""
@@ -168,6 +168,9 @@ def board(title, highlight, subtitle, rows, source, tall=True, p=1.0, hl_color="
 .vl{{font-family:"Baloo 2";font-weight:800;font-size:30px;line-height:1;white-space:nowrap;min-width:92px;text-align:right}}</style>"""
     body = f'''{css}<div class="t" style="--hl:{hl_color}">{t}</div><div class="s">{escape(subtitle)}</div>
 <div class="board">{"".join(html_cols)}</div>'''
+    if cta:      # Nov 8: the board Reels reach thousands but convert ~0 to follows; say what following gets you
+        body += (f'<div style="align-self:center;margin-top:18px;background:#1F2937;color:#fff;font-family:\'Baloo 2\';'
+                 f'font-weight:800;font-size:30px;padding:8px 28px;border-radius:999px">{escape(cta)}</div>')
     return _page(body, tall, source)
 
 
