@@ -1,0 +1,375 @@
+{
+  "subject": "find_rent",
+  "counts": {
+    "pass": 73,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Census API key available",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Census ACS data reachable",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 rent: all 50 states + DC",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 rent: detailed and profile tables agree",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 rent: realistic change vs. 2024",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 rent: U.S. value between the states",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_rent.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_rent.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_rent.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_rent.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_rent.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_rent.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_rent_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_rent_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_rent_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_rent_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
