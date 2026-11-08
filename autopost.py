@@ -255,6 +255,17 @@ def main():
         if status in ("blocked-final", "error"):
             failed.append(job.name)
 
+    # Nov 8: reply to "comment your state" comments on recent Find Your State Reels (live CI runs only).
+    # Never fails the run: an Instagram hiccup here must not turn a good posting run red.
+    if in_ci and live_allowed:
+        try:
+            from pm import comments as M
+            n = M.run(load(POSTED), log=print)
+            if n:
+                summary(f"💬 Replied to {n} state comment{'s' * (n > 1)}")
+        except Exception as e:
+            print(f"  ! comment replies skipped: {type(e).__name__}: {e}")
+
     save(RUNS, runs)
     runner.touched.add("state")
     if in_ci:

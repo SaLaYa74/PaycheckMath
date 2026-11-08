@@ -7,6 +7,7 @@ from . import data as D
 from . import light as L
 from . import templates as T
 from .core import DISCLAIMER, DataError, NoContent, Post, with_question
+from .comments import save_ranks
 from .video import make_reel, video_checks
 
 GREEN, RED, GOLD = "#3DDC84", "#FF5A5F", "#E8B84A"
@@ -474,19 +475,19 @@ def reel_find_state(out_dir, posted=None):
                       "color": DOWN_GREEN if k < 10 else (UP_RED if k >= len(rows) - 10 else "#1F2937")})
     top, low = rows[0], rows[-1]
     gap = top["value"] - low["value"]
+    save_ranks(out_dir, f"average weekly pay ({month:%B %Y})", "",
+               [(r["fips"], f"${r['value']:,.0f}/week") for r in rows])
     hook = ("Find your state", "average weekly pay")
     sub = f"Avg. weekly pay, pre-tax · {month:%b %Y} · % = vs. a year ago"
     mp4, cover = make_reel(out_dir, "reel_find_state", hook, lambda p: L.board(
         "Find Your {hl}", "State", sub, items, f"BLS, {month:%b %Y}{' (preliminary)' if prelim else ''}", p=p,
-        hl_color=BLUE), "Find your state", f"states-{month}", hold=7.0)
+        hl_color=BLUE, cta=CTA), "Find your state", f"states-{month}", hold=7.0)
     medal = ["🥇", "🥈", "🥉", "4.", "5."]
     lines = "\n".join(f"{medal[k]} {r['name']}: ${r['value']:,.0f}/week" for k, r in enumerate(rows[:5]))
     bottom = "\n".join(f"{len(rows) - 2 + k}. {r['name']}: ${r['value']:,.0f}/week" for k, r in enumerate(rows[-3:]))
-    caption = with_question(
-        f"Average weekly pay by state, {month:%B %Y} (private-sector jobs, before taxes) 💵\n\n"
-        f"Highest:\n{lines}\n\nLowest:\n{bottom}\n\n"
-        f"That's a ${gap:,.0f} gap every week between {top['name']} and {low['name']}.",
-        "states", key)
+    caption = (f"Average weekly pay by state, {month:%B %Y} (private-sector jobs, before taxes) 💵\n\n"
+               f"Highest:\n{lines}\n\nLowest:\n{bottom}\n\n"
+               f"That's a ${gap:,.0f} gap every week between {top['name']} and {low['name']}.\n\n{COMMENT}")
     caption += (f"\n\n📤 Send this to someone in {low['name']}."
                 f"\n\nSource: U.S. Bureau of Labor Statistics, State and Metro Area Employment (CES): average weekly "
                 f"earnings of all employees, total private, not seasonally adjusted."
@@ -508,6 +509,8 @@ def _find_rent(out_dir, posted=None):
         raise NoContent("Find Your State (pay and rent) already posted; waiting for new BLS state data.")
     need = sorted(((f, v * 12 / 0.30) for f, v in rent.items()), key=lambda kv: -kv[1])
     us = us_rent * 12 / 0.30
+    save_ranks(out_dir, "the salary you'd need for the typical rent to be 30% of your pay", f"${us / 1e3:,.0f}K",
+               [(f, f"${v / 1e3:,.0f}K") for f, v in need])
     items = [{"label": D.STATES[f][0], "value_label": f"${v / 1e3:,.0f}K", "note": f"${v / 2080:.0f}/hr",
               "color": UP_RED if k < 10 else (DOWN_GREEN if k >= len(need) - 10 else "#1F2937")}
              for k, (f, v) in enumerate(need)]
@@ -520,11 +523,9 @@ def _find_rent(out_dir, posted=None):
     medal = ["🥇", "🥈", "🥉", "4.", "5."]
     lines = "\n".join(f"{medal[k]} {D.STATES[f][0]}: ${v:,.0f}/year" for k, (f, v) in enumerate(need[:5]))
     bottom = "\n".join(f"{len(need) - 2 + k}. {D.STATES[f][0]}: ${v:,.0f}/year" for k, (f, v) in enumerate(need[-3:]))
-    caption = with_question(
-        f"The salary you'd need so the typical rent is 30% of your pay, by state ({year}) 🏠\n\n"
-        f"Highest:\n{lines}\n\nLowest:\n{bottom}\n\n"
-        f"U.S.: ${us:,.0f}/year (${us / 2080:.0f}/hour) for a typical rent of ${us_rent:,.0f}/month.",
-        "states", key)
+    caption = (f"The salary you'd need so the typical rent is 30% of your pay, by state ({year}) 🏠\n\n"
+               f"Highest:\n{lines}\n\nLowest:\n{bottom}\n\n"
+               f"U.S.: ${us:,.0f}/year (${us / 2080:.0f}/hour) for a typical rent of ${us_rent:,.0f}/month.\n\n{COMMENT}")
     caption += (f"\n\n📤 Send this to a friend who's apartment hunting."
                 f"\n\nSource: U.S. Census Bureau, American Community Survey {year} 1-year estimates (median gross rent, "
                 f"50 states + DC). Math: rent × 12 ÷ 30%, the common rule of thumb; hourly = salary ÷ 2,080 hours."
@@ -536,12 +537,15 @@ def _find_rent(out_dir, posted=None):
 # Owner, Nov 8: the Find Your State Reels get "a ton of views" (rent edition 15,830 views, 7,749 reached, 12.3 s
 # average watch; every other format ~50-130 views). Same board, new verified state measures, twice a week.
 
-CTA = "New state ranking every Wed & Sat · Follow"
+CTA = "Comment your state · we'll reply with its rank"
+COMMENT = "💬 Comment your state and we'll reply with where it ranks."
 
 
 def _state_board(out_dir, rep, key, name, hook_line, rows, fmt, note, sub, source, flip, caption_head, us_line,
-                 method, share, tags, seed):
-    """rows: [(fips, value)] sorted high → low. Top 10 colored red (flip) or green, bottom 10 the other way."""
+                 method, share, tags, seed, what="", us_val=""):
+    """rows: [(fips, value)] sorted high → low. Top 10 colored red (flip) or green, bottom 10 the other way.
+    what/us_val feed the comment replies (pm/comments.py): '#3 of 51 for <what>, at $X. U.S.: <us_val>'."""
+    save_ranks(out_dir, what or hook_line, us_val, [(f, fmt(v)) for f, v in rows])
     hi, lo = (UP_RED, DOWN_GREEN) if flip else (DOWN_GREEN, UP_RED)
     items = [{"label": D.STATES[f][0], "value_label": fmt(v), "note": note(f, v) if note else "",
               "color": hi if k < 10 else (lo if k >= len(rows) - 10 else "#1F2937")} for k, (f, v) in enumerate(rows)]
@@ -551,7 +555,7 @@ def _state_board(out_dir, rep, key, name, hook_line, rows, fmt, note, sub, sourc
     medal = ["🥇", "🥈", "🥉", "4.", "5."]
     top = "\n".join(f"{medal[k]} {D.STATES[f][0]}: {fmt(v)}" for k, (f, v) in enumerate(rows[:5]))
     bottom = "\n".join(f"{len(rows) - 2 + k}. {D.STATES[f][0]}: {fmt(v)}" for k, (f, v) in enumerate(rows[-3:]))
-    caption = with_question(f"{caption_head}\n\nHighest:\n{top}\n\nLowest:\n{bottom}\n\n{us_line}", "states", key)
+    caption = f"{caption_head}\n\nHighest:\n{top}\n\nLowest:\n{bottom}\n\n{us_line}\n\n{COMMENT}"
     caption += (f"\n\n📤 {share}\n🔁 A new state ranking every Wednesday and Saturday. Follow so you don't miss yours."
                 f"\n\nSource: {method}\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{tags} {TAGS}")
     return _post(key, mp4, cover, caption, rep)
@@ -606,7 +610,7 @@ def _find_home(out_dir, posted=None):
         f"U.S.: ${us:,.0f}/year for a typical ${us_home:,.0f} home (${pay(us_home):,.0f}/month).",
         ACS_SRC.format(year) + f" Median home value; 20% down; 30-year fixed at {rate:.2f}% (Freddie Mac weekly average, "
         f"{rate_day:%b} {rate_day.day}); principal + interest only (taxes and insurance add more); payment = 28% of gross pay.",
-        "Send this to the friend who keeps saying they'll buy next year.", "#homebuying #mortgage", f"home-{year}")
+        "Send this to the friend who keeps saying they'll buy next year.", "#homebuying #mortgage", f"home-{year}", what="the salary to afford the typical home", us_val=f"${us / 1e3:,.0f}K")
 
 
 def _find_income(out_dir, posted=None):
@@ -618,7 +622,7 @@ def _find_income(out_dir, posted=None):
         lambda v: f"${v / 1e3:,.0f}K", None, f"Median household income, before taxes · {year}", f"Census ACS {year}",
         False, f"Median household income by state ({year}) 💵", f"U.S.: ${us:,.0f}.",
         ACS_SRC.format(year) + " Median household income in the past 12 months, before taxes.",
-        "Send this to someone who thinks they're underpaid.", "#income #salary", f"income-{year}")
+        "Send this to someone who thinks they're underpaid.", "#income #salary", f"income-{year}", what="median household income", us_val=f"${us / 1e3:,.0f}K")
 
 
 def _find_years(out_dir, posted=None):
@@ -632,7 +636,7 @@ def _find_years(out_dir, posted=None):
         True, f"How many years of income the typical home costs, by state ({year}) 🏠",
         f"U.S.: {us_home / us_inc:.1f} years (${us_home:,.0f} home, ${us_inc:,.0f} income). Before taxes, spending nothing.",
         ACS_SRC.format(year) + " Median value of owner-occupied homes ÷ median household income.",
-        "Send this to the friend who's saving for a house.", "#homebuying #housing", f"years-{year}")
+        "Send this to the friend who's saving for a house.", "#homebuying #housing", f"years-{year}", what="years of income to buy the typical home", us_val=f"{us_home / us_inc:.1f} yrs")
 
 
 def _find_burden(out_dir, posted=None):
@@ -645,7 +649,7 @@ def _find_burden(out_dir, posted=None):
         True, f"How much of their income the typical renter spends on rent, by state ({year}) 😬",
         f"U.S.: {us:.1f}%. The usual rule of thumb is 30%.",
         ACS_SRC.format(year) + " Median gross rent as a percentage of household income (renters).",
-        "Send this to your roommate.", "#rent #renting", f"burden-{year}")
+        "Send this to your roommate.", "#rent #renting", f"burden-{year}", what="the share of income renters spend on rent", us_val=f"{us:.1f}%")
 
 
 def _find_homevalue(out_dir, posted=None):
@@ -657,7 +661,7 @@ def _find_homevalue(out_dir, posted=None):
         lambda v: f"${v / 1e6:.2f}M" if v >= 1e6 else f"${v / 1e3:,.0f}K", None, f"Median home value · {year}",
         f"Census ACS {year}", True, f"What the typical home is worth, by state ({year}) 🏡", f"U.S.: ${us:,.0f}.",
         ACS_SRC.format(year) + " Median value of owner-occupied homes (owners' estimates).",
-        "Send this to someone who's thinking about moving.", "#realestate #housing", f"homevalue-{year}")
+        "Send this to someone who's thinking about moving.", "#realestate #housing", f"homevalue-{year}", what="the typical home value", us_val=f"${us / 1e3:,.0f}K")
 
 
 # Order = most relatable first (the rent edition, 15.8K views, already posted Nov 7).

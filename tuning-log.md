@@ -117,3 +117,19 @@ The October jobs report should come out Fri Nov 6; the 6am release job will post
 
 **Watch:** does the home-salary edition (Wed 11/11) land near the rent one? Any follows from the new prompt? If two more
 editions top 1,000 views, give Find Your State a third slot and trim the trend-line Reels (2 s watch, ~70 reach).
+
+## 2026-11-08 (later, Claude with the owner): turn views into comments and follows
+
+**Problem:** the rent board reached 7,749 people: 15 likes, **0 comments**, 0 follows. Nobody was given a reason to engage.
+
+**Changed:**
+1. **Comment your state, get a reply** (pm/comments.py). Find Your State boards now say "Comment your state · we'll
+   reply with its rank" on screen and in the caption. Every live run checks Find Your State Reels from the last 14 days
+   and replies to any comment naming a state with that state's rank and value, taken from ranks.json: the exact numbers
+   the Reel showed, saved when it was built (backfilled for the Nov 7 rent Reel; matches its caption, e.g. Iowa #50,
+   $41K). One reply per comment, never to our own, max 25 per run; bare two-letter words like "ok", "me", "in" don't
+   count as states. Errors are logged and skipped, never a failed run. Replies tracked in state/replies.json.
+2. The generic closing question on these boards is replaced by the comment prompt; the follow line stays in the caption.
+
+**Watch:** comments per Reel (was 0), replies sent (run summary shows "💬 Replied to N"), follows per reach. If replies
+error with a permission message, the owner's token needs the comments permission (one-time).
