@@ -239,6 +239,11 @@
     "detail": "Jobs-report post already made for this month.",
     "status": "skipped"
   },
+  "2026-11-08:monthly_sun": {
+    "at": "2026-11-08T10:00-08:00",
+    "detail": "All monthly formats for September 2026 already posted; waiting for new BLS data.",
+    "status": "skipped"
+  },
   "2026-11-08:release": {
     "at": "2026-11-08T06:00-08:00",
     "detail": "Jobs-report post already made for this month.",
