@@ -88,11 +88,8 @@ def _load(path, default):
         return default
 
 
-def run(posted, log=print):
-    """Reply to new state comments on recent Find Your State Reels. Returns the number of replies sent."""
-    from .instagram import Instagram, InstagramError
-    replied = _load(REPLIED, {})
-    since = datetime.now(timezone.utc) - timedelta(days=WINDOW_DAYS)
+def find_targets(posted, since):
+    """[(key, media_id, ranks)] for Find Your State Reels posted after `since` that have a ranks.json. No network."""
     targets = []
     for key, p in posted.items():
         if "find_" not in key or not p.get("media_id") or datetime.fromisoformat(p["posted_at"]) < since:
@@ -102,6 +99,15 @@ def run(posted, log=print):
         ranks = _load(os.path.join(ROOT, "media", f"{day}_{p.get('job', '')}", "ranks.json"), None)
         if ranks:
             targets.append((key, p["media_id"], ranks))
+    return targets
+
+
+def run(posted, log=print):
+    """Reply to new state comments on recent Find Your State Reels. Returns the number of replies sent."""
+    from .instagram import Instagram, InstagramError
+    replied = _load(REPLIED, {})
+    since = datetime.now(timezone.utc) - timedelta(days=WINDOW_DAYS)
+    targets = find_targets(posted, since)
     if not targets:
         return 0
     ig = Instagram()

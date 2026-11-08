@@ -181,6 +181,22 @@ class Runner:
         return "posted", link or post.key
 
 
+def reply_to_comments(in_ci, live_allowed):
+    """Nov 8: reply to "comment your state" comments on recent Find Your State Reels (live CI runs only, every run).
+    Never fails the run: an Instagram hiccup here must not turn a good posting run red. Returns replies sent."""
+    if not (in_ci and live_allowed):
+        return 0
+    try:
+        from pm import comments as M
+        n = M.run(load(POSTED), log=print)
+        if n:
+            summary(f"💬 Replied to {n} state comment{'s' * (n > 1)}")
+        return n
+    except Exception as e:
+        print(f"  ! comment replies skipped: {type(e).__name__}: {e}")
+        return 0
+
+
 def due_jobs(now, runs):
     out = []
     for job in JOBS:
@@ -231,6 +247,8 @@ def main():
         todo = [(job, True)]
     if not todo:
         print(f"Nothing due at {now:%a %H:%M} PT.")
+        if reply_to_comments(in_ci, live_allowed) and in_ci:     # most runs post nothing; replies still go out
+            git_push(f"Replies {now:%Y-%m-%d %H:%M} PT", ["state"])
         return
 
     runner = Runner(live_allowed, in_ci, args.force)
@@ -255,16 +273,7 @@ def main():
         if status in ("blocked-final", "error"):
             failed.append(job.name)
 
-    # Nov 8: reply to "comment your state" comments on recent Find Your State Reels (live CI runs only).
-    # Never fails the run: an Instagram hiccup here must not turn a good posting run red.
-    if in_ci and live_allowed:
-        try:
-            from pm import comments as M
-            n = M.run(load(POSTED), log=print)
-            if n:
-                summary(f"💬 Replied to {n} state comment{'s' * (n > 1)}")
-        except Exception as e:
-            print(f"  ! comment replies skipped: {type(e).__name__}: {e}")
+    reply_to_comments(in_ci, live_allowed)
 
     save(RUNS, runs)
     runner.touched.add("state")
