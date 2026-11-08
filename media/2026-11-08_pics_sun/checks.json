@@ -1,0 +1,265 @@
+{
+  "subject": "gas_regions",
+  "counts": {
+    "pass": 51,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Regular gas, West (gallon): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, West (gallon): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, West (gallon): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, West (gallon): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Northeast (gallon): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Northeast (gallon): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Northeast (gallon): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Northeast (gallon): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Midwest (gallon): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Midwest (gallon): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Midwest (gallon): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Midwest (gallon): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, South (gallon): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, South (gallon): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, South (gallon): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, South (gallon): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, West (gallon): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Northeast (gallon): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Midwest (gallon): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, South (gallon): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FRED has Sep 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, West (gallon): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Northeast (gallon): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Midwest (gallon): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, South (gallon): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): BLS matches FRED",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, West (gallon): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Northeast (gallon): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, Midwest (gallon): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas, South (gallon): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): year-ago comparison uses the same period",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "U.S. average sits between the regions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "gas_regions.png: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "gas_regions.png: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "gas_regions.png: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "gas_regions.png: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "gas_regions.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "gas_regions.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "gas_regions.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "gas_regions.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
