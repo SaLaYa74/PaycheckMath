@@ -244,6 +244,11 @@
     "detail": "All monthly formats for September 2026 already posted; waiting for new BLS data.",
     "status": "skipped"
   },
+  "2026-11-08:pics_sun": {
+    "at": "2026-11-08T11:00-08:00",
+    "detail": "https://www.instagram.com/p/DffdUU0GW28/",
+    "status": "posted"
+  },
   "2026-11-08:release": {
     "at": "2026-11-08T06:00-08:00",
     "detail": "Jobs-report post already made for this month.",
