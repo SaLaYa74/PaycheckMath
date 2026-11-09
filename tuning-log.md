@@ -133,3 +133,30 @@ editions top 1,000 views, give Find Your State a third slot and trim the trend-l
 
 **Watch:** comments per Reel (was 0), replies sent (run summary shows "💬 Replied to N"), follows per reach. If replies
 error with a permission message, the owner's token needs the comments permission (one-time).
+
+## 2026-11-09 (Mon, Jarvis full review)
+
+**Numbers:** followers **5 → 9** (30 days). The rent Find Your State Reel keeps growing: **27,336 views, 13,042 reached,
+12.7 s avg watch, 8 saves, 3 shares, 6 comments, 25 likes**. Account reach (28d) 15,203. Everything else this week:
+5-68 reach (trend Reel 68, mortgage 37, jobs report 15, pictures 5-6, gas picture 6).
+
+**Comment replies: not working, and it's the token.** The rent Reel shows 6 comments, but Instagram's comments list
+for it comes back empty (read-only check, nothing posted). That's what the API does when the token can't read
+comments, so the reply bot never sees a state. state/replies.json: empty, 0 replies sent. Owner action: regenerate the
+token with the comments permission (instagram_business_manage_comments) and update the IG_TOKEN secret.
+
+**Changed:**
+1. **Trend-line Reels retired** from the monthly rotation: 9 posts, ~78 avg reach, 2.1 s avg watch, vs ~110-118 for
+   minutes-of-work / groceries and 1,000-13,000 for Find Your State. Code kept (TRENDS) so they can return. The
+   rotation now has 5 formats a month; idle slots are fine ("fewer but better").
+2. **Series cliffhanger** in Find Your State captions: each edition names the next one ("👀 Next in the series: which
+   state has the highest household income? ... Follow so you don't miss it."); the last edition keeps the plain follow
+   line. Test builds: home-salary edition and home-value edition, 68+ checks, 0 blocking. Hand-checked: Hawaii
+   $901,500 home → $209,385 salary ("$209K", $4,886/mo), West Virginia $176,300 → $40,948 ("$41K"), at 7.18%.
+
+**Not changed:** music (the winner ran on the old beat; don't change a winning format's sound mid-test). Pictures
+(~5 reach each, 7 posts) are clearly weak but the owner asked for them and they don't use Reel slots; revisit at the
+Nov 16 review with a "turn the best picture into a Reel" option.
+
+**Watch Thu Nov 12:** Wed's home-salary edition: views, comments, follows per reach. Did the token get fixed (replies
+in state/replies.json)? If Wed + Sat both top 1,000 views → add a third Find Your State slot (Mon 5pm).

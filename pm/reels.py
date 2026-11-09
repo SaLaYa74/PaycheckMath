@@ -311,7 +311,9 @@ def _trend_format(sid, name, unit, fmt, up_good):
     return build
 
 
-FORMATS = [_pay_vs_prices, _groceries, _price_drops, _minutes, _gas] + [_trend_format(*t) for t in TRENDS]
+# Jarvis Nov 9: single-item trend Reels retired from the rotation (9 posts, ~78 reach, 2.1 s avg watch vs ~110-118 for
+# minutes-of-work/groceries and 1,000-13,000 for Find Your State). TRENDS/_trend_format kept so they can come back.
+FORMATS = [_pay_vs_prices, _groceries, _price_drops, _minutes, _gas]
 
 
 def _yoy_size(fmt):
@@ -539,6 +541,13 @@ def _find_rent(out_dir, posted=None):
 
 CTA = "Comment your state · we'll reply with its rank"
 COMMENT = "💬 Comment your state and we'll reply with where it ranks."
+# Series order (= EDITIONS order below) and the teaser each edition gets in the caption of the one before it.
+SERIES = ["reel_find_rent", "reel_find_home", "reel_find_income", "reel_find_years", "reel_find_burden", "reel_find_homevalue"]
+NEXT_UP = {"reel_find_home": "which state needs the biggest salary to buy a home?",
+           "reel_find_income": "which state has the highest household income?",
+           "reel_find_years": "where a home costs the most years of pay.",
+           "reel_find_burden": "where rent eats the biggest share of renters' pay.",
+           "reel_find_homevalue": "where the typical home is worth the most."}
 
 
 def _state_board(out_dir, rep, key, name, hook_line, rows, fmt, note, sub, source, flip, caption_head, us_line,
@@ -556,7 +565,11 @@ def _state_board(out_dir, rep, key, name, hook_line, rows, fmt, note, sub, sourc
     top = "\n".join(f"{medal[k]} {D.STATES[f][0]}: {fmt(v)}" for k, (f, v) in enumerate(rows[:5]))
     bottom = "\n".join(f"{len(rows) - 2 + k}. {D.STATES[f][0]}: {fmt(v)}" for k, (f, v) in enumerate(rows[-3:]))
     caption = f"{caption_head}\n\nHighest:\n{top}\n\nLowest:\n{bottom}\n\n{us_line}\n\n{COMMENT}"
-    caption += (f"\n\n📤 {share}\n🔁 A new state ranking every Wednesday and Saturday. Follow so you don't miss yours."
+    # Jarvis Nov 9: series cliffhanger (conversion test): name the next edition so there's a reason to follow.
+    nxt = SERIES[SERIES.index(name) + 1] if name in SERIES[:-1] else None
+    follow = (f"👀 Next in the series: {NEXT_UP[nxt]} New state ranking every Wednesday and Saturday. Follow so you don't miss it."
+              if nxt else "🔁 A new state ranking every Wednesday and Saturday. Follow so you don't miss yours.")
+    caption += (f"\n\n📤 {share}\n{follow}"
                 f"\n\nSource: {method}\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{tags} {TAGS}")
     return _post(key, mp4, cover, caption, rep)
 
