@@ -1,0 +1,215 @@
+{
+  "subject": "pay_vs_prices",
+  "counts": {
+    "pass": 41,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Average hourly pay: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices (CPI): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices (CPI): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices (CPI): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices (CPI): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Regular gas (gallon): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Your pay: Jan 2020 baseline",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Overall prices: Jan 2020 baseline",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Rent: Jan 2020 baseline",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Groceries: Jan 2020 baseline",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Gas: Jan 2020 baseline",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_payvs.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_payvs.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_payvs.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_payvs.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_payvs.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_payvs.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_payvs_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_payvs_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_payvs_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_payvs_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
