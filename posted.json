@@ -269,6 +269,16 @@
     "scheduled": "12:00",
     "trial": false
   },
+  "2026-10-reel-pay_vs_prices": {
+    "images": 1,
+    "job": "monthly_tue",
+    "media": "reel",
+    "media_id": "18232050181326580",
+    "permalink": "https://www.instagram.com/reel/Dfkt4l8kov3/",
+    "posted_at": "2026-11-10T20:02:04+00:00",
+    "scheduled": "12:00",
+    "trial": false
+  },
   "2026-10-reel-payday": {
     "images": 1,
     "job": "release",

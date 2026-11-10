@@ -264,6 +264,11 @@
     "detail": "Jobs-report post already made for this month.",
     "status": "skipped"
   },
+  "2026-11-10:monthly_tue": {
+    "at": "2026-11-10T12:00-08:00",
+    "detail": "https://www.instagram.com/reel/Dfkt4l8kov3/",
+    "status": "posted"
+  },
   "2026-11-10:release": {
     "at": "2026-11-10T06:00-08:00",
     "detail": "No fresh jobs report ahead of CPI right now.",
