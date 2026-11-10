@@ -263,5 +263,10 @@
     "at": "2026-11-09T06:00-08:00",
     "detail": "Jobs-report post already made for this month.",
     "status": "skipped"
+  },
+  "2026-11-10:release": {
+    "at": "2026-11-10T06:00-08:00",
+    "detail": "No fresh jobs report ahead of CPI right now.",
+    "status": "skipped"
   }
 }
