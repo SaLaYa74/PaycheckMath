@@ -160,3 +160,20 @@ Nov 16 review with a "turn the best picture into a Reel" option.
 
 **Watch Thu Nov 12:** Wed's home-salary edition: views, comments, follows per reach. Did the token get fixed (replies
 in state/replies.json)? If Wed + Sat both top 1,000 views → add a third Find Your State slot (Mon 5pm).
+
+## 2026-11-10 (Tue, Claude with the owner): auto-replies can't see comments yet
+
+**Numbers:** the rent board keeps climbing: **27,898 views, 13,337 reached, 12 comments, 9 saves, 3 shares, 12.7 s watch**.
+Followers 5 → 9. Everything else on the page: ~16-60 views.
+
+**Found:** Instagram reports 12 comments on the rent Reel, but the API returns none to our app. The Meta app is in
+development mode (Unpublished), which only lets it read comments from people with a role on the app, so the
+comment-your-state replies (pm/comments.py) see nothing. The code stays in place and starts working if Meta grants
+comment access (App Review, Advanced Access to instagram_business_manage_comments).
+
+**Changed:** the board and caption no longer promise a reply (that promise would go unkept on tomorrow's home-salary
+board). Now: "Find yours · comment your state" on screen, "Comment your state: higher or lower than you expected?" in
+the caption.
+
+**Needs the owner (optional, high value):** reply to the rent Reel's comments in the app. Replies notify commenters and
+pull them back to the profile. Longer term: Meta App Review for comment access (Claude can prepare the materials).

@@ -539,8 +539,10 @@ def _find_rent(out_dir, posted=None):
 # Owner, Nov 8: the Find Your State Reels get "a ton of views" (rent edition 15,830 views, 7,749 reached, 12.3 s
 # average watch; every other format ~50-130 views). Same board, new verified state measures, twice a week.
 
-CTA = "Comment your state · we'll reply with its rank"
-COMMENT = "💬 Comment your state and we'll reply with where it ranks."
+# Nov 10: Meta only lets our (development-mode) app read comments from its testers, so auto-replies can't see real
+# comments yet. Ask for comments without promising a reply; restore the promise once comment access is approved.
+CTA = "Find yours · comment your state"
+COMMENT = "💬 Comment your state: higher or lower than you expected?"
 # Series order (= EDITIONS order below) and the teaser each edition gets in the caption of the one before it.
 SERIES = ["reel_find_rent", "reel_find_home", "reel_find_income", "reel_find_years", "reel_find_burden", "reel_find_homevalue"]
 NEXT_UP = {"reel_find_home": "which state needs the biggest salary to buy a home?",
