@@ -269,6 +269,16 @@
     "scheduled": "12:00",
     "trial": false
   },
+  "2026-10-reel-gas": {
+    "images": 1,
+    "job": "monthly_wed",
+    "media": "reel",
+    "media_id": "18120500678108030",
+    "permalink": "https://www.instagram.com/reel/DfniD9LmORK/",
+    "posted_at": "2026-11-11T22:16:31+00:00",
+    "scheduled": "12:00",
+    "trial": false
+  },
   "2026-10-reel-pay_vs_prices": {
     "images": 1,
     "job": "monthly_tue",
