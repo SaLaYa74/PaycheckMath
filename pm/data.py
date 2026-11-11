@@ -129,6 +129,12 @@ def year_ago(sid):
     return value_on_or_before(sid, date(d.year - 1, d.month, min(d.day, 28)))
 
 
+# Months BLS never published: the Oct 1 - Nov 12, 2025 federal shutdown stopped price collection, so there is no
+# October 2025 CPI or average-price data. A post that needs one of these as its year-ago month can't be made honestly;
+# it skips itself (NoContent) and the rotation moves on, instead of sitting blocked until the run fails (Nov 11).
+BLS_GAPS = {(2025, 10)}
+
+
 def year_ago_checked(rep, sid):
     """The value from exactly one year before the latest point. Blocks the post if that exact
     month (or, for weekly data, a week within 7 days) is missing, rather than silently comparing
@@ -141,6 +147,9 @@ def year_ago_checked(rep, sid):
         ok = ya is not None and abs((target - ya[0]).days) <= 7
     else:
         ok = ya is not None and (ya[0].year, ya[0].month) == (d.year - 1, d.month)
+    if not ok and sid != "MORTGAGE30" and (target.year, target.month) in BLS_GAPS:
+        from .core import NoContent
+        raise NoContent(f"{label}: BLS never published {target:%B %Y} (2025 shutdown), so there's no year-ago month")
     rep.require(ok, f"{label}: year-ago comparison uses the same period",
                 f"wanted {target:%b %Y}, nearest available is {ya[0] if ya else None}")
     return ya

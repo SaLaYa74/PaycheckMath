@@ -177,3 +177,16 @@ the caption.
 
 **Needs the owner (optional, high value):** reply to the rent Reel's comments in the app. Replies notify commenters and
 pull them back to the profile. Longer term: Meta App Review for comment access (Claude can prepare the materials).
+
+## 2026-11-11 (Wed, Claude): October 2025 doesn't exist at BLS (2025 shutdown)
+
+**What happened:** October 2026 price data is out, and most formats compare with the same month a year earlier. BLS never
+published October 2025 (price collection stopped during the Oct 1 - Nov 12, 2025 federal shutdown; every average-price
+and CPI series we use has every 2025 month except October, gas excepted). The year-ago check correctly refused to
+compare with September instead, but the post sat "blocked" and would have become a failed run tonight.
+
+**Fixed (no check loosened):** data.BLS_GAPS lists months BLS never published. When the ONLY problem is that the
+year-ago month is one of them, the format skips itself (NoContent) and the rotation moves on; any other missing or bad
+month still blocks. Same in pictures._at. Test builds: the Wednesday slot now picks the gas Reel (October 2025 gas does
+exist), and pictures pick the grocery receipt; both 0 blocking. Expect fewer year-over-year formats this month; they
+come back with November data (November 2025 exists).

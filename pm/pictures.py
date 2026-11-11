@@ -45,6 +45,8 @@ def _post(key, images, caption, rep):
 def _at(rep, sid, when, label):
     """Value for exactly that month, or block the post."""
     v = D.value_on_or_before(sid, when)
+    if (v is None or (v[0].year, v[0].month) != (when.year, when.month)) and (when.year, when.month) in D.BLS_GAPS:
+        raise NoContent(f"{label}: BLS never published {when:%B %Y} (2025 shutdown)")   # skip, don't block (Nov 11)
     rep.require(v is not None and (v[0].year, v[0].month) == (when.year, when.month),
                 f"{label}: value for {when:%b %Y}", f"nearest is {v[0] if v else None}")
     return v[1] if v else 0.0
