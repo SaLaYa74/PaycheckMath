@@ -1,111 +1,11 @@
 {
-  "subject": "groceries",
+  "subject": "gas",
   "counts": {
-    "pass": 45,
+    "pass": 21,
     "warn": 0,
-    "block": 6
+    "block": 0
   },
   "checks": [
-    {
-      "status": "pass",
-      "check": "Eggs (dozen): enough history",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Eggs (dozen): value plausible",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Eggs (dozen): data is current",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Eggs (dozen): realistic change",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Milk (gallon): enough history",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Milk (gallon): value plausible",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Milk (gallon): data is current",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Milk (gallon): realistic change",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Ground beef (lb): enough history",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Ground beef (lb): value plausible",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Ground beef (lb): data is current",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Ground beef (lb): realistic change",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Bread (lb): enough history",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Bread (lb): value plausible",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Bread (lb): data is current",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Bread (lb): realistic change",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Coffee (lb): enough history",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Coffee (lb): value plausible",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Coffee (lb): data is current",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Coffee (lb): realistic change",
-      "detail": ""
-    },
     {
       "status": "pass",
       "check": "Regular gas (gallon): enough history",
@@ -128,107 +28,57 @@
     },
     {
       "status": "pass",
-      "check": "Electricity (kWh): enough history",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Electricity (kWh): value plausible",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Electricity (kWh): data is current",
-      "detail": ""
-    },
-    {
-      "status": "pass",
-      "check": "Electricity (kWh): realistic change",
-      "detail": ""
-    },
-    {
-      "status": "block",
-      "check": "Eggs (dozen): year-ago comparison uses the same period",
-      "detail": "wanted Oct 2025, nearest available is 2025-09-01"
-    },
-    {
-      "status": "block",
-      "check": "Milk (gallon): year-ago comparison uses the same period",
-      "detail": "wanted Oct 2025, nearest available is 2025-09-01"
-    },
-    {
-      "status": "block",
-      "check": "Ground beef (lb): year-ago comparison uses the same period",
-      "detail": "wanted Oct 2025, nearest available is 2025-09-01"
-    },
-    {
-      "status": "block",
-      "check": "Bread (lb): year-ago comparison uses the same period",
-      "detail": "wanted Oct 2025, nearest available is 2025-09-01"
-    },
-    {
-      "status": "block",
-      "check": "Coffee (lb): year-ago comparison uses the same period",
-      "detail": "wanted Oct 2025, nearest available is 2025-09-01"
-    },
-    {
-      "status": "pass",
       "check": "Regular gas (gallon): year-ago comparison uses the same period",
       "detail": ""
     },
     {
-      "status": "block",
-      "check": "Electricity (kWh): year-ago comparison uses the same period",
-      "detail": "wanted Oct 2025, nearest available is 2025-09-01"
-    },
-    {
       "status": "pass",
-      "check": "reel_groceries.mp4: rendered",
+      "check": "reel_gas.mp4: rendered",
       "detail": ""
     },
     {
       "status": "pass",
-      "check": "reel_groceries.mp4: file size",
+      "check": "reel_gas.mp4: file size",
       "detail": ""
     },
     {
       "status": "pass",
-      "check": "reel_groceries.mp4: duration",
+      "check": "reel_gas.mp4: duration",
       "detail": ""
     },
     {
       "status": "pass",
-      "check": "reel_groceries.mp4: 1080x1920",
+      "check": "reel_gas.mp4: 1080x1920",
       "detail": ""
     },
     {
       "status": "pass",
-      "check": "reel_groceries.mp4: has audio",
+      "check": "reel_gas.mp4: has audio",
       "detail": ""
     },
     {
       "status": "pass",
-      "check": "reel_groceries.mp4: H.264 video",
+      "check": "reel_gas.mp4: H.264 video",
       "detail": ""
     },
     {
       "status": "pass",
-      "check": "reel_groceries_cover.jpg: rendered",
+      "check": "reel_gas_cover.jpg: rendered",
       "detail": ""
     },
     {
       "status": "pass",
-      "check": "reel_groceries_cover.jpg: dimensions",
+      "check": "reel_gas_cover.jpg: dimensions",
       "detail": ""
     },
     {
       "status": "pass",
-      "check": "reel_groceries_cover.jpg: not empty",
+      "check": "reel_gas_cover.jpg: not empty",
       "detail": ""
     },
     {
       "status": "pass",
-      "check": "reel_groceries_cover.jpg: has visible content",
+      "check": "reel_gas_cover.jpg: has visible content",
       "detail": ""
     },
     {
