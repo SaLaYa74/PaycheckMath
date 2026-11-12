@@ -1,0 +1,660 @@
+{
+  "subject": "find_home",
+  "counts": {
+    "pass": 130,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Census API key available",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Census ACS data reachable",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 home: all 50 states + DC",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY home: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 home: detailed and profile tables agree",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 home: realistic change vs. 2024",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 home: U.S. value between the states",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "home: same ACS year",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "30-year mortgage rate: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "30-year mortgage rate: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "30-year mortgage rate: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "30-year mortgage rate: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "mortgage formula self-check",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV home salary plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_home.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_home.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_home.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_home.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_home.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_home.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_home_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_home_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_home_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_home_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}

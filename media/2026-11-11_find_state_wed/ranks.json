@@ -1,0 +1,312 @@
+{
+ "what": "the salary to afford the typical home",
+ "us": "$86K",
+ "rows": [
+  {
+   "fips": "15",
+   "state": "Hawaii",
+   "rank": 1,
+   "value": "$209K"
+  },
+  {
+   "fips": "06",
+   "state": "California",
+   "rank": 2,
+   "value": "$179K"
+  },
+  {
+   "fips": "11",
+   "state": "D.C.",
+   "rank": 3,
+   "value": "$166K"
+  },
+  {
+   "fips": "25",
+   "state": "Massachusetts",
+   "rank": 4,
+   "value": "$146K"
+  },
+  {
+   "fips": "53",
+   "state": "Washington",
+   "rank": 5,
+   "value": "$141K"
+  },
+  {
+   "fips": "08",
+   "state": "Colorado",
+   "rank": 6,
+   "value": "$132K"
+  },
+  {
+   "fips": "49",
+   "state": "Utah",
+   "rank": 7,
+   "value": "$126K"
+  },
+  {
+   "fips": "34",
+   "state": "New Jersey",
+   "rank": 8,
+   "value": "$123K"
+  },
+  {
+   "fips": "41",
+   "state": "Oregon",
+   "rank": 9,
+   "value": "$118K"
+  },
+  {
+   "fips": "33",
+   "state": "New Hampshire",
+   "rank": 10,
+   "value": "$113K"
+  },
+  {
+   "fips": "44",
+   "state": "Rhode Island",
+   "rank": 11,
+   "value": "$111K"
+  },
+  {
+   "fips": "36",
+   "state": "New York",
+   "rank": 12,
+   "value": "$109K"
+  },
+  {
+   "fips": "32",
+   "state": "Nevada",
+   "rank": 13,
+   "value": "$107K"
+  },
+  {
+   "fips": "16",
+   "state": "Idaho",
+   "rank": 14,
+   "value": "$106K"
+  },
+  {
+   "fips": "24",
+   "state": "Maryland",
+   "rank": 15,
+   "value": "$104K"
+  },
+  {
+   "fips": "04",
+   "state": "Arizona",
+   "rank": 16,
+   "value": "$99K"
+  },
+  {
+   "fips": "30",
+   "state": "Montana",
+   "rank": 17,
+   "value": "$99K"
+  },
+  {
+   "fips": "09",
+   "state": "Connecticut",
+   "rank": 18,
+   "value": "$98K"
+  },
+  {
+   "fips": "51",
+   "state": "Virginia",
+   "rank": 19,
+   "value": "$98K"
+  },
+  {
+   "fips": "12",
+   "state": "Florida",
+   "rank": 20,
+   "value": "$92K"
+  },
+  {
+   "fips": "10",
+   "state": "Delaware",
+   "rank": 21,
+   "value": "$91K"
+  },
+  {
+   "fips": "02",
+   "state": "Alaska",
+   "rank": 22,
+   "value": "$89K"
+  },
+  {
+   "fips": "23",
+   "state": "Maine",
+   "rank": 23,
+   "value": "$86K"
+  },
+  {
+   "fips": "50",
+   "state": "Vermont",
+   "rank": 24,
+   "value": "$84K"
+  },
+  {
+   "fips": "56",
+   "state": "Wyoming",
+   "rank": 25,
+   "value": "$83K"
+  },
+  {
+   "fips": "27",
+   "state": "Minnesota",
+   "rank": 26,
+   "value": "$82K"
+  },
+  {
+   "fips": "13",
+   "state": "Georgia",
+   "rank": 27,
+   "value": "$80K"
+  },
+  {
+   "fips": "37",
+   "state": "North Carolina",
+   "rank": 28,
+   "value": "$80K"
+  },
+  {
+   "fips": "47",
+   "state": "Tennessee",
+   "rank": 29,
+   "value": "$79K"
+  },
+  {
+   "fips": "48",
+   "state": "Texas",
+   "rank": 30,
+   "value": "$74K"
+  },
+  {
+   "fips": "55",
+   "state": "Wisconsin",
+   "rank": 31,
+   "value": "$74K"
+  },
+  {
+   "fips": "45",
+   "state": "South Carolina",
+   "rank": 32,
+   "value": "$71K"
+  },
+  {
+   "fips": "46",
+   "state": "South Dakota",
+   "rank": 33,
+   "value": "$69K"
+  },
+  {
+   "fips": "17",
+   "state": "Illinois",
+   "rank": 34,
+   "value": "$68K"
+  },
+  {
+   "fips": "35",
+   "state": "New Mexico",
+   "rank": 35,
+   "value": "$68K"
+  },
+  {
+   "fips": "42",
+   "state": "Pennsylvania",
+   "rank": 36,
+   "value": "$68K"
+  },
+  {
+   "fips": "38",
+   "state": "North Dakota",
+   "rank": 37,
+   "value": "$65K"
+  },
+  {
+   "fips": "31",
+   "state": "Nebraska",
+   "rank": 38,
+   "value": "$65K"
+  },
+  {
+   "fips": "29",
+   "state": "Missouri",
+   "rank": 39,
+   "value": "$63K"
+  },
+  {
+   "fips": "26",
+   "state": "Michigan",
+   "rank": 40,
+   "value": "$63K"
+  },
+  {
+   "fips": "18",
+   "state": "Indiana",
+   "rank": 41,
+   "value": "$59K"
+  },
+  {
+   "fips": "39",
+   "state": "Ohio",
+   "rank": 42,
+   "value": "$59K"
+  },
+  {
+   "fips": "20",
+   "state": "Kansas",
+   "rank": 43,
+   "value": "$59K"
+  },
+  {
+   "fips": "01",
+   "state": "Alabama",
+   "rank": 44,
+   "value": "$57K"
+  },
+  {
+   "fips": "21",
+   "state": "Kentucky",
+   "rank": 45,
+   "value": "$56K"
+  },
+  {
+   "fips": "19",
+   "state": "Iowa",
+   "rank": 46,
+   "value": "$55K"
+  },
+  {
+   "fips": "40",
+   "state": "Oklahoma",
+   "rank": 47,
+   "value": "$54K"
+  },
+  {
+   "fips": "22",
+   "state": "Louisiana",
+   "rank": 48,
+   "value": "$54K"
+  },
+  {
+   "fips": "05",
+   "state": "Arkansas",
+   "rank": 49,
+   "value": "$53K"
+  },
+  {
+   "fips": "28",
+   "state": "Mississippi",
+   "rank": 50,
+   "value": "$45K"
+  },
+  {
+   "fips": "54",
+   "state": "West Virginia",
+   "rank": 51,
+   "value": "$41K"
+  }
+ ]
+}
