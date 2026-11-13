@@ -269,6 +269,16 @@
     "scheduled": "12:00",
     "trial": false
   },
+  "2026-10-pic-receipt": {
+    "images": 1,
+    "job": "pics_thu",
+    "media": "feed",
+    "media_id": "18129826529480886",
+    "permalink": "https://www.instagram.com/p/DfqZrmQFrnv/",
+    "posted_at": "2026-11-13T01:00:37+00:00",
+    "scheduled": "17:00",
+    "trial": false
+  },
   "2026-10-reel-gas": {
     "images": 1,
     "job": "monthly_wed",
