@@ -1,0 +1,395 @@
+{
+  "subject": "receipt",
+  "counts": {
+    "pass": 77,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Eggs (dozen): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Eggs (dozen): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Eggs (dozen): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Eggs (dozen): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Milk (gallon): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Milk (gallon): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Milk (gallon): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Milk (gallon): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Ground beef (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bacon (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Coffee (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Coffee (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Coffee (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Coffee (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bread (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bread (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bread (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Bread (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Tomatoes (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Tomatoes (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Tomatoes (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Tomatoes (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Flour (lb): enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Flour (lb): value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Flour (lb): data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Flour (lb): realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: enough history",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Average hourly pay: realistic change",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "EGGS, DOZEN: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "EGGS, DOZEN: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "EGGS, DOZEN: value for Oct 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MILK, GALLON: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MILK, GALLON: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MILK, GALLON: value for Oct 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GROUND BEEF, 1 LB: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GROUND BEEF, 1 LB: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GROUND BEEF, 1 LB: value for Oct 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "BACON, 1 LB: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "BACON, 1 LB: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "BACON, 1 LB: value for Oct 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "COFFEE, 1 LB: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "COFFEE, 1 LB: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "COFFEE, 1 LB: value for Oct 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WHITE BREAD, 1 LB: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WHITE BREAD, 1 LB: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WHITE BREAD, 1 LB: value for Oct 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TOMATOES, 1 LB: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TOMATOES, 1 LB: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TOMATOES, 1 LB: value for Oct 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FLOUR, 1 LB: same month as the CPI release",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FLOUR, 1 LB: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FLOUR, 1 LB: value for Oct 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Hourly pay: value for Jan 2020",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Hourly pay: value for Oct 2026",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "basket totals plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "receipt.png: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "receipt.png: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "receipt.png: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "receipt.png: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "receipt.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "receipt.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "receipt.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "receipt.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
