@@ -308,5 +308,10 @@
     "at": "2026-11-12T06:00-08:00",
     "detail": "No fresh jobs report ahead of CPI right now.",
     "status": "skipped"
+  },
+  "2026-11-13:release": {
+    "at": "2026-11-13T06:00-08:00",
+    "detail": "No fresh jobs report ahead of CPI right now.",
+    "status": "skipped"
   }
 }
