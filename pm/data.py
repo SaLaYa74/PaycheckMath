@@ -246,6 +246,10 @@ ACS = {
     "home":   ("B25077_001E", "DP04_0089E", (80_000, 1_500_000), 0.20),  # median home value, owner-occupied
     "income": ("B19013_001E", "DP03_0062E", (35_000, 160_000), 0.15),    # median household income
     "burden": ("B25071_001E", None, (20, 45), 0.15),                    # median rent as % of renters' income
+    # Nov 14: more Find Your State editions
+    "owncost": ("B25088_002E", "DP04_0101E", (700, 4500), 0.15),         # median monthly owner costs, with a mortgage
+    "proptax": ("B25103_001E", None, (300, 15_000), 0.25),               # median real estate taxes paid, $/year
+    "percapita": ("B19301_001E", "DP03_0088E", (20_000, 130_000), 0.15),  # per capita income, $/year
 }
 
 

@@ -25,25 +25,15 @@ JOBS = [
         note="Reel: just-released inflation / jobs-report numbers"),
     # Weekly: Freddie Mac publishes Thursdays at noon ET (9am PT)
     Job("mortgage",    "reel_mortgage", (THU,), "12:00", live=True, note="Reel: this week's mortgage rate"),
-    # Monthly BLS data: 11 rotating formats (pay vs prices, groceries, minutes of work, gas, 7 trend lines),
-    # biggest moves first. Never repeats a format for the same data month; idles until BLS publishes new data.
-    # Times alternate midday/evening so the weekly report can tell us which slot performs better.
-    Job("monthly_mon", "reel_monthly",  (MON,), "16:00", live=True, note="Reel: monthly rotation (7pm ET)"),
+    # Nov 14 (owner + Claude, 14-day numbers): Find Your State boards reach 13-16K people each (~28K views, 10-16 saves);
+    # every other Reel ~17-88 people, pictures ~7. So: Find Your State three times a week, the monthly BLS rotation
+    # trimmed from 6 slots to 2 (still never repeats a format per data month), pictures retired.
     Job("monthly_tue", "reel_monthly",  (TUE,), "12:00", live=True, note="Reel: monthly rotation"),
-    Job("monthly_wed", "reel_monthly",  (WED,), "12:00", live=True, note="Reel: monthly rotation"),
     Job("monthly_fri", "reel_monthly",  (FRI,), "16:00", live=True, note="Reel: monthly rotation (7pm ET)"),
-    Job("monthly_sat", "reel_monthly",  (SAT,), "09:00", live=True, note="Reel: monthly rotation"),
-    Job("monthly_sun", "reel_monthly",  (SUN,), "10:00", live=True, note="Reel: monthly rotation"),
-    # Pictures (Oct 28, owner asked for still images too): carousels and pictures earn saves, Reels earn reach.
-    # Each slot posts the next unused picture format (cheat sheet, proteins, receipt, gas by region, world inflation;
-    # see pm/pictures.py FORMATS), then idles until new data.
-    Job("pics_tue",    "pic_monthly",   (TUE,), "17:00", live=True, note="Picture: comparisons (proteins, gas by region, world inflation) / cheat sheet / receipt"),
-    Job("pics_sun",    "pic_monthly",   (SUN,), "11:00", live=True, note="Picture/carousel: monthly cheat sheet / grocery receipt"),
-    Job("pics_thu",    "pic_monthly",   (THU,), "17:00", live=True, note="Picture/carousel: monthly cheat sheet / grocery receipt"),
-    # Monthly share-first board: BLS state pay comes out mid-to-late month; checked every Saturday,
-    # posts once per new data month (idles otherwise).
-    # Nov 8: Find Your State is the breakout (rent edition 15,830 views vs ~50-130 for everything else). Twice a week now,
-    # Wed + Sat evenings: new BLS pay month first, otherwise the next Census edition (home salary, income, years, burden...).
-    Job("find_state",  "reel_find_state", (SAT,), "17:00", live=True, note="Reel: Find Your State (BLS pay month, else next Census edition)"),
+    # Find Your State: new BLS state pay month first, otherwise the next Census edition (pm/reels.py EDITIONS).
+    Job("find_state_mon", "reel_find_state", (MON,), "17:00", live=True, note="Reel: Find Your State (BLS pay month, else next Census edition)"),
     Job("find_state_wed", "reel_find_state", (WED,), "17:00", live=True, note="Reel: Find Your State (BLS pay month, else next Census edition)"),
+    Job("find_state",  "reel_find_state", (SAT,), "17:00", live=True, note="Reel: Find Your State (BLS pay month, else next Census edition)"),
 ]
+# Retired Nov 14: pics_tue / pics_thu / pics_sun (pictures reached ~7 people each) and monthly_mon / wed / sat / sun.
+# Builders still exist (pm/pictures.py, reel_monthly) if we want them back.

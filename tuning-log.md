@@ -190,3 +190,17 @@ year-ago month is one of them, the format skips itself (NoContent) and the rotat
 month still blocks. Same in pictures._at. Test builds: the Wednesday slot now picks the gas Reel (October 2025 gas does
 exist), and pictures pick the grocery receipt; both 0 blocking. Expect fewer year-over-year formats this month; they
 come back with November data (November 2025 exists).
+
+## 2026-11-14 (Sat, Claude with the owner): Find Your State three times a week, pictures retired
+
+**Numbers (14 days):** Find Your State home-salary board (Wed 11/11): **28,970 views, 15,799 reached, 16 saves, 12
+shares**; rent board 28,125 / 13,467 / 10 saves. Every other Reel 17-88 reach; pictures ~7. Followers 9 → 13; account
+reach 30,801 (28 days).
+
+**Changed:** Find Your State Mon + Wed + Sat (5pm PT); monthly BLS rotation 6 slots → Tue + Fri; pictures retired (owner
+agreed: "pictures don't work at all"). Three new Census editions, each test-built with 0 blocking: what homeowners with a
+mortgage pay monthly (two tables agree), typical property tax bill, income per person (two tables agree). Queue: income,
+owner costs, years of income, property tax, rent burden, per-person income, home value.
+
+**Owner, one-time:** update the bio so the series is the reason to follow (e.g. "Find your state 📊 New money ranking
+every Mon, Wed & Sat"). 30K reach → 13 followers is the gap to close.

@@ -679,8 +679,51 @@ def _find_homevalue(out_dir, posted=None):
         "Send this to someone who's thinking about moving.", "#realestate #housing", f"homevalue-{year}", what="the typical home value", us_val=f"${us / 1e3:,.0f}K")
 
 
-# Order = most relatable first (the rent edition, 15.8K views, already posted Nov 7).
-EDITIONS = [_find_rent, _find_home, _find_income, _find_years, _find_burden, _find_homevalue]
+def _find_owncost(out_dir, posted=None):
+    rep, year, got = _acs_edition("find_owncost", posted, ["owncost"])
+    v, us = got["owncost"]
+    rows = sorted(v.items(), key=lambda kv: -kv[1])
+    return _state_board(
+        out_dir, rep, f"acs{year}-reel-find_owncost", "reel_find_owncost", "what homeowners pay each month", rows,
+        lambda x: f"${x:,.0f}", None, f"Typical monthly cost for homeowners with a mortgage · {year}", f"Census ACS {year}",
+        True, f"What homeowners with a mortgage actually pay each month, by state ({year}) 🏠",
+        f"U.S.: ${us:,.0f}/month. Includes the mortgage, property taxes, insurance, utilities and condo fees where they apply.",
+        ACS_SRC.format(year) + " Median selected monthly owner costs, housing units with a mortgage.",
+        "Send this to the friend who says renting is throwing money away.", "#homeowner #mortgage", f"owncost-{year}",
+        what="monthly costs for homeowners with a mortgage", us_val=f"${us:,.0f}")
+
+
+def _find_proptax(out_dir, posted=None):
+    rep, year, got = _acs_edition("find_proptax", posted, ["proptax"])
+    v, us = got["proptax"]
+    rows = sorted(v.items(), key=lambda kv: -kv[1])
+    return _state_board(
+        out_dir, rep, f"acs{year}-reel-find_proptax", "reel_find_proptax", "the typical property tax bill", rows,
+        lambda x: f"${x:,.0f}", None, f"Typical yearly property tax bill · {year}", f"Census ACS {year}",
+        True, f"The typical yearly property tax bill, by state ({year}) 🧾", f"U.S.: ${us:,.0f}/year.",
+        ACS_SRC.format(year) + " Median real estate taxes paid, owner-occupied homes.",
+        "Send this to someone who's thinking about moving states.", "#propertytax #taxes", f"proptax-{year}",
+        what="the typical property tax bill", us_val=f"${us:,.0f}")
+
+
+def _find_percapita(out_dir, posted=None):
+    rep, year, got = _acs_edition("find_percapita", posted, ["percapita"])
+    v, us = got["percapita"]
+    rows = sorted(v.items(), key=lambda kv: -kv[1])
+    return _state_board(
+        out_dir, rep, f"acs{year}-reel-find_percapita", "reel_find_percapita", "income per person", rows,
+        lambda x: f"${x / 1e3:,.0f}K", None, f"Income per person, before taxes · {year}", f"Census ACS {year}",
+        False, f"Income per person by state ({year}) 💵",
+        f"U.S.: ${us:,.0f}. That's total income divided by everyone, kids and retirees included.",
+        ACS_SRC.format(year) + " Per capita income in the past 12 months.",
+        "Send this to someone who thinks their state is the richest.", "#income #salary", f"percapita-{year}",
+        what="income per person", us_val=f"${us / 1e3:,.0f}K")
+
+
+# Order = most relatable first (rent posted Nov 7, home Nov 11). Nov 14: owner costs, property tax, per-person income
+# added so three boards a week don't run dry before new BLS / ACS data.
+EDITIONS = [_find_rent, _find_home, _find_income, _find_owncost, _find_years, _find_proptax, _find_burden,
+            _find_percapita, _find_homevalue]
 
 
 BUILDERS = {"reel_mortgage": lambda out_dir, posted=None: reel_mortgage(out_dir),
