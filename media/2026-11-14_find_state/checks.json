@@ -1,0 +1,380 @@
+{
+  "subject": "find_income",
+  "counts": {
+    "pass": 74,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Census API key available",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Census ACS data reachable",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 income: all 50 states + DC",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY income: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 income: detailed and profile tables agree",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 income: realistic change vs. 2024",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 income: U.S. value between the states",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "income: same ACS year",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_income.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_income.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_income.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_income.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_income.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_income.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_income_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_income_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_income_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_income_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
