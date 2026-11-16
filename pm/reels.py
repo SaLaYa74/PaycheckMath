@@ -543,13 +543,18 @@ def _find_rent(out_dir, posted=None):
 # comments yet. Ask for comments without promising a reply; restore the promise once comment access is approved.
 CTA = "Find yours · comment your state"
 COMMENT = "💬 Comment your state: higher or lower than you expected?"
-# Series order (= EDITIONS order below) and the teaser each edition gets in the caption of the one before it.
-SERIES = ["reel_find_rent", "reel_find_home", "reel_find_income", "reel_find_years", "reel_find_burden", "reel_find_homevalue"]
+# The teaser each edition gets in the caption of the one before it. Series order = EDITIONS (SERIES is set below it).
+DAYS = "Monday, Wednesday and Saturday"
 NEXT_UP = {"reel_find_home": "which state needs the biggest salary to buy a home?",
            "reel_find_income": "which state has the highest household income?",
            "reel_find_years": "where a home costs the most years of pay.",
            "reel_find_burden": "where rent eats the biggest share of renters' pay.",
-           "reel_find_homevalue": "where the typical home is worth the most."}
+           "reel_find_homevalue": "where the typical home is worth the most.",
+           # Nov 16: every edition has a teaser (the Nov 14 editions had none, so the "next" line skipped them)
+           "reel_find_owncost": "what homeowners with a mortgage really pay each month.",
+           "reel_find_proptax": "where the property tax bill is the biggest.",
+           "reel_find_percapita": "which state has the highest income per person?",
+           "reel_find_earnings": "what the typical worker earns in every state."}
 
 
 def _state_board(out_dir, rep, key, name, hook_line, rows, fmt, note, sub, source, flip, caption_head, us_line,
@@ -569,8 +574,8 @@ def _state_board(out_dir, rep, key, name, hook_line, rows, fmt, note, sub, sourc
     caption = f"{caption_head}\n\nHighest:\n{top}\n\nLowest:\n{bottom}\n\n{us_line}\n\n{COMMENT}"
     # Jarvis Nov 9: series cliffhanger (conversion test): name the next edition so there's a reason to follow.
     nxt = SERIES[SERIES.index(name) + 1] if name in SERIES[:-1] else None
-    follow = (f"👀 Next in the series: {NEXT_UP[nxt]} New state ranking every Wednesday and Saturday. Follow so you don't miss it."
-              if nxt else "🔁 A new state ranking every Wednesday and Saturday. Follow so you don't miss yours.")
+    follow = (f"👀 Next in the series: {NEXT_UP[nxt]} New state ranking every {DAYS}. Follow so you don't miss it."
+              if nxt else f"🔁 A new state ranking every {DAYS}. Follow so you don't miss yours.")
     caption += (f"\n\n📤 {share}\n{follow}"
                 f"\n\nSource: {method}\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{tags} {TAGS}")
     return _post(key, mp4, cover, caption, rep)
@@ -722,8 +727,27 @@ def _find_percapita(out_dir, posted=None):
 
 # Order = most relatable first (rent posted Nov 7, home Nov 11). Nov 14: owner costs, property tax, per-person income
 # added so three boards a week don't run dry before new BLS / ACS data.
-EDITIONS = [_find_rent, _find_home, _find_income, _find_owncost, _find_years, _find_proptax, _find_burden,
-            _find_percapita, _find_homevalue]
+def _find_earnings(out_dir, posted=None):
+    """Nov 16 (Jarvis): median earnings per worker. Detailed table B20017 and profile DP03 must agree for every state."""
+    rep, year, got = _acs_edition("find_earnings", posted, ["earnings"])
+    v, us = got["earnings"]
+    rows = sorted(v.items(), key=lambda kv: -kv[1])
+    return _state_board(
+        out_dir, rep, f"acs{year}-reel-find_earnings", "reel_find_earnings", "what the typical worker earns", rows,
+        lambda x: f"${x / 1e3:,.0f}K", None, f"Median earnings per worker, before taxes · {year}", f"Census ACS {year}",
+        False, f"What the typical worker earns, by state ({year}) 💼",
+        f"U.S.: ${us:,.0f}. That's the middle worker (part-timers included): half earn more, half earn less.",
+        ACS_SRC.format(year) + " Median earnings in the past 12 months, workers 16 and over with earnings.",
+        "Send this to someone who thinks they're underpaid.", "#salary #paycheck", f"earnings-{year}",
+        what="median earnings per worker", us_val=f"${us / 1e3:,.0f}K")
+
+
+# Nov 16: years moved up to keep the promise in Sat Nov 14's caption ("Next: where a home costs the most years of
+# pay"); earnings added at the end. The "Next in the series" teaser follows this order.
+EDITIONS = [_find_rent, _find_home, _find_income, _find_years, _find_owncost, _find_burden, _find_proptax,
+            _find_percapita, _find_homevalue, _find_earnings]
+SERIES = ["reel" + f.__name__ for f in EDITIONS]
+assert all(n in NEXT_UP for n in SERIES[1:]), "every Find Your State edition after the first needs a NEXT_UP teaser"
 
 
 BUILDERS = {"reel_mortgage": lambda out_dir, posted=None: reel_mortgage(out_dir),

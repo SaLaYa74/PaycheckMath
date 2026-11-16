@@ -204,3 +204,23 @@ owner costs, years of income, property tax, rent burden, per-person income, home
 
 **Owner, one-time:** update the bio so the series is the reason to follow (e.g. "Find your state 📊 New money ranking
 every Mon, Wed & Sat"). 30K reach → 13 followers is the gap to close.
+
+## 2026-11-16 (Mon, Jarvis full review)
+
+**Numbers (7 days):** followers 13 (+4 in 14 days). Find Your State home-salary (Wed): **28,992 views, 15,818 reach, 16
+saves, 12 shares**; income (Sat): 2,526 views, 1,422 reach, 7 comments, **20.2 s watch**. Everything else: mortgage 116,
+pay vs prices 88 (1.4 s), gas 85. Evening (Find Your State) 4,009 avg reach vs midday 84 over 30 days.
+**Music test verdict:** with the old beat, the monthly Reels are back to ~85-116 reach (jazz era: 2-49), and every Find
+Your State winner ran on it. Keep the old make_beat; test closed.
+
+**Bug fixed (pm/reels.py):** the "Next in the series" teaser used a separate list that skipped the Nov 14 editions, and
+captions still said "every Wednesday and Saturday" (it's Mon/Wed/Sat now). Teasers now follow EDITIONS order (with a
+startup assert that every edition has one). Years-of-pay moved up to next, so tonight keeps Sat's promise ("Next:
+where a home costs the most years of pay"). Same day fix in the dormant comment-reply text.
+**Runner fix (autopost.py):** overlapping-run duplicate guard (see LiftoffDaily log, Nov 16; Liftoff posted twice).
+**New edition (queue): what the typical worker earns** (ACS B20017_001E, must equal profile DP03_0092E for all 51).
+Hand-checked: D.C. $81,276 both tables, Mississippi $38,284, U.S. $49,040. Queue: years, owncost, burden, proptax,
+percapita, homevalue, earnings (7 unposted). Test builds: tonight's years board and earnings board, 0 blocking;
+Hawaii 8.6 yrs = $home / $income checked by hand.
+
+**Watch Thu Nov 19:** Mon + Wed boards: views, comments, follows per reach. Is Wed's 15.8K a one-off or the Wed slot?

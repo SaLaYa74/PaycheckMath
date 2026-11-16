@@ -169,6 +169,13 @@ class Runner:
             return "waiting", "Instagram daily publishing limit reached"
         for u in urls + ([cover_url] if cover_url else []):
             wait_public(u, video=u.endswith(".mp4"))
+        # Nov 16: last look before publishing, against the latest pushed state (git_push above pulled it): never
+        # publish a key that's already posted, or a second post for a job that already posted today.
+        if post.key in load(POSTED) and not self.force:
+            return "duplicate", f"{post.key} already posted (by an overlapping run)"
+        prev = load(RUNS).get(f"{now:%Y-%m-%d}:{job.name}", {})
+        if prev.get("status") == "posted" and not self.force:
+            return "duplicate", f"{job.name} already posted today: {prev.get('detail', '')}"[:300]
         media_id = ig.publish(urls, post.caption, media=post.media, cover_url=cover_url, trial=job.trial)
         link = None if post.media == "story" else ig.permalink(media_id)
         posted = load(POSTED)
@@ -232,6 +239,13 @@ def main():
     in_ci = os.environ.get("GITHUB_ACTIONS") == "true"
     live_allowed = args.live or (in_ci and os.environ.get("POSTING_ENABLED", "").strip().lower() == "true")
     now = datetime.strptime(args.at, "%Y-%m-%d %H:%M").replace(tzinfo=PT) if args.at else datetime.now(PT)
+    if in_ci:
+        # Nov 16: a queued run checks out the commit that was current when it was triggered, so it can miss a post
+        # made by the run just before it (Liftoff Daily posted two Wow Reels on Nov 14 that way). Start from the latest.
+        try:
+            sh("git", "pull", "--rebase", "--autostash", "--quiet")
+        except subprocess.CalledProcessError as e:
+            print(f"  ! git pull failed, continuing with the checked-out state: {(e.stderr or '').strip()[:200]}")
     runs = load(RUNS)
 
     # Names used by the original workflow file keep working.
@@ -252,7 +266,7 @@ def main():
         return
 
     runner = Runner(live_allowed, in_ci, args.force)
-    failed = []
+    failed, mine = [], set()
     for job, final in todo:
         try:
             status, detail = runner.run(job, now)
@@ -265,6 +279,7 @@ def main():
             status, detail = "error", f"{type(e).__name__}: {e}"
         if status in ("waiting", "blocked") and final:
             status = "skipped" if status == "waiting" else "blocked-final"
+        mine.add(f"{now:%Y-%m-%d}:{job.name}")
         runs[f"{now:%Y-%m-%d}:{job.name}"] = {"status": status, "detail": detail[:300],
                                               "at": now.isoformat(timespec="minutes")}
         icon = {"posted": "✅", "previewed": "🧪", "done": "🗄️", "duplicate": "⏭️", "skipped": "⏭️",
@@ -275,7 +290,14 @@ def main():
 
     reply_to_comments(in_ci, live_allowed)
 
-    save(RUNS, runs)
+    # Nov 16: write only this run's jobs into the latest file (an overlapping run may have saved since we loaded it),
+    # and never turn a "posted" record into anything else.
+    latest = load(RUNS)
+    for k in mine:
+        if latest.get(k, {}).get("status") == "posted" and runs[k].get("status") != "posted":
+            continue
+        latest[k] = runs[k]
+    save(RUNS, latest)
     runner.touched.add("state")
     if in_ci:
         git_push(f"Run {now:%Y-%m-%d %H:%M} PT", sorted(runner.touched))

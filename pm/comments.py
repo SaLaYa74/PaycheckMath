@@ -34,7 +34,7 @@ TEMPLATES = [
     "#{rank} of 51! {state} comes in at {value} for {what}.{us}",
     "{state} lands at #{rank} of 51: {value} ({what}).{us}",
 ]
-TAIL = ["", " New state ranking every Wed & Sat 📊", " Which state should we rank next?"]
+TAIL = ["", " New state ranking every Mon, Wed & Sat 📊", " Which state should we rank next?"]
 
 
 def states_in(text):

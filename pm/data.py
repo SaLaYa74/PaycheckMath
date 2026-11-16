@@ -250,6 +250,8 @@ ACS = {
     "owncost": ("B25088_002E", "DP04_0101E", (700, 4500), 0.15),         # median monthly owner costs, with a mortgage
     "proptax": ("B25103_001E", None, (300, 15_000), 0.25),               # median real estate taxes paid, $/year
     "percapita": ("B19301_001E", "DP03_0088E", (20_000, 130_000), 0.15),  # per capita income, $/year
+    # Nov 16: median earnings for workers 16+ with earnings (B20017 total = DP03 "Median earnings for workers")
+    "earnings": ("B20017_001E", "DP03_0092E", (25_000, 110_000), 0.15),
 }
 
 
