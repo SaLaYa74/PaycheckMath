@@ -12,6 +12,7 @@ import json
 import os
 import subprocess
 import time
+import http.client
 import urllib.error
 import urllib.request
 from datetime import date, datetime
@@ -63,7 +64,7 @@ def _get(url, data=None, tries=4, timeout=60):
         except urllib.error.HTTPError as e:
             if e.code < 500 or attempt == tries - 1:
                 raise
-        except (urllib.error.URLError, TimeoutError, ConnectionError, OSError):
+        except (urllib.error.URLError, TimeoutError, ConnectionError, OSError, http.client.IncompleteRead):
             if attempt == tries - 1:
                 raise
         time.sleep(3 * (attempt + 1))
@@ -75,7 +76,7 @@ def _plain_get(url, tries=3, timeout=45):
         try:
             with urllib.request.urlopen(url, timeout=timeout) as r:
                 return r.read()
-        except (urllib.error.URLError, TimeoutError, ConnectionError, OSError):
+        except (urllib.error.URLError, TimeoutError, ConnectionError, OSError, http.client.IncompleteRead):
             if attempt == tries - 1:
                 raise
             time.sleep(3 * (attempt + 1))

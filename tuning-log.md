@@ -224,3 +224,19 @@ percapita, homevalue, earnings (7 unposted). Test builds: tonight's years board 
 Hawaii 8.6 yrs = $home / $income checked by hand.
 
 **Watch Thu Nov 19:** Mon + Wed boards: views, comments, follows per reach. Is Wed's 15.8K a one-off or the Wed slot?
+
+## 2026-11-19 (Thu, Jarvis check-in)
+
+**Numbers (4 days):** followers 13 → **17**. Find Your State Mon (years of pay): **22,068 views, 11,314 reach, 6 saves,
+5 shares, 11.5 s watch**. Wed (owner costs), first day only: 1,813 views, 1,063 reach, 4 shares, 4 comments. So Wed's
+15.8K last week wasn't a slot fluke: Mon can hit too. Tue + Fri BLS slots are idle (no new BLS month yet), as expected.
+No errors or blocks in the run log.
+
+**Bug fixed (pm/data.py):** a cut-off download ("IncompleteRead") wasn't retried, so one network blip could fail a post
+(seen on SharpCharts today). Both fetch helpers now retry it. Test: today's mortgage Reel built with 0 blocking;
+$400K at 7.28% = $2,737/mo and at 6.24% = $2,460 (+$277), checked by hand.
+
+**Queue:** 5 unposted editions (burden, proptax, percapita, homevalue, earnings). After Sat it's 4; Monday must add at
+least one (ideas: BLS state unemployment, electricity price by state).
+
+**Watch Mon Nov 23:** Wed + Sat board reach and follows; follower growth per 10K reach (~4 per 11K this week).
