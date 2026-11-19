@@ -359,6 +359,16 @@
     "scheduled": "17:00",
     "trial": false
   },
+  "acs2025-reel-find_owncost": {
+    "images": 1,
+    "job": "find_state_wed",
+    "media": "reel",
+    "media_id": "18016212176760567",
+    "permalink": "https://www.instagram.com/reel/Df52ifeAvBO/",
+    "posted_at": "2026-11-19T01:01:43+00:00",
+    "scheduled": "17:00",
+    "trial": false
+  },
   "acs2025-reel-find_rent": {
     "images": 1,
     "job": "find_state",
