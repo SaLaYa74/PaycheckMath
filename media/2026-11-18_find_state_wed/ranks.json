@@ -1,0 +1,312 @@
+{
+ "what": "monthly costs for homeowners with a mortgage",
+ "us": "$2,163",
+ "rows": [
+  {
+   "fips": "11",
+   "state": "D.C.",
+   "rank": 1,
+   "value": "$3,256"
+  },
+  {
+   "fips": "06",
+   "state": "California",
+   "rank": 2,
+   "value": "$3,080"
+  },
+  {
+   "fips": "15",
+   "state": "Hawaii",
+   "rank": 3,
+   "value": "$3,025"
+  },
+  {
+   "fips": "34",
+   "state": "New Jersey",
+   "rank": 4,
+   "value": "$2,970"
+  },
+  {
+   "fips": "25",
+   "state": "Massachusetts",
+   "rank": 5,
+   "value": "$2,884"
+  },
+  {
+   "fips": "53",
+   "state": "Washington",
+   "rank": 6,
+   "value": "$2,715"
+  },
+  {
+   "fips": "36",
+   "state": "New York",
+   "rank": 7,
+   "value": "$2,703"
+  },
+  {
+   "fips": "08",
+   "state": "Colorado",
+   "rank": 8,
+   "value": "$2,623"
+  },
+  {
+   "fips": "09",
+   "state": "Connecticut",
+   "rank": 9,
+   "value": "$2,580"
+  },
+  {
+   "fips": "24",
+   "state": "Maryland",
+   "rank": 10,
+   "value": "$2,548"
+  },
+  {
+   "fips": "33",
+   "state": "New Hampshire",
+   "rank": 11,
+   "value": "$2,492"
+  },
+  {
+   "fips": "44",
+   "state": "Rhode Island",
+   "rank": 12,
+   "value": "$2,481"
+  },
+  {
+   "fips": "48",
+   "state": "Texas",
+   "rank": 13,
+   "value": "$2,345"
+  },
+  {
+   "fips": "41",
+   "state": "Oregon",
+   "rank": 14,
+   "value": "$2,343"
+  },
+  {
+   "fips": "02",
+   "state": "Alaska",
+   "rank": 15,
+   "value": "$2,291"
+  },
+  {
+   "fips": "49",
+   "state": "Utah",
+   "rank": 16,
+   "value": "$2,283"
+  },
+  {
+   "fips": "51",
+   "state": "Virginia",
+   "rank": 17,
+   "value": "$2,277"
+  },
+  {
+   "fips": "12",
+   "state": "Florida",
+   "rank": 18,
+   "value": "$2,265"
+  },
+  {
+   "fips": "27",
+   "state": "Minnesota",
+   "rank": 19,
+   "value": "$2,130"
+  },
+  {
+   "fips": "17",
+   "state": "Illinois",
+   "rank": 20,
+   "value": "$2,129"
+  },
+  {
+   "fips": "50",
+   "state": "Vermont",
+   "rank": 21,
+   "value": "$2,044"
+  },
+  {
+   "fips": "32",
+   "state": "Nevada",
+   "rank": 22,
+   "value": "$2,042"
+  },
+  {
+   "fips": "13",
+   "state": "Georgia",
+   "rank": 23,
+   "value": "$2,037"
+  },
+  {
+   "fips": "04",
+   "state": "Arizona",
+   "rank": 24,
+   "value": "$2,010"
+  },
+  {
+   "fips": "30",
+   "state": "Montana",
+   "rank": 25,
+   "value": "$1,984"
+  },
+  {
+   "fips": "10",
+   "state": "Delaware",
+   "rank": 26,
+   "value": "$1,960"
+  },
+  {
+   "fips": "23",
+   "state": "Maine",
+   "rank": 27,
+   "value": "$1,957"
+  },
+  {
+   "fips": "31",
+   "state": "Nebraska",
+   "rank": 28,
+   "value": "$1,916"
+  },
+  {
+   "fips": "16",
+   "state": "Idaho",
+   "rank": 29,
+   "value": "$1,914"
+  },
+  {
+   "fips": "56",
+   "state": "Wyoming",
+   "rank": 30,
+   "value": "$1,896"
+  },
+  {
+   "fips": "42",
+   "state": "Pennsylvania",
+   "rank": 31,
+   "value": "$1,879"
+  },
+  {
+   "fips": "37",
+   "state": "North Carolina",
+   "rank": 32,
+   "value": "$1,864"
+  },
+  {
+   "fips": "46",
+   "state": "South Dakota",
+   "rank": 33,
+   "value": "$1,853"
+  },
+  {
+   "fips": "38",
+   "state": "North Dakota",
+   "rank": 34,
+   "value": "$1,836"
+  },
+  {
+   "fips": "20",
+   "state": "Kansas",
+   "rank": 35,
+   "value": "$1,818"
+  },
+  {
+   "fips": "55",
+   "state": "Wisconsin",
+   "rank": 36,
+   "value": "$1,787"
+  },
+  {
+   "fips": "47",
+   "state": "Tennessee",
+   "rank": 37,
+   "value": "$1,749"
+  },
+  {
+   "fips": "45",
+   "state": "South Carolina",
+   "rank": 38,
+   "value": "$1,736"
+  },
+  {
+   "fips": "40",
+   "state": "Oklahoma",
+   "rank": 39,
+   "value": "$1,709"
+  },
+  {
+   "fips": "22",
+   "state": "Louisiana",
+   "rank": 40,
+   "value": "$1,708"
+  },
+  {
+   "fips": "26",
+   "state": "Michigan",
+   "rank": 41,
+   "value": "$1,696"
+  },
+  {
+   "fips": "29",
+   "state": "Missouri",
+   "rank": 42,
+   "value": "$1,676"
+  },
+  {
+   "fips": "39",
+   "state": "Ohio",
+   "rank": 43,
+   "value": "$1,672"
+  },
+  {
+   "fips": "35",
+   "state": "New Mexico",
+   "rank": 44,
+   "value": "$1,654"
+  },
+  {
+   "fips": "19",
+   "state": "Iowa",
+   "rank": 45,
+   "value": "$1,650"
+  },
+  {
+   "fips": "01",
+   "state": "Alabama",
+   "rank": 46,
+   "value": "$1,588"
+  },
+  {
+   "fips": "18",
+   "state": "Indiana",
+   "rank": 47,
+   "value": "$1,577"
+  },
+  {
+   "fips": "21",
+   "state": "Kentucky",
+   "rank": 48,
+   "value": "$1,564"
+  },
+  {
+   "fips": "28",
+   "state": "Mississippi",
+   "rank": 49,
+   "value": "$1,499"
+  },
+  {
+   "fips": "05",
+   "state": "Arkansas",
+   "rank": 50,
+   "value": "$1,477"
+  },
+  {
+   "fips": "54",
+   "state": "West Virginia",
+   "rank": 51,
+   "value": "$1,375"
+  }
+ ]
+}

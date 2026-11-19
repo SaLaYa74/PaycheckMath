@@ -1,0 +1,380 @@
+{
+  "subject": "find_owncost",
+  "counts": {
+    "pass": 74,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Census API key available",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Census ACS data reachable",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 owncost: all 50 states + DC",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY owncost: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 owncost: detailed and profile tables agree",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 owncost: realistic change vs. 2024",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 owncost: U.S. value between the states",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "owncost: same ACS year",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_owncost.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_owncost.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_owncost.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_owncost.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_owncost.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_owncost.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_owncost_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_owncost_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_owncost_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_owncost_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
