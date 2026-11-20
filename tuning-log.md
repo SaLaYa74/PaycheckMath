@@ -240,3 +240,11 @@ $400K at 7.28% = $2,737/mo and at 6.24% = $2,460 (+$277), checked by hand.
 least one (ideas: BLS state unemployment, electricity price by state).
 
 **Watch Mon Nov 23:** Wed + Sat board reach and follows; follower growth per 10K reach (~4 per 11K this week).
+
+## 2026-11-20 — US map Reels (owner request)
+- Owner: "charts that include maps of the US... color coded", "keep it focused on housing".
+- Thursday mortgage-rate Reel (~120 views) replaced by a map Reel at 5pm PT (the evening slot that works).
+- Editions: $1M+ homes share (HI 41.9%, CA 32.2%), renters paying 30%+ on rent (FL 61.3%; U.S. 51.8%),
+  homeownership (WV/DE 74.7%, DC 38.1%), then rent and years-of-pay redrawn as maps.
+- Every share computed from the detailed table (bins chosen by label) and matched to the Census profile table's
+  published % for all 51; year-over-year sanity check; U.S. value between the states.

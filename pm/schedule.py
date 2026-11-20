@@ -24,7 +24,9 @@ JOBS = [
     Job("release",     "reel_release",  (MON, TUE, WED, THU, FRI, SAT, SUN), "06:00", live=True,
         note="Reel: just-released inflation / jobs-report numbers"),
     # Weekly: Freddie Mac publishes Thursdays at noon ET (9am PT)
-    Job("mortgage",    "reel_mortgage", (THU,), "12:00", live=True, note="Reel: this week's mortgage rate"),
+    # Nov 20 (owner: "maps of the US... color coded"): the Thursday mortgage-rate Reel (~120 views) is replaced by a
+    # US map Reel at the evening slot that works (5pm PT / 8pm ET). Housing measures, pm/reels.py MAP_EDITIONS.
+    Job("map_thu",     "reel_map",      (THU,), "17:00", live=True, note="Reel: US map, every state colored by a housing measure"),
     # Nov 14 (owner + Claude, 14-day numbers): Find Your State boards reach 13-16K people each (~28K views, 10-16 saves);
     # every other Reel ~17-88 people, pictures ~7. So: Find Your State three times a week, the monthly BLS rotation
     # trimmed from 6 slots to 2 (still never repeats a format per data month), pictures retired.

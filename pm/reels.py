@@ -750,7 +750,137 @@ SERIES = ["reel" + f.__name__ for f in EDITIONS]
 assert all(n in NEXT_UP for n in SERIES[1:]), "every Find Your State edition after the first needs a NEXT_UP teaser"
 
 
+# ---- Nov 20 (owner: "throw some charts on there that include maps of the US... color coded... most expensive states",
+# "keep it focused on housing"): a US map Reel every Thursday at 5pm PT, replacing the mortgage-rate Reel (~120 views
+# vs 20-29K for the state rankings). Every state's number is checked (pm/data.py acs_share / acs_states); the map's
+# colors are rank groups of 10, so anyone can find their state at a glance.
+HOT = [("#7F1D1D", "#fff"), ("#DC2626", "#fff"), ("#F97316", "#1F2937"), ("#FDBA74", "#1F2937"), ("#FEF3C7", "#1F2937")]
+COOL = [("#1E3A8A", "#fff"), ("#2563EB", "#fff"), ("#60A5FA", "#1F2937"), ("#93C5FD", "#1F2937"), ("#DBEAFE", "#1F2937")]
+MAP_DAYS = "Thursday"
+
+
+def _map_post(out_dir, rep, year, name, vals, us, title, hl, sub, short, full, hot, hook_line, caption_head, us_line,
+              method, share, tags, what, us_val):
+    rows = sorted(vals.items(), key=lambda kv: -kv[1])
+    rep.require(len(rows) == 51, f"{name}: all 50 states + DC", f"{len(rows)}")
+    ranks = {f: k + 1 for k, (f, _) in enumerate(rows)}
+    groups = [rows[0:10], rows[10:20], rows[20:30], rows[30:40], rows[40:51]]
+    names = ("#1–10", "#11–20", "#21–30", "#31–40", "#41–51")
+    pal = HOT if hot else COOL
+    bins = [(pal[k][0], pal[k][1], names[k], f"{short(g[-1][1])}–{short(g[0][1])}") for k, g in enumerate(groups)]
+    save_ranks(out_dir, what, us_val, [(f, full(v)) for f, v in rows])
+    st = lambda f: D.STATES[f][0]
+    top3 = [(st(f), full(v)) for f, v in rows[:3]]
+    low3 = [(st(f), full(v)) for f, v in rows[::-1][:3]]
+    mp4, cover = make_reel(out_dir, f"reel_{name}", ("Find your state", hook_line), lambda p: L.usmap(
+        title, hl, sub, ranks, {f: short(v) for f, v in vals.items()}, bins, f"Census ACS {year}", p=p,
+        hl_color=UP_RED if hot else BLUE, cta=CTA, top=top3, bottom=low3), "Find your state", f"{name}-{year}", hold=8.0)
+    medal = ["🥇", "🥈", "🥉", "4.", "5."]
+    top = "\n".join(f"{medal[k]} {st(f)}: {full(v)}" for k, (f, v) in enumerate(rows[:5]))
+    bottom = "\n".join(f"{len(rows) - 2 + k}. {st(f)}: {full(v)}" for k, (f, v) in enumerate(rows[-3:]))
+    caption = (f"{caption_head}\n\nHighest:\n{top}\n\nLowest:\n{bottom}\n\n{us_line}\n\n{COMMENT}"
+               f"\n\n📤 {share}\n🔁 A new state map every {MAP_DAYS}, a state ranking every {DAYS}. Follow so you don't miss yours."
+               f"\n\nSource: {method}\n{DISCLAIMER}\n👉 Follow @paycheck_math\n{tags} {TAGS}")
+    return _post(f"acs{year}-reel-{name}", mp4, cover, caption, rep)
+
+
+def _pct_short(v):
+    return f"{v:.0f}%" if v >= 9.95 else f"{v:.1f}%"
+
+
+def _share_edition(name, which, posted):
+    rep = C.Report(name)
+    year = D.acs_year()
+    if year is None:
+        raise DataError("Census ACS data unreachable")
+    if f"acs{year}-reel-{name}" in (posted or {}):
+        raise NoContent(f"{name} already posted for ACS {year}")
+    y, vals, us = D.acs_share(rep, which)
+    if not vals or not rep.ok or y != year:
+        raise DataError(f"Census {which} shares failed checks: " + "; ".join(i["detail"] for i in rep.blocked))
+    return rep, year, vals, us
+
+
+def _map_million(out_dir, posted=None):
+    rep, year, v, us = _share_edition("map_million", "million", posted)
+    top = D.STATES[max(v, key=v.get)][0]
+    return _map_post(
+        out_dir, rep, year, "map_million", v, us, "Where {hl} Homes\nAre Most Common", "$1M+",
+        f"Share of owned homes worth $1 million or more · {year}", _pct_short, lambda x: f"{x:.1f}%", True,
+        "homes worth $1M+", f"Where million-dollar homes are most common: the share of owned homes worth $1M or more, "
+        f"by state ({year}) 🏡💰", f"U.S.: {us:.1f}% of owned homes are worth $1 million or more.",
+        ACS_SRC.format(year) + " Value of owner-occupied homes (owners' estimates): homes worth $1,000,000 or more ÷ all "
+        "owner-occupied homes. Matches the Census data profile for every state.",
+        f"Send this to someone in {top}.", "#realestate #housing", "the share of homes worth $1M+", f"{us:.1f}%")
+
+
+def _map_rent30(out_dir, posted=None):
+    rep, year, v, us = _share_edition("map_rent30", "rent30", posted)
+    return _map_post(
+        out_dir, rep, year, "map_rent30", v, us, "Where Rent Is\n{hl}", "Crushing",
+        f"Share of renters paying 30%+ of their income on rent · {year}", _pct_short, lambda x: f"{x:.1f}%", True,
+        "renters paying 30%+ on rent", f"Where rent is crushing: the share of renters who spend 30% or more of their "
+        f"income on rent, by state ({year}) 😬",
+        f"U.S.: {us:.1f}% of renters." + (" More than half are over the usual 30% rule of thumb." if us > 50 else ""),
+        ACS_SRC.format(year) + " Gross rent as a percentage of household income, renter households where it can be "
+        "computed: 30% or more ÷ all. Matches the Census data profile for every state.",
+        "Send this to your roommate.", "#rent #renting", "the share of renters paying 30%+ of income on rent", f"{us:.1f}%")
+
+
+def _map_own(out_dir, posted=None):
+    rep, year, v, us = _share_edition("map_own", "own", posted)
+    low = D.STATES[min(v, key=v.get)][0]
+    return _map_post(
+        out_dir, rep, year, "map_own", v, us, "Where Most People\n{hl} Their Home", "Own",
+        f"Share of households that own their home · {year}", _pct_short, lambda x: f"{x:.1f}%", False,
+        "who owns their home", f"Where people own their home vs. rent, by state ({year}) 🏠🔑",
+        f"U.S.: {us:.1f}% of households own their home.",
+        ACS_SRC.format(year) + " Housing tenure: owner-occupied homes ÷ all occupied homes. Matches the Census data "
+        "profile for every state.", f"Send this to a renter in {low}.", "#homeownership #housing",
+        "the share of households that own their home", f"{us:.1f}%")
+
+
+def _map_rent(out_dir, posted=None):
+    rep, year, got = _acs_edition("map_rent", posted, ["rent"])
+    v, us = got["rent"]
+    return _map_post(
+        out_dir, rep, year, "map_rent", v, us, "What Rent Costs\nin {hl} State", "Every",
+        f"Median monthly rent, utilities included · {year}",
+        lambda x: f"${x / 1e3:.1f}K" if x >= 1000 else f"${x:.0f}", lambda x: f"${x:,.0f}", True, "what rent costs",
+        f"What the typical rent costs in every state ({year}) 🏢", f"U.S.: ${us:,.0f}/month.",
+        ACS_SRC.format(year) + " Median gross rent (contract rent plus utilities and fuels).",
+        "Send this to someone who's thinking about moving.", "#rent #renting", "the typical monthly rent", f"${us:,.0f}")
+
+
+def _map_years(out_dir, posted=None):
+    rep, year, got = _acs_edition("map_years", posted, ["home", "income"])
+    (home, us_home), (inc, us_inc) = got["home"], got["income"]
+    v = {f: home[f] / inc[f] for f in home if f in inc}
+    return _map_post(
+        out_dir, rep, year, "map_years", v, us_home / us_inc, "{hl} of Pay to Buy\nthe Typical Home", "Years",
+        f"Typical home ÷ typical household income · {year}", lambda x: f"{x:.1f}", lambda x: f"{x:.1f} years", True,
+        "years of pay to buy a home", f"How many years of income the typical home costs, on the map ({year}) 🏠",
+        f"U.S.: {us_home / us_inc:.1f} years (${us_home:,.0f} home, ${us_inc:,.0f} income). Before taxes, spending nothing.",
+        ACS_SRC.format(year) + " Median value of owner-occupied homes ÷ median household income.",
+        "Send this to the friend who's saving for a house.", "#homebuying #housing",
+        "years of income to buy the typical home", f"{us_home / us_inc:.1f} yrs")
+
+
+# New measures first (never posted as boards), then the best boards (rent, years) redrawn as maps.
+MAP_EDITIONS = [_map_million, _map_rent30, _map_own, _map_rent, _map_years]
+
+
+def reel_map(out_dir, posted=None):
+    for edition in MAP_EDITIONS:
+        try:
+            return edition(out_dir, posted)
+        except NoContent:
+            continue
+    raise NoContent("Every map edition is posted for this ACS year.")
+
+
 BUILDERS = {"reel_mortgage": lambda out_dir, posted=None: reel_mortgage(out_dir),
             "reel_monthly": reel_monthly,
             "reel_find_state": reel_find_state,
-            "reel_release": reel_release}
+            "reel_release": reel_release,
+            "reel_map": reel_map}

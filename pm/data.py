@@ -395,3 +395,80 @@ def check_state_pay(rep):
     rows.sort(key=lambda r: -r["value"])
     rep.require(len({r["name"] for r in rows}) == 51, "State pay: 51 unique rows", f"{len(rows)} rows")
     return month, rows
+
+
+# ---- Nov 20: shares for the US map Reels (owner: "maps of the US... color coded"). Computed from the detailed table,
+# bins chosen by their Census label (bin codes shift between years: B25075_026E was $1M+ once, $700K now), and the
+# result must match the data-profile table's own published percentage for every state.
+# name: (detailed group, numerator bin labels (or a test on the label), bin excluded from the total or None,
+#        [(profile var, text its label must contain)], plausible state range in %)
+SHARES = {
+    "million": ("B25075", lambda lab: _low(lab) >= 1_000_000, None,
+                [("DP04_0088PE", "$1,000,000 or more")], (0, 60)),
+    "own": ("B25003", ("Owner occupied",), None, [("DP04_0046PE", "Owner-occupied")], (30, 85)),
+    "rent30": ("B25070", ("30.0 to 34.9 percent", "35.0 to 39.9 percent", "40.0 to 49.9 percent", "50.0 percent or more"),
+               "Not computed", [("DP04_0141PE", "30.0 to 34.9 percent"), ("DP04_0142PE", "35.0 percent or more")], (25, 75)),
+}
+VARS = "https://api.census.gov/data/{}/acs/acs1{}/variables/{}.json"
+GROUP = "https://api.census.gov/data/{}/acs/acs1/groups/{}.json"
+
+
+def _low(label):
+    """Lower dollar bound of a bin label: '$1,250,000 to $1,499,999' -> 1250000, 'Less than $10,000' -> 0."""
+    import re
+    m = re.match(r"\$([\d,]+)", label)
+    return int(m.group(1).replace(",", "")) if m else 0
+
+
+def _bins(year, group):
+    """{last label segment: variable} for a detailed table's estimates, e.g. {'Owner occupied': 'B25003_002E'}."""
+    v = json.loads(_plain_get(GROUP.format(year, group)))["variables"]
+    return {d["label"].split("!!")[-1].rstrip(":"): k for k, d in v.items() if k.endswith("E") and k.startswith(group)}
+
+
+def _share(year, which, geo):
+    group, num, excl, _, _ = SHARES[which]
+    from .core import DataError
+    bins = _bins(year, group)
+    if callable(num):
+        num = tuple(b for b in bins if b != "Total" and num(b))
+        if not num:
+            raise DataError(f"ACS {year} {group}: no bins match")
+    missing = [b for b in num + ((excl,) if excl else ()) + ("Total",) if b not in bins]
+    if missing:
+        raise DataError(f"ACS {year} {group}: bins not found {missing}")
+    get = lambda lab: _acs(year, bins[lab], geo)
+    total, excl_v = get("Total"), (get(excl) if excl else {})
+    parts = [get(b) for b in num]
+    return {f: 100 * sum(p.get(f, 0) for p in parts) / (total[f] - excl_v.get(f, 0)) for f in total if total[f] > excl_v.get(f, 0)}
+
+
+def acs_share(rep, which):
+    """(year, {fips: % for 50 states + DC}, U.S. %), every value checked against the profile table."""
+    group, num, excl, prof, (lo, hi) = SHARES[which]
+    if not rep.require(bool(census_key()), "Census API key available", "CENSUS_KEY not set"):
+        return None, {}, None
+    year = acs_year()
+    if not rep.require(year is not None, "Census ACS data reachable", "no recent ACS 1-year release found"):
+        return None, {}, None
+    vals = {f: v for f, v in _share(year, which, "state:*").items() if f in STATES}
+    rep.require(len(vals) == len(STATES), f"ACS {year} {which}: all 50 states + DC", f"{len(vals)} found")
+    for f, v in vals.items():
+        rep.require(lo <= v <= hi, f"{STATES[f][1]} {which}: share plausible", f"{v:.1f}% outside {lo}-{hi}")
+    pub = {}
+    for var, must in prof:
+        label = json.loads(_plain_get(VARS.format(year, "/profile", var))).get("label", "")
+        rep.require(must in label, f"ACS {year} profile {var} is '{must}'", f"label is '{label}'")
+        for f, v in _acs(year, var, "state:*", profile=True).items():
+            pub[f] = pub.get(f, 0) + v
+    tol = 0.06 + 0.05 * len(prof)                    # the profile rounds each percent to one decimal
+    bad = [f"{STATES[f][1]} {v:.2f} vs {pub.get(f)}" for f, v in vals.items() if f not in pub or abs(v - pub[f]) > tol]
+    rep.require(not bad, f"ACS {year} {which}: matches the profile table's published % for every state", "; ".join(bad[:5]))
+    prev = year - 1 if year - 1 != 2020 else 2019
+    before = {f: v for f, v in _share(prev, which, "state:*").items() if f in STATES}
+    jumpy = [STATES[f][1] for f, v in vals.items() if f in before and abs(v - before[f]) > 6 * (year - prev)]
+    rep.require(not jumpy, f"ACS {year} {which}: realistic change vs. {prev}", f"big jumps in {jumpy[:6]}")
+    us = _share(year, which, "us:1").get("1")
+    rep.require(us is not None and min(vals.values()) <= us <= max(vals.values()), f"ACS {year} {which}: U.S. between the states",
+                f"U.S. {us}")
+    return year, vals, us

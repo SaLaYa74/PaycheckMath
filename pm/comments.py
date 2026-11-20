@@ -92,7 +92,7 @@ def find_targets(posted, since):
     """[(key, media_id, ranks)] for Find Your State Reels posted after `since` that have a ranks.json. No network."""
     targets = []
     for key, p in posted.items():
-        if "find_" not in key or not p.get("media_id") or datetime.fromisoformat(p["posted_at"]) < since:
+        if not ("find_" in key or "-map_" in key) or not p.get("media_id") or datetime.fromisoformat(p["posted_at"]) < since:
             continue
         # the Reel's media folder: media/<Pacific date of the run>_<job>, where ranks.json was saved at build time
         day = datetime.fromisoformat(p["posted_at"]).astimezone(PT).strftime("%Y-%m-%d")
