@@ -1,0 +1,312 @@
+{
+ "what": "how much faster rent grew than pay since 2019 (points)",
+ "us": "13 pts",
+ "rows": [
+  {
+   "fips": "16",
+   "state": "Idaho",
+   "rank": 1,
+   "value": "rent +66%, pay +38%"
+  },
+  {
+   "fips": "04",
+   "state": "Arizona",
+   "rank": 2,
+   "value": "rent +54%, pay +34%"
+  },
+  {
+   "fips": "25",
+   "state": "Massachusetts",
+   "rank": 3,
+   "value": "rent +44%, pay +24%"
+  },
+  {
+   "fips": "45",
+   "state": "South Carolina",
+   "rank": 4,
+   "value": "rent +51%, pay +31%"
+  },
+  {
+   "fips": "44",
+   "state": "Rhode Island",
+   "rank": 5,
+   "value": "rent +47%, pay +28%"
+  },
+  {
+   "fips": "49",
+   "state": "Utah",
+   "rank": 6,
+   "value": "rent +50%, pay +31%"
+  },
+  {
+   "fips": "13",
+   "state": "Georgia",
+   "rank": 7,
+   "value": "rent +50%, pay +32%"
+  },
+  {
+   "fips": "37",
+   "state": "North Carolina",
+   "rank": 8,
+   "value": "rent +52%, pay +35%"
+  },
+  {
+   "fips": "09",
+   "state": "Connecticut",
+   "rank": 9,
+   "value": "rent +43%, pay +27%"
+  },
+  {
+   "fips": "55",
+   "state": "Wisconsin",
+   "rank": 10,
+   "value": "rent +41%, pay +25%"
+  },
+  {
+   "fips": "33",
+   "state": "New Hampshire",
+   "rank": 11,
+   "value": "rent +52%, pay +37%"
+  },
+  {
+   "fips": "47",
+   "state": "Tennessee",
+   "rank": 12,
+   "value": "rent +50%, pay +35%"
+  },
+  {
+   "fips": "12",
+   "state": "Florida",
+   "rank": 13,
+   "value": "rent +51%, pay +37%"
+  },
+  {
+   "fips": "17",
+   "state": "Illinois",
+   "rank": 14,
+   "value": "rent +39%, pay +25%"
+  },
+  {
+   "fips": "23",
+   "state": "Maine",
+   "rank": 15,
+   "value": "rent +53%, pay +39%"
+  },
+  {
+   "fips": "39",
+   "state": "Ohio",
+   "rank": 16,
+   "value": "rent +42%, pay +28%"
+  },
+  {
+   "fips": "10",
+   "state": "Delaware",
+   "rank": 17,
+   "value": "rent +45%, pay +32%"
+  },
+  {
+   "fips": "18",
+   "state": "Indiana",
+   "rank": 18,
+   "value": "rent +41%, pay +29%"
+  },
+  {
+   "fips": "21",
+   "state": "Kentucky",
+   "rank": 19,
+   "value": "rent +39%, pay +27%"
+  },
+  {
+   "fips": "42",
+   "state": "Pennsylvania",
+   "rank": 20,
+   "value": "rent +40%, pay +28%"
+  },
+  {
+   "fips": "34",
+   "state": "New Jersey",
+   "rank": 21,
+   "value": "rent +37%, pay +26%"
+  },
+  {
+   "fips": "11",
+   "state": "D.C.",
+   "rank": 22,
+   "value": "rent +29%, pay +19%"
+  },
+  {
+   "fips": "26",
+   "state": "Michigan",
+   "rank": 23,
+   "value": "rent +37%, pay +27%"
+  },
+  {
+   "fips": "27",
+   "state": "Minnesota",
+   "rank": 24,
+   "value": "rent +34%, pay +24%"
+  },
+  {
+   "fips": "30",
+   "state": "Montana",
+   "rank": 25,
+   "value": "rent +45%, pay +35%"
+  },
+  {
+   "fips": "31",
+   "state": "Nebraska",
+   "rank": 26,
+   "value": "rent +39%, pay +29%"
+  },
+  {
+   "fips": "32",
+   "state": "Nevada",
+   "rank": 27,
+   "value": "rent +45%, pay +35%"
+  },
+  {
+   "fips": "40",
+   "state": "Oklahoma",
+   "rank": 28,
+   "value": "rent +36%, pay +26%"
+  },
+  {
+   "fips": "48",
+   "state": "Texas",
+   "rank": 29,
+   "value": "rent +39%, pay +29%"
+  },
+  {
+   "fips": "01",
+   "state": "Alabama",
+   "rank": 30,
+   "value": "rent +39%, pay +31%"
+  },
+  {
+   "fips": "05",
+   "state": "Arkansas",
+   "rank": 31,
+   "value": "rent +42%, pay +34%"
+  },
+  {
+   "fips": "51",
+   "state": "Virginia",
+   "rank": 32,
+   "value": "rent +38%, pay +30%"
+  },
+  {
+   "fips": "53",
+   "state": "Washington",
+   "rank": 33,
+   "value": "rent +38%, pay +30%"
+  },
+  {
+   "fips": "56",
+   "state": "Wyoming",
+   "rank": 34,
+   "value": "rent +32%, pay +24%"
+  },
+  {
+   "fips": "06",
+   "state": "California",
+   "rank": 35,
+   "value": "rent +34%, pay +27%"
+  },
+  {
+   "fips": "20",
+   "state": "Kansas",
+   "rank": 36,
+   "value": "rent +32%, pay +25%"
+  },
+  {
+   "fips": "38",
+   "state": "North Dakota",
+   "rank": 37,
+   "value": "rent +33%, pay +26%"
+  },
+  {
+   "fips": "41",
+   "state": "Oregon",
+   "rank": 38,
+   "value": "rent +37%, pay +30%"
+  },
+  {
+   "fips": "46",
+   "state": "South Dakota",
+   "rank": 39,
+   "value": "rent +42%, pay +35%"
+  },
+  {
+   "fips": "24",
+   "state": "Maryland",
+   "rank": 40,
+   "value": "rent +30%, pay +24%"
+  },
+  {
+   "fips": "29",
+   "state": "Missouri",
+   "rank": 41,
+   "value": "rent +37%, pay +31%"
+  },
+  {
+   "fips": "36",
+   "state": "New York",
+   "rank": 42,
+   "value": "rent +30%, pay +24%"
+  },
+  {
+   "fips": "08",
+   "state": "Colorado",
+   "rank": 43,
+   "value": "rent +34%, pay +29%"
+  },
+  {
+   "fips": "19",
+   "state": "Iowa",
+   "rank": 44,
+   "value": "rent +27%, pay +24%"
+  },
+  {
+   "fips": "28",
+   "state": "Mississippi",
+   "rank": 45,
+   "value": "rent +33%, pay +30%"
+  },
+  {
+   "fips": "54",
+   "state": "West Virginia",
+   "rank": 46,
+   "value": "rent +27%, pay +26%"
+  },
+  {
+   "fips": "22",
+   "state": "Louisiana",
+   "rank": 47,
+   "value": "rent +28%, pay +28%"
+  },
+  {
+   "fips": "35",
+   "state": "New Mexico",
+   "rank": 48,
+   "value": "rent +35%, pay +35%"
+  },
+  {
+   "fips": "50",
+   "state": "Vermont",
+   "rank": 49,
+   "value": "rent +37%, pay +37%"
+  },
+  {
+   "fips": "02",
+   "state": "Alaska",
+   "rank": 50,
+   "value": "rent +25%, pay +26%"
+  },
+  {
+   "fips": "15",
+   "state": "Hawaii",
+   "rank": 51,
+   "value": "rent +22%, pay +26%"
+  }
+ ]
+}
