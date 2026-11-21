@@ -393,5 +393,10 @@
     "at": "2026-11-20T21:15-08:00",
     "detail": "built, checked and hosting verified, not published",
     "status": "previewed"
+  },
+  "2026-11-20:voice_story": {
+    "at": "2026-11-20T22:00-08:00",
+    "detail": "built, checked and hosting verified, not published",
+    "status": "previewed"
   }
 }
