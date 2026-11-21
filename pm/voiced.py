@@ -26,6 +26,11 @@ from .music import make_beat
 from .video import FPS, _render_all, ffmpeg_exe
 from . import tts as V
 
+# Owner, Nov 20: "don't push any of these videos using the voiceover just yet. Send me samples and previews first and
+# get them approved first." autopost.py refuses to publish a voiced video while this is False, whatever the job says.
+# Flip it ONLY after the owner explicitly approves a sample in chat.
+OWNER_APPROVED = False
+
 HOT = [("#7F1D1D", "#fff"), ("#DC2626", "#fff"), ("#F97316", "#1F2937"), ("#FDBA74", "#1F2937"), ("#FEF3C7", "#1F2937")]
 NAMES = ("#1–10", "#11–20", "#21–30", "#31–40", "#41–51")
 TAGS = "#personalfinance #costofliving #money"

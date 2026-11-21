@@ -256,3 +256,7 @@ least one (ideas: BLS state unemployment, electricity price by state).
 - Checks: every spoken number must be a verified value; 20-45s; studio voice required; caption discloses AI voiceover.
 - First edition: salary to afford the typical home (the 29K board). Job voice_tue (Tue 5pm PT) is PREVIEW ONLY and
   skips until ELEVENLABS_API_KEY (or OPENAI_API_KEY) is a GitHub secret.
+- Nov 20: free voice option Kokoro-82M (Apache 2.0) added. Official sources only, verified: Hugging Face
+  hexgrad/Kokoro-82M (13M downloads, links github.com/hexgrad/kokoro, warns about fake kokoro sites), PyPI
+  kokoro==0.9.4 by hexgrad <hello@hexgrad.com>, PyTorch CPU wheels from download.pytorch.org. Installs on the
+  GitHub runner only when a voiced video builds. Voice af_heart (only A-grade voice in the official VOICES.md).

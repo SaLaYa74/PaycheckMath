@@ -133,6 +133,9 @@ class Runner:
         self.touched.add(os.path.relpath(out_dir, ROOT))
 
         live = job.live and self.live_allowed
+        if job.builder == "reel_voice":      # Nov 20: voiced videos never publish until the owner approves samples
+            from pm.voiced import OWNER_APPROVED
+            live = live and OWNER_APPROVED
         mode = "🚀 LIVE" if live else "🧪 PREVIEW"
         summary(f"\n## {mode} · `{job.name}` → `{post.key}` ({post.media}, {len(images)} image{'s' * (len(images) > 1)})")
         summary(post.checks.markdown())
