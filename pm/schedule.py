@@ -30,7 +30,7 @@ JOBS = [
     # explainer (pm/voiced.py). PREVIEW ONLY until the owner approves; skips until a voice key is added.
     Job("voice_tue",   "reel_voice",    (TUE,), "17:00", live=False, note="Reel PILOT: 30s voiced explainer (preview only)"),
     # TEMPORARY (Nov 20): one Kokoro sample build tonight, preview only (never posts). Remove after it runs.
-    Job("voice_sample", "reel_voice",   (FRI,), "20:45", live=False, start="2026-11-20", note="TEMP: Kokoro voice sample (preview only)"),
+    Job("voice_sample", "reel_voice",   (FRI,), "20:45", live=False, note="TEMP: Kokoro voice sample (preview only)"),
     Job("map_thu",     "reel_map",      (THU,), "17:00", live=True, note="Reel: US map, every state colored by a housing measure"),
     # Nov 14 (owner + Claude, 14-day numbers): Find Your State boards reach 13-16K people each (~28K views, 10-16 saves);
     # every other Reel ~17-88 people, pictures ~7. So: Find Your State three times a week, the monthly BLS rotation
