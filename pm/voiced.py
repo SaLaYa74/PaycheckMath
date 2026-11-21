@@ -267,8 +267,10 @@ def reel_voice(out_dir, posted=None):
             post = edition(out_dir, posted)
         except NoContent:
             continue
-        except (RuntimeError, OSError, subprocess.CalledProcessError) as e:     # voice engine trouble: retry later
-            raise DataError(f"voice engine: {e}") from e
+        except DataError:
+            raise
+        except Exception as e:      # voice engine trouble (install, model download, audio): wait and retry, never fail
+            raise DataError(f"voice engine: {type(e).__name__}: {e}") from e
         if V.provider() == "kokoro":     # pilot: the same line in three voices, saved next to the preview
             try:
                 V.voice_options("Here's what it takes to afford a home in every state. Where does yours land?",

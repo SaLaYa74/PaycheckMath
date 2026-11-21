@@ -82,11 +82,12 @@ def _kokoro_pipe():
 
 
 def _kokoro(text, path, voice=None):
+    pipe = _kokoro_pipe()                # installs Kokoro (and numpy/soundfile) first on the GitHub runner
     import numpy as np
     import soundfile as sf
     voice = voice or os.environ.get("KOKORO_VOICE", "").strip() or KOKORO_DEFAULT_VOICE
     chunks = []
-    for r in _kokoro_pipe()(text, voice=voice, speed=1.05):
+    for r in pipe(text, voice=voice, speed=1.05):
         audio = r.audio if hasattr(r, "audio") else r[2]          # Result object (0.9.x) or (gs, ps, audio)
         if audio is not None:
             chunks.append(audio.detach().cpu().numpy() if hasattr(audio, "detach") else np.asarray(audio))
