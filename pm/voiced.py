@@ -158,7 +158,8 @@ def build_video(out_dir, name, scenes, ctx, seed):
                         "-i", voice, "-i", music, "-filter_complex",
                         f"[2:a]volume=0.10,afade=t=out:st={max(0, total - 1.2):.2f}:d=1.2[m];"
                         "[1:a]aformat=channel_layouts=stereo[v];[m]aformat=channel_layouts=stereo[mm];"
-                        "[v][mm]amix=inputs=2:duration=first:normalize=0[a]",
+                        # Nov 20: level to Reels loudness (the first Kokoro build averaged -29 dB, too quiet)
+                        "[v][mm]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]",
                         "-map", "0:v", "-map", "[a]", "-vf", f"fps={FPS},format=yuv420p", "-c:v", "libx264",
                         "-preset", "medium", "-crf", "16", "-profile:v", "high", "-c:a", "aac", "-b:a", "192k",
                         "-ar", "44100", "-t", f"{total:.2f}", "-movflags", "+faststart", mp4], check=True)
