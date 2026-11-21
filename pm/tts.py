@@ -76,6 +76,8 @@ def _kokoro_pipe():
             pip = [sys.executable, "-m", "pip", "install", "--quiet"]
             subprocess.run(pip + ["torch", "--index-url", "https://download.pytorch.org/whl/cpu"], check=True)
             subprocess.run(pip + [KOKORO_PKG, "soundfile"], check=True)
+            import importlib
+            importlib.invalidate_caches()        # let this already-running Python see the just-installed packages
         from kokoro import KPipeline
         _PIPE["p"] = KPipeline(lang_code="a", repo_id=KOKORO_REPO)
     return _PIPE["p"]
