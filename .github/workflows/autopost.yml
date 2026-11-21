@@ -34,6 +34,9 @@ jobs:
       - name: Run due jobs
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
-          CENSUS_KEY: ${{ secrets.CENSUS_KEY }}          
+          CENSUS_KEY: ${{ secrets.CENSUS_KEY }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_ID: ${{ vars.ELEVENLABS_VOICE_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}          
           POSTING_ENABLED: ${{ vars.POSTING_ENABLED }}
         run: python autopost.py "${{ inputs.target || 'scheduled' }}"

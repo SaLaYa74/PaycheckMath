@@ -26,6 +26,9 @@ JOBS = [
     # Weekly: Freddie Mac publishes Thursdays at noon ET (9am PT)
     # Nov 20 (owner: "maps of the US... color coded"): the Thursday mortgage-rate Reel (~120 views) is replaced by a
     # US map Reel at the evening slot that works (5pm PT / 8pm ET). Housing measures, pm/reels.py MAP_EDITIONS.
+    # Nov 20 PILOT (owner: "videos with animations and voiceovers... fully automated"): a 30-second narrated
+    # explainer (pm/voiced.py). PREVIEW ONLY until the owner approves; skips until a voice key is added.
+    Job("voice_tue",   "reel_voice",    (TUE,), "17:00", live=False, note="Reel PILOT: 30s voiced explainer (preview only)"),
     Job("map_thu",     "reel_map",      (THU,), "17:00", live=True, note="Reel: US map, every state colored by a housing measure"),
     # Nov 14 (owner + Claude, 14-day numbers): Find Your State boards reach 13-16K people each (~28K views, 10-16 saves);
     # every other Reel ~17-88 people, pictures ~7. So: Find Your State three times a week, the monthly BLS rotation

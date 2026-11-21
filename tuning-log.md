@@ -248,3 +248,11 @@ least one (ideas: BLS state unemployment, electricity price by state).
   homeownership (WV/DE 74.7%, DC 38.1%), then rent and years-of-pay redrawn as maps.
 - Every share computed from the detailed table (bins chosen by label) and matched to the Census profile table's
   published % for all 51; year-over-year sanity check; U.S. value between the states.
+
+## 2026-11-20 — Voiced 30-second explainer PILOT (owner request)
+- pm/voiced.py + pm/tts.py: script from verified data → TTS per line (ElevenLabs or OpenAI; macOS voice for local
+  drafts only, can't publish) → 6 scenes timed to the narration (hook count-up, U.S. figure, map fill, top states
+  outlined, bottom state, CTA) → word-by-word captions → quiet music bed. ~29s, renders in ~90s.
+- Checks: every spoken number must be a verified value; 20-45s; studio voice required; caption discloses AI voiceover.
+- First edition: salary to afford the typical home (the 29K board). Job voice_tue (Tue 5pm PT) is PREVIEW ONLY and
+  skips until ELEVENLABS_API_KEY (or OPENAI_API_KEY) is a GitHub secret.

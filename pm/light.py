@@ -218,11 +218,9 @@ def hbars(title, highlight, subtitle, rows, source, hl_color="#3B82F6", tall=Fal
 
 
 # ---- Nov 20 (owner: "maps of the US... color coded based on... most expensive states"): choropleth map card ----
-def usmap(title, highlight, subtitle, ranks, labels, bins, source, tall=True, p=1.0, hl_color="#EF4444", cta="",
-          top=(), bottom=(), top_label="Highest", bottom_label="Lowest"):
-    """Every state colored by its rank group. ranks: {fips: 1..51}; labels: {fips: short value like '24%'};
-    bins: [(fill, text color, legend label, legend range)] for ranks 1-10, 11-20, 21-30, 31-40, 41-51.
-    top/bottom: [(name, value)] for the two lists under the map. States fill in from the bottom rank up as p rises."""
+def map_svg(ranks, labels, bins, p=1.0, outline=(), show=(), small_list=True):
+    """The US map as an SVG string (used by the map card and the voiced videos). outline: FIPS codes drawn with a
+    thick dark border, for the states the narrator is talking about."""
     from . import usmap as U
     from .data import STATES
     S = U.shapes()
@@ -232,7 +230,7 @@ def usmap(title, highlight, subtitle, ranks, labels, bins, source, tall=True, p=
     for f, s in S.items():
         r = ranks[f]
         d = 0.08 + 0.62 * (51 - r) / 50
-        op = max(0.0, min(1.0, (p - d) / 0.12))
+        op = 1.0 if f in show else max(0.0, min(1.0, (p - d) / 0.12))
         fill, ink = bins[grp(r)][0], bins[grp(r)][1]
         paths.append(f'<path d="{s["d"]}" fill="#E5E7EB" stroke="#fff" stroke-width="1.6"/>'
                      f'<path d="{s["d"]}" fill="{fill}" opacity="{op:.2f}" stroke="#fff" stroke-width="1.6"/>')
@@ -246,7 +244,7 @@ def usmap(title, highlight, subtitle, ranks, labels, bins, source, tall=True, p=
         texts.append(f'<text x="{x:.1f}" y="{y + fs * 0.35:.1f}" text-anchor="middle" font-family="Baloo 2" font-weight="800" '
                      f'font-size="{fs:.1f}" fill="{ink}" stroke="{halo}" stroke-width="{3.5 if ink != "#fff" else 2.5}" '
                      f'paint-order="stroke" stroke-linejoin="round" opacity="{op:.2f}">{escape(labels[f])}</text>')
-    for k, f in enumerate(small):
+    for k, f in enumerate(small if small_list else ()):
         s, r = S[f], ranks[f]
         d = 0.08 + 0.62 * (51 - r) / 50
         op = max(0.0, min(1.0, (p - d) / 0.12))
@@ -255,6 +253,17 @@ def usmap(title, highlight, subtitle, ranks, labels, bins, source, tall=True, p=
                      f'<rect x="970" y="{y - 22}" width="22" height="22" rx="5" fill="{bins[grp(r)][0]}" opacity="{max(op, .25):.2f}"/>'
                      f'<text x="999" y="{y - 4}" font-family="Baloo 2" font-weight="800" font-size="24" fill="#1F2937" '
                      f'opacity="{op:.2f}">{STATES[f][1]} {escape(labels[f])}</text>')
+    hi = "".join(f'<path d="{S[f]["d"]}" fill="none" stroke="#111827" stroke-width="5" stroke-linejoin="round"/>'
+                 for f in outline if f in S)
+    return f'<svg viewBox="-6 -4 1122 622" style="width:calc(100% + 80px);margin:0 -40px">{"".join(paths)}{hi}{"".join(texts)}</svg>'
+
+
+def usmap(title, highlight, subtitle, ranks, labels, bins, source, tall=True, p=1.0, hl_color="#EF4444", cta="",
+          top=(), bottom=(), top_label="Highest", bottom_label="Lowest"):
+    """Every state colored by its rank group. ranks: {fips: 1..51}; labels: {fips: short value like '24%'};
+    bins: [(fill, text color, legend label, legend range)] for ranks 1-10, 11-20, 21-30, 31-40, 41-51.
+    top/bottom: [(name, value)] for the two lists under the map. States fill in from the bottom rank up as p rises."""
+    svg = map_svg(ranks, labels, bins, p)
     legend = "".join(f'<div class="lg"><i style="background:{b[0]}"></i><b>{escape(b[2])}</b><small>{escape(b[3])}</small></div>'
                      for b in bins)
     lists = ""
@@ -274,7 +283,7 @@ def usmap(title, highlight, subtitle, ranks, labels, bins, source, tall=True, p=
 .lr{display:flex;justify-content:space-between;font-weight:800;font-size:27px;line-height:1.35}
 .lr b{font-family:"Baloo 2"}</style>"""
     body = f'''{css}<div class="t" style="--hl:{hl_color};font-size:92px">{t}</div><div class="s">{escape(subtitle)}</div>
-<div class="mapw"><div style="width:100%"><svg viewBox="-6 -4 1122 622" style="width:calc(100% + 80px);margin:0 -40px">{"".join(paths)}{"".join(texts)}</svg>
+<div class="mapw"><div style="width:100%">{svg}
 <div class="legend">{legend}</div></div></div>{lists}'''
     if cta:
         body += (f'<div style="align-self:center;margin-top:20px;background:#1F2937;color:#fff;font-family:\'Baloo 2\';'
