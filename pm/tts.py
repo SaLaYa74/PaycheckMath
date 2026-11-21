@@ -4,6 +4,11 @@ Providers, first available wins:
   elevenlabs  ELEVENLABS_API_KEY (GitHub secret, or Mac Keychain item 'paycheckmath-elevenlabs'); voice from
               ELEVENLABS_VOICE_ID (any voice in your ElevenLabs library), default below.
   openai      OPENAI_API_KEY; voice from OPENAI_TTS_VOICE, model from OPENAI_TTS_MODEL.
+  kokoro      Kokoro-82M, open source (Apache 2.0), runs on the machine itself: no account, key or cost.
+              Official sources only (verified Nov 20): model hexgrad/Kokoro-82M on Hugging Face, package `kokoro`
+              0.9.4 on PyPI by hexgrad (github.com/hexgrad/kokoro), PyTorch from download.pytorch.org. Installed on
+              GitHub's runner only when a voiced video is being built. Voice from KOKORO_VOICE (default af_heart,
+              the only A-grade voice in the official VOICES.md). Fake "Kokoro" websites exist: never use them.
   say         macOS's built-in voice. DRAFTS ONLY: the builders refuse to publish with it.
 Each script line is spoken separately (ElevenLabs gets the neighbouring lines as context so the read flows), which
 gives the exact start and length of every line: the animation is timed to it. Keys are never printed or logged.
@@ -12,6 +17,7 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 import urllib.request
 import wave
 
@@ -20,7 +26,10 @@ from .video import ffmpeg_exe
 RATE = 44100
 ELEVEN_DEFAULT_VOICE = "21m00Tcm4TlvDq8ikWAM"     # a premade narrator voice; set ELEVENLABS_VOICE_ID to change it
 ELEVEN_MODEL = "eleven_multilingual_v2"
-STUDIO = ("elevenlabs", "openai")
+STUDIO = ("elevenlabs", "openai", "kokoro")
+KOKORO_REPO = "hexgrad/Kokoro-82M"           # the official model repo; nothing else
+KOKORO_PKG = "kokoro==0.9.4"                 # verified: PyPI author hexgrad <hello@hexgrad.com>
+KOKORO_DEFAULT_VOICE = "af_heart"
 
 
 def _secret(env, keychain):
@@ -39,9 +48,72 @@ def provider():
         return "elevenlabs"
     if _secret("OPENAI_API_KEY", "paycheckmath-openai"):
         return "openai"
+    if os.environ.get("GITHUB_ACTIONS") == "true" or _kokoro_installed():
+        return "kokoro"
     if shutil.which("say"):
         return "say"
     return None
+
+
+def _kokoro_installed():
+    try:
+        import kokoro  # noqa: F401
+        import soundfile  # noqa: F401
+        return True
+    except ImportError:
+        return False
+
+
+_PIPE = {}
+
+
+def _kokoro_pipe():
+    """The Kokoro pipeline (American English), installing it on GitHub's runner the first time it's needed."""
+    if "p" not in _PIPE:
+        if not _kokoro_installed():
+            if os.environ.get("GITHUB_ACTIONS") != "true":
+                raise RuntimeError("Kokoro isn't installed on this machine (needs Python 3.10-3.12)")
+            pip = [sys.executable, "-m", "pip", "install", "--quiet"]
+            subprocess.run(pip + ["torch", "--index-url", "https://download.pytorch.org/whl/cpu"], check=True)
+            subprocess.run(pip + [KOKORO_PKG, "soundfile"], check=True)
+        from kokoro import KPipeline
+        _PIPE["p"] = KPipeline(lang_code="a", repo_id=KOKORO_REPO)
+    return _PIPE["p"]
+
+
+def _kokoro(text, path, voice=None):
+    import numpy as np
+    import soundfile as sf
+    voice = voice or os.environ.get("KOKORO_VOICE", "").strip() or KOKORO_DEFAULT_VOICE
+    chunks = []
+    for r in _kokoro_pipe()(text, voice=voice, speed=1.05):
+        audio = r.audio if hasattr(r, "audio") else r[2]          # Result object (0.9.x) or (gs, ps, audio)
+        if audio is not None:
+            chunks.append(audio.detach().cpu().numpy() if hasattr(audio, "detach") else np.asarray(audio))
+    if not chunks:
+        raise RuntimeError("Kokoro returned no audio")
+    sf.write(path, np.concatenate(chunks), 24000)
+    return path
+
+
+def voice_options(text, out_path, voices=("af_heart", "af_bella", "am_michael")):
+    """One audio file with the same line read by each voice (owner picks by ear). Kokoro only."""
+    import tempfile
+    work = tempfile.mkdtemp(prefix="voices_")
+    parts = []
+    for v in voices:
+        wav = _kokoro(text, os.path.join(work, f"{v}.wav"), voice=v)
+        parts += [wav, None]
+    listing = os.path.join(work, "list.txt")
+    silence = os.path.join(work, "gap.wav")
+    subprocess.run([ffmpeg_exe(), "-y", "-loglevel", "error", "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono",
+                    "-t", "0.8", silence], check=True)
+    with open(listing, "w") as f:
+        for p in parts:
+            f.write(f"file '{p or silence}'\n")
+    subprocess.run([ffmpeg_exe(), "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", listing,
+                    "-c:a", "libmp3lame", "-b:a", "128k", out_path], check=True)
+    return out_path
 
 
 def _post(url, headers, body):
@@ -73,6 +145,8 @@ def _speak(prov, text, prev, nxt, raw):
                        "voice": os.environ.get("OPENAI_TTS_VOICE", "alloy"), "input": text, "response_format": "wav",
                        "instructions": "Upbeat, confident social-media explainer narrator. Clear, quick, friendly."})
         path = raw + ".wav"
+    elif prov == "kokoro":
+        return _kokoro(text, raw + ".wav")
     elif prov == "say":
         path = raw + ".aiff"
         subprocess.run(["say", "-v", os.environ.get("SAY_VOICE", "Samantha"), "-r", "200", "-o", path, text], check=True)

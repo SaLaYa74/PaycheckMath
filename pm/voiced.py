@@ -181,7 +181,7 @@ def check_script(rep, scenes, allowed):
 def finish(rep, key, mp4, cover, secs, prov, caption):
     from .reels import _post
     rep.require(20 <= secs <= 45, "voiced: 20-45 seconds", f"{secs:.1f}s")
-    rep.require(prov in V.STUDIO, "voiced: studio voice (ElevenLabs/OpenAI), not the draft voice",
+    rep.require(prov in V.STUDIO, "voiced: studio voice (ElevenLabs/OpenAI/Kokoro), not the draft voice",
                 f"voice provider is {prov!r}: add ELEVENLABS_API_KEY (or OPENAI_API_KEY) as a GitHub secret")
     if prov in V.STUDIO:
         caption = caption.replace("\n\nSource:", "\n🎙️ AI voiceover\n\nSource:", 1)
@@ -259,7 +259,16 @@ def reel_voice(out_dir, posted=None):
         raise NoContent("No voice yet: add ELEVENLABS_API_KEY (or OPENAI_API_KEY) as a GitHub secret.")
     for edition in EDITIONS:
         try:
-            return edition(out_dir, posted)
+            post = edition(out_dir, posted)
         except NoContent:
             continue
+        except (RuntimeError, OSError, subprocess.CalledProcessError) as e:     # voice engine trouble: retry later
+            raise DataError(f"voice engine: {e}") from e
+        if V.provider() == "kokoro":     # pilot: the same line in three voices, saved next to the preview
+            try:
+                V.voice_options("Here's what it takes to afford a home in every state. Where does yours land?",
+                                os.path.join(out_dir, "voice_options.mp3"))
+            except Exception as e:      # a nice-to-have; never blocks the preview
+                print(f"  ! voice options: {e}")
+        return post
     raise NoContent("Every voiced edition is posted.")
