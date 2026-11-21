@@ -260,3 +260,7 @@ least one (ideas: BLS state unemployment, electricity price by state).
   hexgrad/Kokoro-82M (13M downloads, links github.com/hexgrad/kokoro, warns about fake kokoro sites), PyPI
   kokoro==0.9.4 by hexgrad <hello@hexgrad.com>, PyTorch CPU wheels from download.pytorch.org. Installs on the
   GitHub runner only when a voiced video builds. Voice af_heart (only A-grade voice in the official VOICES.md).
+- Nov 20 (owner): voiced videos must be hand-picked SHORT STORIES (hook, turn, twist/payoff, question), max one a
+  week, each approved by the owner before posting (pm/voiced.py APPROVED, enforced in autopost.py). The narrated-
+  chart format was dropped. First story: rent vs paychecks since 2019 (rent +42%, pay +29%; rent outran pay in 46
+  states; the twist: Hawaii, priciest homes, is one of 5 where pay kept up). Judged at whole-percent precision.

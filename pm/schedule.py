@@ -28,7 +28,9 @@ JOBS = [
     # US map Reel at the evening slot that works (5pm PT / 8pm ET). Housing measures, pm/reels.py MAP_EDITIONS.
     # Nov 20 PILOT (owner: "videos with animations and voiceovers... fully automated"): a 30-second narrated
     # explainer (pm/voiced.py). PREVIEW ONLY until the owner approves; skips until a voice key is added.
-    Job("voice_tue",   "reel_voice",    (TUE,), "17:00", live=False, note="Reel PILOT: 30s voiced explainer (preview only)"),
+    # Owner, Nov 20: "be very selective... one here, one there". Off-board evenings; builds a preview of the next
+    # hand-picked story for approval, posts only stories the owner approved (pm/voiced.py APPROVED), max one a week.
+    Job("voice_story", "reel_voice",    (TUE, FRI, SUN), "17:00", live=True, note="Reel: voiced short story (owner-approved only)"),
     Job("map_thu",     "reel_map",      (THU,), "17:00", live=True, note="Reel: US map, every state colored by a housing measure"),
     # Nov 14 (owner + Claude, 14-day numbers): Find Your State boards reach 13-16K people each (~28K views, 10-16 saves);
     # every other Reel ~17-88 people, pictures ~7. So: Find Your State three times a week, the monthly BLS rotation

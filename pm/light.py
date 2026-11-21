@@ -218,7 +218,7 @@ def hbars(title, highlight, subtitle, rows, source, hl_color="#3B82F6", tall=Fal
 
 
 # ---- Nov 20 (owner: "maps of the US... color coded based on... most expensive states"): choropleth map card ----
-def map_svg(ranks, labels, bins, p=1.0, outline=(), show=(), small_list=True):
+def map_svg(ranks, labels, bins, p=1.0, outline=(), show=(), small_list=True, colors=None):
     """The US map as an SVG string (used by the map card and the voiced videos). outline: FIPS codes drawn with a
     thick dark border, for the states the narrator is talking about."""
     from . import usmap as U
@@ -231,7 +231,7 @@ def map_svg(ranks, labels, bins, p=1.0, outline=(), show=(), small_list=True):
         r = ranks[f]
         d = 0.08 + 0.62 * (51 - r) / 50
         op = 1.0 if f in show else max(0.0, min(1.0, (p - d) / 0.12))
-        fill, ink = bins[grp(r)][0], bins[grp(r)][1]
+        fill, ink = colors[f] if colors else (bins[grp(r)][0], bins[grp(r)][1])   # colors: {fips: (fill, ink)}
         paths.append(f'<path d="{s["d"]}" fill="#E5E7EB" stroke="#fff" stroke-width="1.6"/>'
                      f'<path d="{s["d"]}" fill="{fill}" opacity="{op:.2f}" stroke="#fff" stroke-width="1.6"/>')
         if f in U.SMALL:
@@ -250,7 +250,7 @@ def map_svg(ranks, labels, bins, p=1.0, outline=(), show=(), small_list=True):
         op = max(0.0, min(1.0, (p - d) / 0.12))
         y = 150 + k * 40
         texts.append(f'<line x1="{s["cx"]:.1f}" y1="{s["cy"]:.1f}" x2="968" y2="{y - 7}" stroke="#9CA3AF" stroke-width="1.5"/>'
-                     f'<rect x="970" y="{y - 22}" width="22" height="22" rx="5" fill="{bins[grp(r)][0]}" opacity="{max(op, .25):.2f}"/>'
+                     f'<rect x="970" y="{y - 22}" width="22" height="22" rx="5" fill="{colors[f][0] if colors else bins[grp(r)][0]}" opacity="{max(op, .25):.2f}"/>'
                      f'<text x="999" y="{y - 4}" font-family="Baloo 2" font-weight="800" font-size="24" fill="#1F2937" '
                      f'opacity="{op:.2f}">{STATES[f][1]} {escape(labels[f])}</text>')
     hi = "".join(f'<path d="{S[f]["d"]}" fill="none" stroke="#111827" stroke-width="5" stroke-linejoin="round"/>'
