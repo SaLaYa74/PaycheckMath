@@ -1,0 +1,312 @@
+{
+ "what": "average weekly pay (October 2026)",
+ "us": "",
+ "rows": [
+  {
+   "fips": "11",
+   "state": "D.C.",
+   "rank": 1,
+   "value": "$2,072/week"
+  },
+  {
+   "fips": "53",
+   "state": "Washington",
+   "rank": 2,
+   "value": "$1,529/week"
+  },
+  {
+   "fips": "25",
+   "state": "Massachusetts",
+   "rank": 3,
+   "value": "$1,468/week"
+  },
+  {
+   "fips": "06",
+   "state": "California",
+   "rank": 4,
+   "value": "$1,427/week"
+  },
+  {
+   "fips": "02",
+   "state": "Alaska",
+   "rank": 5,
+   "value": "$1,367/week"
+  },
+  {
+   "fips": "08",
+   "state": "Colorado",
+   "rank": 6,
+   "value": "$1,347/week"
+  },
+  {
+   "fips": "34",
+   "state": "New Jersey",
+   "rank": 7,
+   "value": "$1,347/week"
+  },
+  {
+   "fips": "09",
+   "state": "Connecticut",
+   "rank": 8,
+   "value": "$1,344/week"
+  },
+  {
+   "fips": "15",
+   "state": "Hawaii",
+   "rank": 9,
+   "value": "$1,337/week"
+  },
+  {
+   "fips": "48",
+   "state": "Texas",
+   "rank": 10,
+   "value": "$1,330/week"
+  },
+  {
+   "fips": "51",
+   "state": "Virginia",
+   "rank": 11,
+   "value": "$1,320/week"
+  },
+  {
+   "fips": "36",
+   "state": "New York",
+   "rank": 12,
+   "value": "$1,307/week"
+  },
+  {
+   "fips": "27",
+   "state": "Minnesota",
+   "rank": 13,
+   "value": "$1,304/week"
+  },
+  {
+   "fips": "24",
+   "state": "Maryland",
+   "rank": 14,
+   "value": "$1,295/week"
+  },
+  {
+   "fips": "41",
+   "state": "Oregon",
+   "rank": 15,
+   "value": "$1,282/week"
+  },
+  {
+   "fips": "44",
+   "state": "Rhode Island",
+   "rank": 16,
+   "value": "$1,274/week"
+  },
+  {
+   "fips": "38",
+   "state": "North Dakota",
+   "rank": 17,
+   "value": "$1,270/week"
+  },
+  {
+   "fips": "04",
+   "state": "Arizona",
+   "rank": 18,
+   "value": "$1,259/week"
+  },
+  {
+   "fips": "12",
+   "state": "Florida",
+   "rank": 19,
+   "value": "$1,251/week"
+  },
+  {
+   "fips": "13",
+   "state": "Georgia",
+   "rank": 20,
+   "value": "$1,249/week"
+  },
+  {
+   "fips": "17",
+   "state": "Illinois",
+   "rank": 21,
+   "value": "$1,239/week"
+  },
+  {
+   "fips": "16",
+   "state": "Idaho",
+   "rank": 22,
+   "value": "$1,233/week"
+  },
+  {
+   "fips": "33",
+   "state": "New Hampshire",
+   "rank": 23,
+   "value": "$1,214/week"
+  },
+  {
+   "fips": "56",
+   "state": "Wyoming",
+   "rank": 24,
+   "value": "$1,214/week"
+  },
+  {
+   "fips": "50",
+   "state": "Vermont",
+   "rank": 25,
+   "value": "$1,207/week"
+  },
+  {
+   "fips": "49",
+   "state": "Utah",
+   "rank": 26,
+   "value": "$1,204/week"
+  },
+  {
+   "fips": "32",
+   "state": "Nevada",
+   "rank": 27,
+   "value": "$1,195/week"
+  },
+  {
+   "fips": "39",
+   "state": "Ohio",
+   "rank": 28,
+   "value": "$1,190/week"
+  },
+  {
+   "fips": "37",
+   "state": "North Carolina",
+   "rank": 29,
+   "value": "$1,187/week"
+  },
+  {
+   "fips": "42",
+   "state": "Pennsylvania",
+   "rank": 30,
+   "value": "$1,184/week"
+  },
+  {
+   "fips": "26",
+   "state": "Michigan",
+   "rank": 31,
+   "value": "$1,173/week"
+  },
+  {
+   "fips": "01",
+   "state": "Alabama",
+   "rank": 32,
+   "value": "$1,171/week"
+  },
+  {
+   "fips": "18",
+   "state": "Indiana",
+   "rank": 33,
+   "value": "$1,158/week"
+  },
+  {
+   "fips": "45",
+   "state": "South Carolina",
+   "rank": 34,
+   "value": "$1,152/week"
+  },
+  {
+   "fips": "29",
+   "state": "Missouri",
+   "rank": 35,
+   "value": "$1,148/week"
+  },
+  {
+   "fips": "22",
+   "state": "Louisiana",
+   "rank": 36,
+   "value": "$1,147/week"
+  },
+  {
+   "fips": "23",
+   "state": "Maine",
+   "rank": 37,
+   "value": "$1,137/week"
+  },
+  {
+   "fips": "55",
+   "state": "Wisconsin",
+   "rank": 38,
+   "value": "$1,136/week"
+  },
+  {
+   "fips": "47",
+   "state": "Tennessee",
+   "rank": 39,
+   "value": "$1,132/week"
+  },
+  {
+   "fips": "31",
+   "state": "Nebraska",
+   "rank": 40,
+   "value": "$1,126/week"
+  },
+  {
+   "fips": "40",
+   "state": "Oklahoma",
+   "rank": 41,
+   "value": "$1,122/week"
+  },
+  {
+   "fips": "20",
+   "state": "Kansas",
+   "rank": 42,
+   "value": "$1,122/week"
+  },
+  {
+   "fips": "30",
+   "state": "Montana",
+   "rank": 43,
+   "value": "$1,118/week"
+  },
+  {
+   "fips": "10",
+   "state": "Delaware",
+   "rank": 44,
+   "value": "$1,117/week"
+  },
+  {
+   "fips": "19",
+   "state": "Iowa",
+   "rank": 45,
+   "value": "$1,098/week"
+  },
+  {
+   "fips": "46",
+   "state": "South Dakota",
+   "rank": 46,
+   "value": "$1,088/week"
+  },
+  {
+   "fips": "21",
+   "state": "Kentucky",
+   "rank": 47,
+   "value": "$1,079/week"
+  },
+  {
+   "fips": "54",
+   "state": "West Virginia",
+   "rank": 48,
+   "value": "$1,079/week"
+  },
+  {
+   "fips": "35",
+   "state": "New Mexico",
+   "rank": 49,
+   "value": "$1,078/week"
+  },
+  {
+   "fips": "05",
+   "state": "Arkansas",
+   "rank": 50,
+   "value": "$1,061/week"
+  },
+  {
+   "fips": "28",
+   "state": "Mississippi",
+   "rank": 51,
+   "value": "$1,027/week"
+  }
+ ]
+}

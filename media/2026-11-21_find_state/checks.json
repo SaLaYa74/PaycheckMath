@@ -1,0 +1,630 @@
+{
+  "subject": "find_state",
+  "counts": {
+    "pass": 124,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "State pay: all 50 states + DC present",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "State pay: no unexpected series",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "State pay: same latest month for every state",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "State pay: data is current",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY: weekly pay plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY: realistic change vs. a year ago",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "State pay: year-ago month available for every state",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "State pay: 51 unique rows",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_state.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_state.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_state.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_state.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_state.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_state.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_state_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_state_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_state_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_state_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
