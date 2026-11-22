@@ -399,6 +399,11 @@
     "detail": "built, checked and hosting verified, not published",
     "status": "previewed"
   },
+  "2026-11-21:find_state": {
+    "at": "2026-11-21T17:00-08:00",
+    "detail": "https://www.instagram.com/reel/DgBk-iLEp5W/",
+    "status": "posted"
+  },
   "2026-11-21:release": {
     "at": "2026-11-21T06:00-08:00",
     "detail": "No fresh jobs report ahead of CPI right now.",
