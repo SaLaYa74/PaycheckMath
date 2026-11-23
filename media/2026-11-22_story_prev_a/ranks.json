@@ -1,0 +1,312 @@
+{
+ "what": "years of income to buy the typical home",
+ "us": "4.4 yrs",
+ "rows": [
+  {
+   "fips": "15",
+   "state": "Hawaii",
+   "rank": 1,
+   "value": "8.6 yrs"
+  },
+  {
+   "fips": "06",
+   "state": "California",
+   "rank": 2,
+   "value": "7.5 yrs"
+  },
+  {
+   "fips": "11",
+   "state": "D.C.",
+   "rank": 3,
+   "value": "6.5 yrs"
+  },
+  {
+   "fips": "53",
+   "state": "Washington",
+   "rank": 4,
+   "value": "5.9 yrs"
+  },
+  {
+   "fips": "25",
+   "state": "Massachusetts",
+   "rank": 5,
+   "value": "5.9 yrs"
+  },
+  {
+   "fips": "41",
+   "state": "Oregon",
+   "rank": 6,
+   "value": "5.8 yrs"
+  },
+  {
+   "fips": "08",
+   "state": "Colorado",
+   "rank": 7,
+   "value": "5.7 yrs"
+  },
+  {
+   "fips": "30",
+   "state": "Montana",
+   "rank": 8,
+   "value": "5.5 yrs"
+  },
+  {
+   "fips": "49",
+   "state": "Utah",
+   "rank": 9,
+   "value": "5.5 yrs"
+  },
+  {
+   "fips": "16",
+   "state": "Idaho",
+   "rank": 10,
+   "value": "5.4 yrs"
+  },
+  {
+   "fips": "32",
+   "state": "Nevada",
+   "rank": 11,
+   "value": "5.4 yrs"
+  },
+  {
+   "fips": "36",
+   "state": "New York",
+   "rank": 12,
+   "value": "5.3 yrs"
+  },
+  {
+   "fips": "44",
+   "state": "Rhode Island",
+   "rank": 13,
+   "value": "5.3 yrs"
+  },
+  {
+   "fips": "04",
+   "state": "Arizona",
+   "rank": 14,
+   "value": "5.2 yrs"
+  },
+  {
+   "fips": "34",
+   "state": "New Jersey",
+   "rank": 15,
+   "value": "4.9 yrs"
+  },
+  {
+   "fips": "12",
+   "state": "Florida",
+   "rank": 16,
+   "value": "4.9 yrs"
+  },
+  {
+   "fips": "33",
+   "state": "New Hampshire",
+   "rank": 17,
+   "value": "4.6 yrs"
+  },
+  {
+   "fips": "23",
+   "state": "Maine",
+   "rank": 18,
+   "value": "4.5 yrs"
+  },
+  {
+   "fips": "47",
+   "state": "Tennessee",
+   "rank": 19,
+   "value": "4.5 yrs"
+  },
+  {
+   "fips": "56",
+   "state": "Wyoming",
+   "rank": 20,
+   "value": "4.4 yrs"
+  },
+  {
+   "fips": "37",
+   "state": "North Carolina",
+   "rank": 21,
+   "value": "4.4 yrs"
+  },
+  {
+   "fips": "51",
+   "state": "Virginia",
+   "rank": 22,
+   "value": "4.3 yrs"
+  },
+  {
+   "fips": "10",
+   "state": "Delaware",
+   "rank": 23,
+   "value": "4.2 yrs"
+  },
+  {
+   "fips": "09",
+   "state": "Connecticut",
+   "rank": 24,
+   "value": "4.2 yrs"
+  },
+  {
+   "fips": "13",
+   "state": "Georgia",
+   "rank": 25,
+   "value": "4.2 yrs"
+  },
+  {
+   "fips": "50",
+   "state": "Vermont",
+   "rank": 26,
+   "value": "4.2 yrs"
+  },
+  {
+   "fips": "35",
+   "state": "New Mexico",
+   "rank": 27,
+   "value": "4.2 yrs"
+  },
+  {
+   "fips": "45",
+   "state": "South Carolina",
+   "rank": 28,
+   "value": "4.2 yrs"
+  },
+  {
+   "fips": "24",
+   "state": "Maryland",
+   "rank": 29,
+   "value": "4.1 yrs"
+  },
+  {
+   "fips": "02",
+   "state": "Alaska",
+   "rank": 30,
+   "value": "4.0 yrs"
+  },
+  {
+   "fips": "55",
+   "state": "Wisconsin",
+   "rank": 31,
+   "value": "3.9 yrs"
+  },
+  {
+   "fips": "48",
+   "state": "Texas",
+   "rank": 32,
+   "value": "3.8 yrs"
+  },
+  {
+   "fips": "27",
+   "state": "Minnesota",
+   "rank": 33,
+   "value": "3.8 yrs"
+  },
+  {
+   "fips": "46",
+   "state": "South Dakota",
+   "rank": 34,
+   "value": "3.7 yrs"
+  },
+  {
+   "fips": "01",
+   "state": "Alabama",
+   "rank": 35,
+   "value": "3.6 yrs"
+  },
+  {
+   "fips": "21",
+   "state": "Kentucky",
+   "rank": 36,
+   "value": "3.6 yrs"
+  },
+  {
+   "fips": "29",
+   "state": "Missouri",
+   "rank": 37,
+   "value": "3.6 yrs"
+  },
+  {
+   "fips": "42",
+   "state": "Pennsylvania",
+   "rank": 38,
+   "value": "3.6 yrs"
+  },
+  {
+   "fips": "22",
+   "state": "Louisiana",
+   "rank": 39,
+   "value": "3.6 yrs"
+  },
+  {
+   "fips": "26",
+   "state": "Michigan",
+   "rank": 40,
+   "value": "3.6 yrs"
+  },
+  {
+   "fips": "05",
+   "state": "Arkansas",
+   "rank": 41,
+   "value": "3.5 yrs"
+  },
+  {
+   "fips": "38",
+   "state": "North Dakota",
+   "rank": 42,
+   "value": "3.5 yrs"
+  },
+  {
+   "fips": "18",
+   "state": "Indiana",
+   "rank": 43,
+   "value": "3.4 yrs"
+  },
+  {
+   "fips": "31",
+   "state": "Nebraska",
+   "rank": 44,
+   "value": "3.4 yrs"
+  },
+  {
+   "fips": "40",
+   "state": "Oklahoma",
+   "rank": 45,
+   "value": "3.4 yrs"
+  },
+  {
+   "fips": "39",
+   "state": "Ohio",
+   "rank": 46,
+   "value": "3.4 yrs"
+  },
+  {
+   "fips": "17",
+   "state": "Illinois",
+   "rank": 47,
+   "value": "3.4 yrs"
+  },
+  {
+   "fips": "28",
+   "state": "Mississippi",
+   "rank": 48,
+   "value": "3.2 yrs"
+  },
+  {
+   "fips": "20",
+   "state": "Kansas",
+   "rank": 49,
+   "value": "3.2 yrs"
+  },
+  {
+   "fips": "19",
+   "state": "Iowa",
+   "rank": 50,
+   "value": "3.1 yrs"
+  },
+  {
+   "fips": "54",
+   "state": "West Virginia",
+   "rank": 51,
+   "value": "2.9 yrs"
+  }
+ ]
+}
