@@ -1,0 +1,312 @@
+{
+ "what": "how much home values rose since 2019",
+ "us": "+54%",
+ "rows": [
+  {
+   "fips": "23",
+   "state": "Maine",
+   "rank": 1,
+   "value": "+85%"
+  },
+  {
+   "fips": "16",
+   "state": "Idaho",
+   "rank": 2,
+   "value": "+79%"
+  },
+  {
+   "fips": "47",
+   "state": "Tennessee",
+   "rank": 3,
+   "value": "+78%"
+  },
+  {
+   "fips": "37",
+   "state": "North Carolina",
+   "rank": 4,
+   "value": "+77%"
+  },
+  {
+   "fips": "33",
+   "state": "New Hampshire",
+   "rank": 5,
+   "value": "+73%"
+  },
+  {
+   "fips": "13",
+   "state": "Georgia",
+   "rank": 6,
+   "value": "+71%"
+  },
+  {
+   "fips": "45",
+   "state": "South Carolina",
+   "rank": 7,
+   "value": "+70%"
+  },
+  {
+   "fips": "30",
+   "state": "Montana",
+   "rank": 8,
+   "value": "+69%"
+  },
+  {
+   "fips": "44",
+   "state": "Rhode Island",
+   "rank": 9,
+   "value": "+69%"
+  },
+  {
+   "fips": "05",
+   "state": "Arkansas",
+   "rank": 10,
+   "value": "+68%"
+  },
+  {
+   "fips": "04",
+   "state": "Arizona",
+   "rank": 11,
+   "value": "+67%"
+  },
+  {
+   "fips": "49",
+   "state": "Utah",
+   "rank": 12,
+   "value": "+65%"
+  },
+  {
+   "fips": "18",
+   "state": "Indiana",
+   "rank": 13,
+   "value": "+64%"
+  },
+  {
+   "fips": "12",
+   "state": "Florida",
+   "rank": 14,
+   "value": "+62%"
+  },
+  {
+   "fips": "29",
+   "state": "Missouri",
+   "rank": 15,
+   "value": "+62%"
+  },
+  {
+   "fips": "31",
+   "state": "Nebraska",
+   "rank": 16,
+   "value": "+62%"
+  },
+  {
+   "fips": "35",
+   "state": "New Mexico",
+   "rank": 17,
+   "value": "+62%"
+  },
+  {
+   "fips": "39",
+   "state": "Ohio",
+   "rank": 18,
+   "value": "+62%"
+  },
+  {
+   "fips": "46",
+   "state": "South Dakota",
+   "rank": 19,
+   "value": "+62%"
+  },
+  {
+   "fips": "01",
+   "state": "Alabama",
+   "rank": 20,
+   "value": "+60%"
+  },
+  {
+   "fips": "21",
+   "state": "Kentucky",
+   "rank": 21,
+   "value": "+60%"
+  },
+  {
+   "fips": "55",
+   "state": "Wisconsin",
+   "rank": 22,
+   "value": "+60%"
+  },
+  {
+   "fips": "26",
+   "state": "Michigan",
+   "rank": 23,
+   "value": "+59%"
+  },
+  {
+   "fips": "40",
+   "state": "Oklahoma",
+   "rank": 24,
+   "value": "+59%"
+  },
+  {
+   "fips": "48",
+   "state": "Texas",
+   "rank": 25,
+   "value": "+59%"
+  },
+  {
+   "fips": "53",
+   "state": "Washington",
+   "rank": 26,
+   "value": "+56%"
+  },
+  {
+   "fips": "20",
+   "state": "Kansas",
+   "rank": 27,
+   "value": "+55%"
+  },
+  {
+   "fips": "50",
+   "state": "Vermont",
+   "rank": 28,
+   "value": "+54%"
+  },
+  {
+   "fips": "34",
+   "state": "New Jersey",
+   "rank": 29,
+   "value": "+52%"
+  },
+  {
+   "fips": "42",
+   "state": "Pennsylvania",
+   "rank": 30,
+   "value": "+52%"
+  },
+  {
+   "fips": "56",
+   "state": "Wyoming",
+   "rank": 31,
+   "value": "+52%"
+  },
+  {
+   "fips": "09",
+   "state": "Connecticut",
+   "rank": 32,
+   "value": "+51%"
+  },
+  {
+   "fips": "10",
+   "state": "Delaware",
+   "rank": 33,
+   "value": "+50%"
+  },
+  {
+   "fips": "25",
+   "state": "Massachusetts",
+   "rank": 34,
+   "value": "+50%"
+  },
+  {
+   "fips": "28",
+   "state": "Mississippi",
+   "rank": 35,
+   "value": "+50%"
+  },
+  {
+   "fips": "19",
+   "state": "Iowa",
+   "rank": 36,
+   "value": "+49%"
+  },
+  {
+   "fips": "51",
+   "state": "Virginia",
+   "rank": 37,
+   "value": "+46%"
+  },
+  {
+   "fips": "32",
+   "state": "Nevada",
+   "rank": 38,
+   "value": "+45%"
+  },
+  {
+   "fips": "08",
+   "state": "Colorado",
+   "rank": 39,
+   "value": "+44%"
+  },
+  {
+   "fips": "27",
+   "state": "Minnesota",
+   "rank": 40,
+   "value": "+43%"
+  },
+  {
+   "fips": "41",
+   "state": "Oregon",
+   "rank": 41,
+   "value": "+43%"
+  },
+  {
+   "fips": "17",
+   "state": "Illinois",
+   "rank": 42,
+   "value": "+41%"
+  },
+  {
+   "fips": "54",
+   "state": "West Virginia",
+   "rank": 43,
+   "value": "+41%"
+  },
+  {
+   "fips": "36",
+   "state": "New York",
+   "rank": 44,
+   "value": "+39%"
+  },
+  {
+   "fips": "02",
+   "state": "Alaska",
+   "rank": 45,
+   "value": "+37%"
+  },
+  {
+   "fips": "38",
+   "state": "North Dakota",
+   "rank": 46,
+   "value": "+37%"
+  },
+  {
+   "fips": "06",
+   "state": "California",
+   "rank": 47,
+   "value": "+36%"
+  },
+  {
+   "fips": "15",
+   "state": "Hawaii",
+   "rank": 48,
+   "value": "+35%"
+  },
+  {
+   "fips": "22",
+   "state": "Louisiana",
+   "rank": 49,
+   "value": "+35%"
+  },
+  {
+   "fips": "24",
+   "state": "Maryland",
+   "rank": 50,
+   "value": "+34%"
+  },
+  {
+   "fips": "11",
+   "state": "D.C.",
+   "rank": 51,
+   "value": "+11%"
+  }
+ ]
+}
