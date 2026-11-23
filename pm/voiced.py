@@ -105,6 +105,38 @@ def _lists(top, low, color):
     return f'<div class="lists">{col("Highest", top, color)}{col("Lowest", low, "#6B7280") if low else ""}</div>'
 
 
+def _line_svg(pts, scene, p):
+    """A line over time that draws itself as p goes 0 -> 1; marks: [(year, text, color)] dots + labels once drawn."""
+    W_, H_, L_, R_, T_, B_ = 960, 700, 110, 40, 60, 70
+    lo, hi = scene["yrange"]
+    x0, x1 = pts[0][0], pts[-1][0]
+    X = lambda yr: L_ + (yr - x0) / (x1 - x0) * (W_ - L_ - R_)
+    Y = lambda v: T_ + (hi - v) / (hi - lo) * (H_ - T_ - B_)
+    k = p * (len(pts) - 1)
+    i = int(k)
+    drawn = [(X(yr), Y(v)) for yr, v in pts[:i + 1]]
+    if i < len(pts) - 1:
+        (ya, va), (yb, vb) = pts[i], pts[i + 1]
+        f = k - i
+        drawn.append((X(ya + (yb - ya) * f), Y(va + (vb - va) * f)))
+    g = []
+    for t in scene["yticks"]:
+        g.append(f'<line x1="{L_}" y1="{Y(t):.1f}" x2="{W_ - R_}" y2="{Y(t):.1f}" stroke="#E5E7EB" stroke-width="3"/>'
+                 f'<text x="{L_ - 16}" y="{Y(t) + 11:.1f}" text-anchor="end" font-size="32" font-weight="800" fill="#6B7280">{t:g}</text>')
+    for yr in scene["xticks"]:
+        g.append(f'<text x="{X(yr):.1f}" y="{H_ - 18}" text-anchor="middle" font-size="32" font-weight="800" fill="#6B7280">{yr}</text>')
+    path = "M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in drawn)
+    g.append(f'<path d="{path}" fill="none" stroke="#1F2937" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>')
+    for yr, text, col in scene.get("marks", ()):
+        idx = next(j for j, (y_, _) in enumerate(pts) if y_ == yr)
+        if idx <= k + 1e-9:
+            v = pts[idx][1]
+            g.append(f'<circle cx="{X(yr):.1f}" cy="{Y(v):.1f}" r="17" fill="{col}" stroke="#fff" stroke-width="5"/>'
+                     f'<text x="{X(yr):.1f}" y="{Y(v) - 32:.1f}" text-anchor="middle" font-family="Baloo 2" font-size="54" '
+                     f'font-weight="800" fill="{col}" stroke="#FFFDF7" stroke-width="8" paint-order="stroke">{escape(text)}</text>')
+    return f'<svg viewBox="0 0 {W_} {H_}" style="width:100%" font-family="Nunito, Arial, sans-serif">{"".join(g)}</svg>'
+
+
 def frame(scene, lt, dur, ctx):
     """HTML for one moment: scene dict, lt = seconds into the scene's line, dur = the line's length."""
     hl = scene.get("hl_color", "#EF4444")
@@ -114,16 +146,19 @@ def frame(scene, lt, dur, ctx):
     if kind == "versus":
         # two bars racing up: heights proportional to the real growth, numbers counting with them
         q = _ease(min(1.0, 0.35 + lt / 0.8))
-        (va, la, ca), (vb, lb, cb) = scene["pair"]
+        (va, la, ca), (vb, lb, cb) = [t[:3] for t in scene["pair"]]
+        fmt = scene.get("fmt") or (lambda v: f"+{v:.0f}%")
         top = max(va, vb)
         bar = lambda val, lab, col: (
             f'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">'
-            f'<div class="big" style="--hl:{col};font-size:150px;margin-bottom:10px">+{val * q:.0f}%</div>'
+            f'<div class="big" style="--hl:{col};font-size:150px;margin-bottom:10px">{fmt(val * q)}</div>'
             f'<div style="width:78%;height:{70 * val / top * q:.1f}%;background:{col};border-radius:28px 28px 8px 8px;'
             f'box-shadow:inset 0 -16px 0 rgba(0,0,0,.10)"></div>'
             f'<div class="bigl" style="font-size:50px;margin-top:14px">{escape(lab)}</div></div>')
         mid = (f'<div style="display:flex;gap:40px;height:820px;align-items:flex-end;border-bottom:6px solid #1F2937;'
                f'padding:0 20px">{bar(va, la, ca)}{bar(vb, lb, cb)}</div>')
+    elif kind == "line":
+        mid = _line_svg(ctx["series"], scene, min(1.0, lt / max(dur * 0.85, 0.1)) if scene.get("draw") else 1.0)
     elif kind == "number":
         q = _ease(min(1.0, 0.35 + lt / 0.7)) if scene.get("count", True) else 1.0
         mid = (f'<div class="big" style="--hl:{hl}">{escape(scene["fmt"](scene["value"] * q))}</div>'
@@ -158,8 +193,9 @@ def build_video(out_dir, name, scenes, ctx, seed):
         for (start, dur), s in zip(spans, scenes):
             t0 = 0.0 if s is scenes[0] else start
             times.add(snap(t0))
-            if s["kind"] == "number" and s.get("count", True):
-                times.update(snap(start + j / FPS) for j in range(int(0.7 * FPS)))
+            if s["kind"] in ("number", "versus") and s.get("count", True):
+                t_c = 0.0 if s is scenes[0] else start           # the hook counts from frame 1
+                times.update(snap(t_c + j / FPS) for j in range(int(1.0 * FPS)))
             if s["kind"] == "fill":
                 times.update(snap(start + j / 15) for j in range(int(dur * 15) + 1))
             words = s["line"].split()
@@ -173,6 +209,8 @@ def build_video(out_dir, name, scenes, ctx, seed):
         def state(t):
             i = max(k for k, (start, _) in enumerate(spans) if k == 0 or start <= t)
             start, dur = spans[i]
+            if i == 0:
+                start = 0.0                                       # the hook animates from frame 1
             return scenes[i], max(0.0, t - start), dur
         pngs = _render_all([frame(*state(t), ctx) for t in times], work)
         listing = os.path.join(work, "frames.txt")
@@ -226,16 +264,43 @@ def finish(rep, key, mp4, cover, secs, prov, caption):
 
 # ---------------------------------------------------------------- stories
 
-def _year_checked(rep, var, prof, year, label_must):
-    """{fips: value} for one ACS year, the detailed table matching the data-profile table for every state."""
+_PROF = {}
+
+
+def _profile_var(year, group, needles):
+    """The data-profile estimate whose label contains every needle (profile codes shift between years: the median
+    home value is DP04_0088E in 2007 and DP04_0089E in 2025)."""
     import json as _json
-    vals = {f: v for f, v in D._acs(year, var, "state:*").items() if f in D.STATES}
-    lab = _json.loads(D._plain_get(D.VARS.format(year, "/profile", prof))).get("label", "")
-    rep.require(label_must in lab, f"ACS {year} profile {prof} is '{label_must}'", f"label is '{lab}'")
-    same = D._acs(year, prof, "state:*", profile=True)
-    bad = [D.STATES[f][1] for f, v in vals.items() if same.get(f) != v]
-    rep.require(len(vals) == 51 and not bad, f"ACS {year} {var}: 51 states, detailed = profile", f"{len(vals)}; differ {bad[:5]}")
-    return vals, D._acs(year, var, "us:1").get("1")
+    if (year, group) not in _PROF:
+        _PROF[(year, group)] = _json.loads(D._plain_get(
+            f"https://api.census.gov/data/{year}/acs/acs1/profile/groups/{group}.json"))["variables"]
+    hits = [k for k, d in _PROF[(year, group)].items() if k.endswith("E") and not k.endswith("PE")
+            and all(n in d["label"] for n in needles)]
+    if len(hits) != 1:
+        raise DataError(f"ACS {year} {group}: {len(hits)} profile matches for {needles}")
+    return hits[0]
+
+
+PROFILE = {"B25064_001E": ("DP04", ("GROSS RENT", "Occupied units paying rent", "Median (dollars)")),
+           "B19013_001E": ("DP03", ("Total households", "Median household income (dollars)")),
+           "B25077_001E": ("DP04", ("VALUE", "Owner-occupied units", "Median (dollars)"))}
+
+
+def _year_checked(rep, var, year, states=True):
+    """({fips: value} or {}, U.S. value) for one ACS year; the detailed table must match the data profile for every
+    state and for the U.S."""
+    group, needles = PROFILE[var]
+    prof = _profile_var(year, group, needles)
+    us, us_p = D._acs(year, var, "us:1").get("1"), D._acs(year, prof, "us:1", profile=True).get("1")
+    rep.require(us is not None and us == us_p, f"ACS {year} {var}: U.S. detailed = profile", f"{us} vs {us_p}")
+    vals = {}
+    if states:
+        vals = {f: v for f, v in D._acs(year, var, "state:*").items() if f in D.STATES}
+        same = D._acs(year, prof, "state:*", profile=True)
+        bad = [D.STATES[f][1] for f, v in vals.items() if same.get(f) != v]
+        rep.require(len(vals) == 51 and not bad, f"ACS {year} {var}: 51 states, detailed = profile",
+                    f"{len(vals)}; differ {bad[:5]}")
+    return vals, us
 
 
 def _rentpay(out_dir, key, base=2019):
@@ -245,10 +310,10 @@ def _rentpay(out_dir, key, base=2019):
     year = D.acs_year()
     if year is None:
         raise DataError("Census ACS data unreachable")
-    r1, ur1 = _year_checked(rep, "B25064_001E", "DP04_0134E", year, "GROSS RENT!!Occupied units paying rent!!Median")
-    r0, ur0 = _year_checked(rep, "B25064_001E", "DP04_0134E", base, "GROSS RENT!!Occupied units paying rent!!Median")
-    i1, ui1 = _year_checked(rep, "B19013_001E", "DP03_0062E", year, "Median household income")
-    i0, ui0 = _year_checked(rep, "B19013_001E", "DP03_0062E", base, "Median household income")
+    r1, ur1 = _year_checked(rep, "B25064_001E", year)
+    r0, ur0 = _year_checked(rep, "B25064_001E", base)
+    i1, ui1 = _year_checked(rep, "B19013_001E", year)
+    i0, ui0 = _year_checked(rep, "B19013_001E", base)
     if not rep.ok:
         raise DataError("rent/income data failed checks: " + "; ".join(i["detail"] for i in rep.blocked))
     from decimal import Decimal, ROUND_HALF_UP
@@ -316,9 +381,158 @@ def _rentpay(out_dir, key, base=2019):
     return finish(rep, key, mp4, cover, secs, prov, caption)
 
 
+def _whole(v):
+    from decimal import Decimal, ROUND_HALF_UP
+    return int(Decimal(str(v)).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+
+
+def _bubble(out_dir, key):
+    """Homes are less affordable now than at the 2007 bubble peak: years of household income for the typical home.
+    Tested Nov 22: 2007 3.8, low 2013 3.3, 2025 4.4 (record 4.42 in 2024)."""
+    rep = C.Report("story bubble")
+    year = D.acs_year()
+    if year is None:
+        raise DataError("Census ACS data unreachable")
+    years = [y for y in range(2005, year + 1) if y != 2020]          # no standard 2020 1-year release
+    series = []
+    for y in years:
+        h, i = D._acs(y, "B25077_001E", "us:1").get("1"), D._acs(y, "B19013_001E", "us:1").get("1")
+        rep.require(h and i and 2.5 <= h / i <= 7, f"ACS {y}: U.S. years of income plausible", f"{h} / {i}")
+        series.append((y, h / i))
+    for y in (2007, 2013, year):                                      # the years the narrator names: profile check
+        _, h = _year_checked(rep, "B25077_001E", y, states=False)
+        _, i = _year_checked(rep, "B19013_001E", y, states=False)
+    if not rep.ok:
+        raise DataError("bubble data failed checks: " + "; ".join(i["detail"] for i in rep.blocked))
+    r = dict(series)
+    one = lambda v: f"{v:.1f}"
+    peak07 = max((v, y) for y, v in series if 2005 <= y <= 2008)
+    low = min((v, y) for y, v in series if y >= 2009)
+    if not (round(r[year], 1) > round(peak07[0], 1) and peak07[1] == 2007 and low[1] == 2013):
+        raise NoContent("The data no longer says 'worse than 2007'; drop this story.")
+    steps = [(a, b) for (a, _), (b, _) in zip(series, series[1:]) if a >= 2013]
+    rises = sum(1 for a, b in steps if r[b] > r[a])
+    rep.require(rises >= len(steps) - 2, "story: 'less affordable almost every year since 2013' holds",
+                f"rose in {rises} of {len(steps)} releases")
+    rep2 = C.Report("states")
+    y_, home, us_home = D.acs_states(rep2, "home")
+    y2, inc, us_inc = D.acs_states(rep2, "income")
+    rep.extend(rep2)
+    if not rep.ok or y_ != year or y2 != year:
+        raise DataError("state data failed checks")
+    yrs = {f: home[f] / inc[f] for f in D.STATES}
+    rows = sorted(yrs.items(), key=lambda kv: -kv[1])
+    top, tv = rows[0]
+    st = lambda f: D.STATES[f][0]
+    ctx = {"series": series, "ranks": {f: k + 1 for k, (f, _) in enumerate(rows)},
+           "labels": {f: f"{v:.1f}" for f, v in yrs.items()}, "bins": _bins(rows, lambda v: f"{v:.1f}"),
+           "top": [(st(f), f"{v:.1f} yrs") for f, v in rows[:3]], "low": [(st(f), f"{v:.1f} yrs") for f, v in rows[::-1][:3]],
+           "source": f"Census ACS 2005–{year}"}
+    line = dict(yrange=(2.8, 4.8), yticks=(3.0, 3.5, 4.0, 4.5), xticks=(2005, 2010, 2015, 2020, year))
+    scenes = [
+        {"kind": "versus", "head": "Worse Than the\n{hl}?", "hl": "2007 Bubble", "hl_color": "#DC2626",
+         "sub": "Years of household income to buy the typical U.S. home", "fmt": lambda v: f"{v:.1f}",
+         "pair": ((r[2007], "2007 bubble", "#F97316"), (r[year], "Today", "#DC2626")),
+         "line": "Remember the 2007 housing bubble? Homes are less affordable right now."},
+        {"kind": "line", "draw": True, **line, "head": "Years of Pay to Buy\nthe Typical {hl}", "hl": "Home",
+         "marks": [(2007, one(r[2007]), "#F97316"), (year, one(r[year]), "#DC2626")],
+         "line": f"At the 2007 peak, the typical home cost {one(r[2007])} years of income. Today it's {one(r[year])}."},
+        {"kind": "line", **line, "head": "The Low Point: {hl}", "hl": "2013", "hl_color": "#16A34A",
+         "marks": [(2007, one(r[2007]), "#F97316"), (2013, one(r[2013]), "#16A34A"), (year, one(r[year]), "#DC2626")],
+         "line": f"In 2013, it was just {one(r[2013])}. Since then, homes have gotten less affordable almost every year."},
+        {"kind": "map", "head": "Worst: {hl}", "hl": st(top), "outline": (top,), "pill": f"{tv:.1f} years of pay",
+         "pill_bg": "#DC2626", "line": f"In {st(top)}, the typical home now costs {tv:.1f} years of income."},
+        {"kind": "cta", "head": "Bubble or the\n{hl}?", "hl": "New Normal", "hl_color": "#3B82F6", "lists": "both",
+         "line": "Bubble, or the new normal? Tell us what you think, and your state."},
+    ]
+    allowed = {one(v) for _, v in series} | {f"{v:.1f}" for v in yrs.values()} | {"2007", "2013"}
+    check_script(rep, scenes, allowed, words=(40, 85))
+    save_ranks(out_dir, "years of income to buy the typical home", f"{us_home / us_inc:.1f} yrs", [(f, f"{v:.1f} yrs") for f, v in rows])
+    mp4, cover, secs, prov = build_video(out_dir, key, scenes, ctx, key)
+    hist = " → ".join(f"{y}: {r[y]:.1f}" for y in (2005, 2007, 2013, 2019, year))
+    caption = (f"Homes are less affordable now than at the peak of the 2007 housing bubble. 🏠📈\n\n"
+               f"Years of household income it takes to buy the typical U.S. home:\n{hist}\n\n"
+               f"Worst states: " + ", ".join(f"{st(f)} {v:.1f}" for f, v in rows[:3])
+               + f". Most affordable: " + ", ".join(f"{st(f)} {v:.1f}" for f, v in rows[::-1][:3]) + ".\n\n"
+               "💬 Bubble, or the new normal? Tell us what you think, and your state 👇\n📤 Send this to someone "
+               "waiting for prices to crash.\n🔁 Follow for a new state ranking every Monday, Wednesday and Saturday."
+               f"\n\nSource: U.S. Census Bureau, American Community Survey 1-year estimates 2005–{year} (no 2020 "
+               "release): median value of owner-occupied homes (owners' estimates) ÷ median household income. "
+               f"Detailed and data-profile tables match for the years named.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n"
+               f"#housingmarket {TAGS}")
+    return finish(rep, key, mp4, cover, secs, prov, caption)
+
+
+def _homevalue(out_dir, key, base=2019):
+    """Since 2019, home values jumped 50%+ in most states; the twist is where they barely moved. Tested Nov 22:
+    U.S. +$130,600 (+54%); 34 states +50%; Maine +85%; D.C. +11%."""
+    rep = C.Report("story home values")
+    year = D.acs_year()
+    if year is None:
+        raise DataError("Census ACS data unreachable")
+    h1, us1 = _year_checked(rep, "B25077_001E", year)
+    h0, us0 = _year_checked(rep, "B25077_001E", base)
+    if not rep.ok:
+        raise DataError("home value data failed checks: " + "; ".join(i["detail"] for i in rep.blocked))
+    g = {f: _whole((h1[f] / h0[f] - 1) * 100) for f in D.STATES}
+    for f in D.STATES:
+        rep.require(-10 <= g[f] <= 120, f"{D.STATES[f][1]}: growth plausible", f"{g[f]}%")
+    gain = us1 - us0
+    usd = lambda v: f"${v:,.0f}"
+    n50 = sum(1 for v in g.values() if v >= 50)
+    rows = sorted(D.STATES, key=lambda f: (-g[f], f))
+    (s1, s2, s3), low = rows[:3], rows[-1]
+    pricey = sorted(D.STATES, key=lambda f: -h1[f]).index(low) + 1          # rank of the twist state by home value
+    if n50 < 20 or gain <= 0:
+        raise NoContent("The data no longer tells this story; drop it.")
+    st = lambda f: D.STATES[f][0]
+    def col(f):
+        v = g[f]
+        return (("#7F1D1D", "#fff") if v >= 70 else ("#DC2626", "#fff") if v >= 60 else ("#F97316", "#1F2937")
+                if v >= 50 else ("#FDBA74", "#1F2937") if v >= 35 else ("#FEF3C7", "#1F2937"))
+    ctx = {"ranks": {f: k + 1 for k, f in enumerate(rows)}, "labels": {f: f"+{g[f]}%" for f in D.STATES},
+           "bins": [(c, "#fff", "", "") for c in ("#7F1D1D", "#DC2626", "#F97316", "#FDBA74", "#FEF3C7")],
+           "colors": {f: col(f) for f in D.STATES},
+           "legend": [("#7F1D1D", "", "70%+", ""), ("#DC2626", "", "60–70%", ""), ("#F97316", "", "50–60%", ""),
+                      ("#FDBA74", "", "35–50%", ""), ("#FEF3C7", "", "under 35%", "")],
+           "source": f"Census ACS {base} & {year}"}
+    twist = (f"The twist? {st(low)}, one of the priciest places in America, rose just {g[low]}%." if pricey <= 5 else
+             f"The twist? {st(low)} rose just {g[low]}%.")
+    scenes = [
+        {"kind": "number", "head": "Your Home Since {hl}", "hl": str(base), "hl_color": "#16A34A", "value": gain,
+         "fmt": lambda v: "+" + usd(v), "label": "typical U.S. home value gain",
+         "line": f"In just {year - base} years, the typical American home gained {usd(gain)} in value."},
+        {"kind": "fill", "head": "Up 50% or More in\n{hl} States", "hl": str(n50),
+         "line": f"Home values rose 50% or more in {n50} states."},
+        {"kind": "map", "head": "Leader: {hl}", "hl": st(s1), "outline": (s1, s2, s3), "pill": f"{st(s1)} +{g[s1]}%",
+         "pill_bg": "#7F1D1D", "line": f"{st(s1)} leads, up {g[s1]}%. {st(s2)} and {st(s3)} aren't far behind."},
+        {"kind": "map", "head": "The Twist: {hl}", "hl": st(low), "hl_color": "#3B82F6", "outline": (low,),
+         "pill": f"{st(low)} +{g[low]}%", "pill_bg": "#3B82F6", "line": twist},
+        {"kind": "cta", "head": "Winning or\n{hl}?", "hl": "Priced Out", "hl_color": "#DC2626",
+         "line": "Great if you own. Brutal if you're trying to buy. Which side are you on? Tell us your state."},
+    ]
+    allowed = {f"{v}%" for v in g.values()} | {usd(gain), "50%", str(n50), str(base), str(year - base)}
+    check_script(rep, scenes, allowed, words=(40, 85))
+    save_ranks(out_dir, f"how much home values rose since {base}", f"+{_whole((us1 / us0 - 1) * 100)}%",
+               [(f, f"+{g[f]}%") for f in rows])
+    mp4, cover, secs, prov = build_video(out_dir, key, scenes, ctx, key)
+    caption = (f"Since {base}, the typical American home gained {usd(gain)} in value (+{_whole((us1 / us0 - 1) * 100)}%). "
+               f"In {n50} states, home values rose 50% or more. 🏡💸\n\nBiggest jumps:\n"
+               + "\n".join(f"{k + 1}. {st(f)}: +{g[f]}%" for k, f in enumerate(rows[:5]))
+               + "\n\nSmallest: " + ", ".join(f"{st(f)} +{g[f]}%" for f in rows[::-1][:3]) + ".\n\n"
+               "💬 Winning or priced out? Tell us your state 👇\n📤 Send this to a friend who's house hunting.\n🔁 "
+               "Follow for a new state ranking every Monday, Wednesday and Saturday."
+               f"\n\nSource: U.S. Census Bureau, American Community Survey 1-year estimates, {base} and {year}: median "
+               "value of owner-occupied homes (owners' estimates), each year's own dollars. Detailed and data-profile "
+               f"tables match for every state.\n{DISCLAIMER}\n👉 Follow @paycheck_math\n#realestate {TAGS}")
+    return finish(rep, key, mp4, cover, secs, prov, caption)
+
+
 # Hand-picked, in order. Each is (key, builder). A story posts only after the owner approves it (APPROVED).
 STORIES = [
     ("story-rentpay-2025", _rentpay),
+    ("story-bubble-2025", _bubble),          # Nov 22: owner asked for these two as previews ("Yes, build both")
+    ("story-homevalue-2025", _homevalue),
 ]
 
 
@@ -326,7 +540,9 @@ def _previewed(key):
     return bool(glob.glob(os.path.join(ROOT, "media", "*", f"{key}.mp4")))
 
 
-def reel_voice(out_dir, posted=None):
+def reel_voice(out_dir, posted=None, previews_only=False):
+    """Posts the next approved story (max one a week), else builds a preview of the next unapproved one.
+    previews_only: just build the next missing preview (never touches approved stories)."""
     posted = posted or {}
     if V.provider() is None:      # no voice engine here: skip quietly
         raise NoContent("No voice engine available.")
@@ -337,6 +553,8 @@ def reel_voice(out_dir, posted=None):
         if key in posted:
             continue
         if key in APPROVED:
+            if previews_only:
+                continue
             if recent:
                 raise NoContent("A voiced story posted in the last 6 days; at most one a week.")
         elif _previewed(key):

@@ -884,4 +884,6 @@ BUILDERS = {"reel_mortgage": lambda out_dir, posted=None: reel_mortgage(out_dir)
             "reel_find_state": reel_find_state,
             "reel_release": reel_release,
             "reel_map": reel_map,
-            "reel_voice": lambda out_dir, posted=None: __import__("pm.voiced", fromlist=["reel_voice"]).reel_voice(out_dir, posted)}
+            "reel_voice": lambda out_dir, posted=None: __import__("pm.voiced", fromlist=["reel_voice"]).reel_voice(out_dir, posted),
+            "reel_voice_preview": lambda out_dir, posted=None: __import__("pm.voiced", fromlist=["reel_voice"]).reel_voice(
+                out_dir, posted, previews_only=True)}

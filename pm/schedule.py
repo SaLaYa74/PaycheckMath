@@ -31,6 +31,9 @@ JOBS = [
     # Owner, Nov 20: "be very selective... one here, one there". Off-board evenings; builds a preview of the next
     # hand-picked story for approval, posts only stories the owner approved (pm/voiced.py APPROVED), max one a week.
     Job("voice_story", "reel_voice",    (TUE, FRI, SUN), "17:00", live=True, note="Reel: voiced short story (owner-approved only)"),
+    # TEMPORARY (Nov 22): build the two new story previews tonight (preview only, never post). Remove after they run.
+    Job("story_prev_a", "reel_voice_preview", (SUN,), "18:00", live=False, note="TEMP: build next story preview"),
+    Job("story_prev_b", "reel_voice_preview", (SUN,), "18:15", live=False, note="TEMP: build next story preview"),
     Job("map_thu",     "reel_map",      (THU,), "17:00", live=True, note="Reel: US map, every state colored by a housing measure"),
     # Nov 14 (owner + Claude, 14-day numbers): Find Your State boards reach 13-16K people each (~28K views, 10-16 saves);
     # every other Reel ~17-88 people, pictures ~7. So: Find Your State three times a week, the monthly BLS rotation

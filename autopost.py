@@ -133,7 +133,7 @@ class Runner:
         self.touched.add(os.path.relpath(out_dir, ROOT))
 
         live = job.live and self.live_allowed
-        if job.builder == "reel_voice":      # Nov 20: a voiced video publishes only if the owner approved THAT video
+        if job.builder.startswith("reel_voice"):   # Nov 20: a voiced video publishes only if the owner approved THAT video
             from pm.voiced import APPROVED
             live = live and post.key in APPROVED
         mode = "🚀 LIVE" if live else "🧪 PREVIEW"
