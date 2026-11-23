@@ -38,7 +38,9 @@ from .video import FPS, _render_all, ffmpeg_exe
 from . import tts as V
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-APPROVED = set()        # story keys the owner approved in chat, e.g. {"story-rentpay-2025"}. Nothing else posts.
+APPROVED = {            # story keys the owner approved in chat. Nothing else posts.
+    "story-rentpay-2025",  # owner: "Approve it" (Nov 22, 2026), after seeing the preview
+}
 MIN_DAYS_BETWEEN = 6    # at most one voiced post a week
 
 HOT = [("#7F1D1D", "#fff"), ("#DC2626", "#fff"), ("#F97316", "#1F2937"), ("#FDBA74", "#1F2937"), ("#FEF3C7", "#1F2937")]
