@@ -428,5 +428,10 @@
     "at": "2026-11-22T17:30-08:00",
     "detail": "https://www.instagram.com/reel/DgENgaqE3xX/",
     "status": "posted"
+  },
+  "2026-11-23:release": {
+    "at": "2026-11-23T06:00-08:00",
+    "detail": "No fresh jobs report ahead of CPI right now.",
+    "status": "skipped"
   }
 }
