@@ -1,0 +1,410 @@
+{
+  "subject": "story rent vs pay",
+  "counts": {
+    "pass": 80,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "ACS 2025 profile DP04_0134E is 'GROSS RENT!!Occupied units paying rent!!Median'",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 B25064_001E: 51 states, detailed = profile",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2019 profile DP04_0134E is 'GROSS RENT!!Occupied units paying rent!!Median'",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2019 B25064_001E: 51 states, detailed = profile",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 profile DP03_0062E is 'Median household income'",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 B19013_001E: 51 states, detailed = profile",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2019 profile DP03_0062E is 'Median household income'",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2019 B19013_001E: 51 states, detailed = profile",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY: growth plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "script: every spoken number comes from the verified data",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "script: short (about 20-30 seconds of words)",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "voiced: 15-40 seconds",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "voiced: studio voice (ElevenLabs/OpenAI/Kokoro), not the draft voice",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "voiced: owner approved this video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "story-rentpay-2025.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "story-rentpay-2025.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "story-rentpay-2025.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "story-rentpay-2025.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "story-rentpay-2025.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "story-rentpay-2025.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "story-rentpay-2025_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "story-rentpay-2025_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "story-rentpay-2025_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "story-rentpay-2025_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
