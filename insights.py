@@ -7,6 +7,7 @@ Reads the access token from the macOS Keychain (service "paycheckmath-ig"), neve
 and refreshes it there when it's older than ~3 weeks. Reports stay on this Mac (out/ is not
 committed), because reach and watch-time numbers aren't public.
 """
+import http.client
 import json
 import os
 import subprocess
@@ -47,15 +48,20 @@ def save_token(token):
 def call(path, token, **params):
     params["access_token"] = token
     url = f"{BASE}/{path}?{urllib.parse.urlencode(params)}"
-    try:
-        with urllib.request.urlopen(url, timeout=60) as r:
-            return json.loads(r.read())
-    except urllib.error.HTTPError as e:
+    for attempt in range(3):  # Nov 23: a slow read timed out the 30-day report, so retry network blips
         try:
-            msg = json.loads(e.read()).get("error", {}).get("message", "")
-        except Exception:
-            msg = ""
-        raise RuntimeError(f"{path.split('?')[0]} ({e.code}): {msg}") from None
+            with urllib.request.urlopen(url, timeout=60) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            try:
+                msg = json.loads(e.read()).get("error", {}).get("message", "")
+            except Exception:
+                msg = ""
+            raise RuntimeError(f"{path.split('?')[0]} ({e.code}): {msg}") from None
+        except (OSError, http.client.HTTPException):  # timeouts, resets, cut-off reads
+            if attempt == 2:
+                raise
+            time.sleep(5 * (attempt + 1))
 
 
 def maybe_refresh(token):

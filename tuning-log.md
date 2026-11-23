@@ -264,3 +264,24 @@ least one (ideas: BLS state unemployment, electricity price by state).
   week, each approved by the owner before posting (pm/voiced.py APPROVED, enforced in autopost.py). The narrated-
   chart format was dropped. First story: rent vs paychecks since 2019 (rent +42%, pay +29%; rent outran pay in 46
   states; the twist: Hawaii, priciest homes, is one of 5 where pay kept up). Judged at whole-percent precision.
+
+## 2026-11-23 (Mon, Jarvis full review)
+
+**Numbers (7 days):** followers 17 → **24**. Account reach 71.6K in 28 days. Sat board (BLS weekly pay by state, Oct):
+**49,432 views, 27,320 reach**, 7 saves, 10.2 s watch (best ever). Mon (years of pay): 24,400 views, 12,202 reach, 11.8 s.
+Wed (owner costs): 1,883 views, 1,102 reach, 4 comments. Voiced story (owner-approved, Sun): 114 reach, 4.2 s, 2 comments
+(n=1). Mortgage Reel: 31 reach (replaced by the Thursday map from Nov 26). No errors in the run log.
+**Read:** the board wins when the topic is pay or "can I afford a home" (pay 27K, home salary 15.8K, years 12.2K, rent
+13.5K). Narrow measures like owner costs (1.1K) and income (1.4K) don't travel. Followers: ~7 per 40K reach.
+
+**New edition (queue): what women working full-time earn per $1 men earn, by state** (`_find_paygap`). It's about
+paychecks and built to start debates. Both medians must match between the detailed table (B20017_003E / _006E) and the
+profile (DP03_0093E / _0094E) for all 51, plus a plausibility check on the ratio. The caption says plainly that these
+are typical full-time paychecks across all jobs, not the same job side by side. Test build: 128 checks, 0 blocking.
+Hand-checked: D.C. $100,200 / $105,853 = 95¢; Louisiana $47,257 / $62,518 = 76¢ (both tables). U.S. 82¢.
+Queue: burden (tonight), proptax, percapita, homevalue, earnings, paygap (6 unposted before tonight).
+
+**Fixed (insights.py):** network timeouts are retried (the 30-day report died on one).
+
+**Watch Thu Nov 26:** first US map Reel (5pm) vs the boards; Wed board (property tax): is it another narrow-topic dip?
+If so, move pay/home editions earlier in the queue at the next review.

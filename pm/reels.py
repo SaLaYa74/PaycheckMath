@@ -554,7 +554,8 @@ NEXT_UP = {"reel_find_home": "which state needs the biggest salary to buy a home
            "reel_find_owncost": "what homeowners with a mortgage really pay each month.",
            "reel_find_proptax": "where the property tax bill is the biggest.",
            "reel_find_percapita": "which state has the highest income per person?",
-           "reel_find_earnings": "what the typical worker earns in every state."}
+           "reel_find_earnings": "what the typical worker earns in every state.",
+           "reel_find_paygap": "what women working full-time earn for every $1 men earn."}
 
 
 def _state_board(out_dir, rep, key, name, hook_line, rows, fmt, note, sub, source, flip, caption_head, us_line,
@@ -742,10 +743,31 @@ def _find_earnings(out_dir, posted=None):
         what="median earnings per worker", us_val=f"${us / 1e3:,.0f}K")
 
 
+def _find_paygap(out_dir, posted=None):
+    """Nov 23 (Jarvis): women's median full-time, year-round earnings per $1 of men's. Both medians must agree between
+    the detailed table (B20017) and the profile (DP03) for every state; the ratio is computed from those checked values."""
+    rep, year, got = _acs_edition("find_paygap", posted, ["men_ft", "women_ft"])
+    (men, us_m), (women, us_w) = got["men_ft"], got["women_ft"]
+    rows = sorted(((f, 100 * women[f] / men[f]) for f in men if f in women), key=lambda kv: -kv[1])
+    rep.require(len(rows) == 51, "paygap: all 50 states + DC", f"{len(rows)}")
+    odd = [D.STATES[f][1] for f, c in rows if not 55 <= c <= 110]
+    rep.require(not odd, "paygap: cents per dollar plausible (55-110)", f"outside for {odd}")
+    us_c = 100 * us_w / us_m
+    return _state_board(
+        out_dir, rep, f"acs{year}-reel-find_paygap", "reel_find_paygap", "women's pay per $1 men earn", rows,
+        lambda v: f"{v:.0f}¢", None, f"Women's median full-time pay per $1 of men's · {year}", f"Census ACS {year}",
+        False, f"What women working full-time earn for every $1 men earn, by state ({year}) 💵",
+        f"U.S.: {us_c:.0f}¢ (women ${us_w:,.0f}, men ${us_m:,.0f}). Typical full-time paychecks before taxes, "
+        "all jobs mixed together, not the same job side by side.",
+        ACS_SRC.format(year) + " Median earnings in the past 12 months, full-time, year-round workers, women ÷ men.",
+        "Send this to the person you always argue about money with.", "#paygap #salary", f"paygap-{year}",
+        what="women's full-time pay per $1 of men's", us_val=f"{us_c:.0f}¢")
+
+
 # Nov 16: years moved up to keep the promise in Sat Nov 14's caption ("Next: where a home costs the most years of
 # pay"); earnings added at the end. The "Next in the series" teaser follows this order.
 EDITIONS = [_find_rent, _find_home, _find_income, _find_years, _find_owncost, _find_burden, _find_proptax,
-            _find_percapita, _find_homevalue, _find_earnings]
+            _find_percapita, _find_homevalue, _find_earnings, _find_paygap]
 SERIES = ["reel" + f.__name__ for f in EDITIONS]
 assert all(n in NEXT_UP for n in SERIES[1:]), "every Find Your State edition after the first needs a NEXT_UP teaser"
 

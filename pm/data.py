@@ -253,6 +253,9 @@ ACS = {
     "percapita": ("B19301_001E", "DP03_0088E", (20_000, 130_000), 0.15),  # per capita income, $/year
     # Nov 16: median earnings for workers 16+ with earnings (B20017 total = DP03 "Median earnings for workers")
     "earnings": ("B20017_001E", "DP03_0092E", (25_000, 110_000), 0.15),
+    # Nov 23 (Jarvis): full-time, year-round workers by sex (B20017 male/female FTYR = DP03 male/female FTYR)
+    "men_ft": ("B20017_003E", "DP03_0093E", (35_000, 160_000), 0.15),
+    "women_ft": ("B20017_006E", "DP03_0094E", (30_000, 140_000), 0.15),
 }
 
 
