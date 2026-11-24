@@ -1,0 +1,312 @@
+{
+ "what": "the share of income renters spend on rent",
+ "us": "30.9%",
+ "rows": [
+  {
+   "fips": "12",
+   "state": "Florida",
+   "rank": 1,
+   "value": "35.5%"
+  },
+  {
+   "fips": "06",
+   "state": "California",
+   "rank": 2,
+   "value": "32.9%"
+  },
+  {
+   "fips": "15",
+   "state": "Hawaii",
+   "rank": 3,
+   "value": "32.8%"
+  },
+  {
+   "fips": "09",
+   "state": "Connecticut",
+   "rank": 4,
+   "value": "32.7%"
+  },
+  {
+   "fips": "04",
+   "state": "Arizona",
+   "rank": 5,
+   "value": "32.2%"
+  },
+  {
+   "fips": "22",
+   "state": "Louisiana",
+   "rank": 6,
+   "value": "31.7%"
+  },
+  {
+   "fips": "28",
+   "state": "Mississippi",
+   "rank": 7,
+   "value": "31.7%"
+  },
+  {
+   "fips": "32",
+   "state": "Nevada",
+   "rank": 8,
+   "value": "31.7%"
+  },
+  {
+   "fips": "34",
+   "state": "New Jersey",
+   "rank": 9,
+   "value": "31.6%"
+  },
+  {
+   "fips": "41",
+   "state": "Oregon",
+   "rank": 10,
+   "value": "31.6%"
+  },
+  {
+   "fips": "13",
+   "state": "Georgia",
+   "rank": 11,
+   "value": "31.4%"
+  },
+  {
+   "fips": "45",
+   "state": "South Carolina",
+   "rank": 12,
+   "value": "31.3%"
+  },
+  {
+   "fips": "25",
+   "state": "Massachusetts",
+   "rank": 13,
+   "value": "31.2%"
+  },
+  {
+   "fips": "36",
+   "state": "New York",
+   "rank": 14,
+   "value": "31.2%"
+  },
+  {
+   "fips": "24",
+   "state": "Maryland",
+   "rank": 15,
+   "value": "31.0%"
+  },
+  {
+   "fips": "08",
+   "state": "Colorado",
+   "rank": 16,
+   "value": "30.9%"
+  },
+  {
+   "fips": "26",
+   "state": "Michigan",
+   "rank": 17,
+   "value": "30.9%"
+  },
+  {
+   "fips": "48",
+   "state": "Texas",
+   "rank": 18,
+   "value": "30.8%"
+  },
+  {
+   "fips": "10",
+   "state": "Delaware",
+   "rank": 19,
+   "value": "30.3%"
+  },
+  {
+   "fips": "53",
+   "state": "Washington",
+   "rank": 20,
+   "value": "30.3%"
+  },
+  {
+   "fips": "51",
+   "state": "Virginia",
+   "rank": 21,
+   "value": "30.2%"
+  },
+  {
+   "fips": "47",
+   "state": "Tennessee",
+   "rank": 22,
+   "value": "30.1%"
+  },
+  {
+   "fips": "49",
+   "state": "Utah",
+   "rank": 23,
+   "value": "30.1%"
+  },
+  {
+   "fips": "37",
+   "state": "North Carolina",
+   "rank": 24,
+   "value": "30.0%"
+  },
+  {
+   "fips": "17",
+   "state": "Illinois",
+   "rank": 25,
+   "value": "29.9%"
+  },
+  {
+   "fips": "50",
+   "state": "Vermont",
+   "rank": 26,
+   "value": "29.9%"
+  },
+  {
+   "fips": "01",
+   "state": "Alabama",
+   "rank": 27,
+   "value": "29.8%"
+  },
+  {
+   "fips": "44",
+   "state": "Rhode Island",
+   "rank": 28,
+   "value": "29.8%"
+  },
+  {
+   "fips": "23",
+   "state": "Maine",
+   "rank": 29,
+   "value": "29.7%"
+  },
+  {
+   "fips": "11",
+   "state": "D.C.",
+   "rank": 30,
+   "value": "29.6%"
+  },
+  {
+   "fips": "16",
+   "state": "Idaho",
+   "rank": 31,
+   "value": "29.6%"
+  },
+  {
+   "fips": "27",
+   "state": "Minnesota",
+   "rank": 32,
+   "value": "29.5%"
+  },
+  {
+   "fips": "42",
+   "state": "Pennsylvania",
+   "rank": 33,
+   "value": "29.5%"
+  },
+  {
+   "fips": "54",
+   "state": "West Virginia",
+   "rank": 34,
+   "value": "29.5%"
+  },
+  {
+   "fips": "30",
+   "state": "Montana",
+   "rank": 35,
+   "value": "29.4%"
+  },
+  {
+   "fips": "33",
+   "state": "New Hampshire",
+   "rank": 36,
+   "value": "29.4%"
+  },
+  {
+   "fips": "18",
+   "state": "Indiana",
+   "rank": 37,
+   "value": "29.3%"
+  },
+  {
+   "fips": "39",
+   "state": "Ohio",
+   "rank": 38,
+   "value": "29.3%"
+  },
+  {
+   "fips": "35",
+   "state": "New Mexico",
+   "rank": 39,
+   "value": "29.0%"
+  },
+  {
+   "fips": "19",
+   "state": "Iowa",
+   "rank": 40,
+   "value": "28.5%"
+  },
+  {
+   "fips": "21",
+   "state": "Kentucky",
+   "rank": 41,
+   "value": "28.5%"
+  },
+  {
+   "fips": "40",
+   "state": "Oklahoma",
+   "rank": 42,
+   "value": "28.2%"
+  },
+  {
+   "fips": "55",
+   "state": "Wisconsin",
+   "rank": 43,
+   "value": "28.2%"
+  },
+  {
+   "fips": "29",
+   "state": "Missouri",
+   "rank": 44,
+   "value": "28.0%"
+  },
+  {
+   "fips": "46",
+   "state": "South Dakota",
+   "rank": 45,
+   "value": "28.0%"
+  },
+  {
+   "fips": "05",
+   "state": "Arkansas",
+   "rank": 46,
+   "value": "27.8%"
+  },
+  {
+   "fips": "31",
+   "state": "Nebraska",
+   "rank": 47,
+   "value": "27.6%"
+  },
+  {
+   "fips": "02",
+   "state": "Alaska",
+   "rank": 48,
+   "value": "27.2%"
+  },
+  {
+   "fips": "20",
+   "state": "Kansas",
+   "rank": 49,
+   "value": "27.1%"
+  },
+  {
+   "fips": "56",
+   "state": "Wyoming",
+   "rank": 50,
+   "value": "25.5%"
+  },
+  {
+   "fips": "38",
+   "state": "North Dakota",
+   "rank": 51,
+   "value": "23.8%"
+  }
+ ]
+}

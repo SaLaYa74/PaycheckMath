@@ -1,0 +1,375 @@
+{
+  "subject": "find_burden",
+  "counts": {
+    "pass": 73,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Census API key available",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Census ACS data reachable",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 burden: all 50 states + DC",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY burden: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 burden: realistic change vs. 2024",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 burden: U.S. value between the states",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "burden: same ACS year",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_burden.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_burden.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_burden.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_burden.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_burden.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_burden.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_burden_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_burden_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_burden_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_burden_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
