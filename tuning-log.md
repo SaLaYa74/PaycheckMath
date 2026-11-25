@@ -285,3 +285,15 @@ Queue: burden (tonight), proptax, percapita, homevalue, earnings, paygap (6 unpo
 
 **Watch Thu Nov 26:** first US map Reel (5pm) vs the boards; Wed board (property tax): is it another narrow-topic dip?
 If so, move pay/home editions earlier in the queue at the next review.
+
+## 2026-11-24: roundtable (owner: "Apply all")
+
+**Numbers (28 days):** 74,019 reach, 24 followers (17 a week ago). Find Your State by topic: weekly pay 49.5K, home salary
+29.0K, rent 28.2K, years to buy 24.4K vs household income 2.5K, owner costs 1.9K. Voiced rent story: 145 views, 4.5 s
+average watch of 29 s.
+
+**Changed (0a9afaf):** remaining editions reordered to lead with "your money": property tax (Monday's caption promised
+it) → women's pay per $1 of men's → typical worker pay → home values → income per person last.
+
+**Holding:** the bubble and home-value voiced previews wait for the rent story's 7-day number (Mon Nov 30 review).
+Under 1,000 views → shelve voiced Reels (job off, code kept). 1,000+ → one more test, owner approves first.
