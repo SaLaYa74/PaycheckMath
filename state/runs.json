@@ -453,5 +453,10 @@
     "at": "2026-11-24T17:00-08:00",
     "detail": "No voiced story to build: every one is posted or waiting for the owner's approval.",
     "status": "skipped"
+  },
+  "2026-11-25:release": {
+    "at": "2026-11-25T06:00-08:00",
+    "detail": "No fresh jobs report ahead of CPI right now.",
+    "status": "skipped"
   }
 }
