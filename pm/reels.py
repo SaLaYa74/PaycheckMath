@@ -766,8 +766,12 @@ def _find_paygap(out_dir, posted=None):
 
 # Nov 16: years moved up to keep the promise in Sat Nov 14's caption ("Next: where a home costs the most years of
 # pay"); earnings added at the end. The "Next in the series" teaser follows this order.
+# Nov 24 roundtable (owner: "Apply all"): "your money" topics win (paycheck 49.5K, home salary 29K, rent 28K, years
+# 24K) and abstract ones flop (household income 2.5K, owner costs 1.9K). Property tax stays next because Mon Nov 23's
+# caption promised it; then the pay gap (built to start arguments), typical worker pay, home values; income per
+# person (the most abstract) goes last.
 EDITIONS = [_find_rent, _find_home, _find_income, _find_years, _find_owncost, _find_burden, _find_proptax,
-            _find_percapita, _find_homevalue, _find_earnings, _find_paygap]
+            _find_paygap, _find_earnings, _find_homevalue, _find_percapita]
 SERIES = ["reel" + f.__name__ for f in EDITIONS]
 assert all(n in NEXT_UP for n in SERIES[1:]), "every Find Your State edition after the first needs a NEXT_UP teaser"
 
