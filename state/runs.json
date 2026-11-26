@@ -454,6 +454,11 @@
     "detail": "No voiced story to build: every one is posted or waiting for the owner's approval.",
     "status": "skipped"
   },
+  "2026-11-25:find_state_wed": {
+    "at": "2026-11-25T17:00-08:00",
+    "detail": "https://www.instagram.com/reel/DgL4FWphkxH/",
+    "status": "posted"
+  },
   "2026-11-25:release": {
     "at": "2026-11-25T06:00-08:00",
     "detail": "No fresh jobs report ahead of CPI right now.",
