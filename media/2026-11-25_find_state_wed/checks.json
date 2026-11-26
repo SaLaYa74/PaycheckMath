@@ -1,0 +1,375 @@
+{
+  "subject": "find_proptax",
+  "counts": {
+    "pass": 73,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Census API key available",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Census ACS data reachable",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 proptax: all 50 states + DC",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY proptax: value plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 proptax: realistic change vs. 2024",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 proptax: U.S. value between the states",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "proptax: same ACS year",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_proptax.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_proptax.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_proptax.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_proptax.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_proptax.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_proptax.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_proptax_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_proptax_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_proptax_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_find_proptax_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
