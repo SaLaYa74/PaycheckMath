@@ -1,0 +1,385 @@
+{
+  "subject": "map_million",
+  "counts": {
+    "pass": 75,
+    "warn": 0,
+    "block": 0
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "check": "Census API key available",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "Census ACS data reachable",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 million: all 50 states + DC",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AL million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AK million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AZ million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "AR million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CA million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CO million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "CT million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DE million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "DC million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "FL million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "GA million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "HI million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ID million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IL million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IN million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "IA million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KS million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "KY million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "LA million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ME million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MD million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MA million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MI million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MN million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MS million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MO million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "MT million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NE million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NV million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NH million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NJ million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NM million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NY million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "NC million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ND million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OH million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OK million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "OR million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "PA million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "RI million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SC million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "SD million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TN million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "TX million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "UT million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VT million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "VA million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WA million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WV million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WI million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "WY million: share plausible",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 profile DP04_0088PE is '$1,000,000 or more'",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 million: matches the profile table's published % for every state",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 million: realistic change vs. 2024",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "ACS 2025 million: U.S. between the states",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "map_million: all 50 states + DC",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_map_million.mp4: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_map_million.mp4: file size",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_map_million.mp4: duration",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_map_million.mp4: 1080x1920",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_map_million.mp4: has audio",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_map_million.mp4: H.264 video",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_map_million_cover.jpg: rendered",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_map_million_cover.jpg: dimensions",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_map_million_cover.jpg: not empty",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "reel_map_million_cover.jpg: has visible content",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: length",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: hashtag limit",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: not-financial-advice line",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: cites its source",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: brand language",
+      "detail": ""
+    },
+    {
+      "status": "pass",
+      "check": "caption: no missing values",
+      "detail": ""
+    }
+  ]
+}
